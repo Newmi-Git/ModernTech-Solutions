@@ -300,3 +300,159 @@
     font-size: 15px;
   }
 }
+
+
+
+
+/*====================================REGISTER PAGE===============================================================*/
+
+.register-page {
+    display: flex;
+    width: 700px;
+    height: 500px;
+    background-color: #f8f8e8;
+    border: 2px solid #333;
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+
+.register-body {
+    background-color: #d0d0d0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-image: url(./images/successful-partnership.webp);
+}
+
+.register-details {
+    background-color: var(--main-colour);
+    width: 45%;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+  
+}
+
+.register-details h1 {
+  font-size: 30px;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #222;
+
+}
+
+.register-details label {
+  font-size: 15px;
+  color: #333;
+}
+
+.register-details input {
+  width: 100%;
+  height: 30px;
+  background-color: #d0d0d0;
+  border: none;
+  outline: none;
+  padding: 0 6px;
+  font-size: 12px;
+  border-radius: 0%;
+}
+
+.register-details button {
+  align-self: flex-end;
+  margin-top: 8px;
+  padding: 5px 16px;
+  background-color: var(--secondary-colour);
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 10%;
+  border: #222  2px solid;
+}
+
+.register-details button:hover {
+  background-color: #a8a8a8;
+}
+
+.register-image {
+  width: 55%;
+  background-color: #1a1400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.register-image::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 186, 39, 0.15) 0%, transparent 70%);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.register-image::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(255, 186, 39, 0.2);
+  border-radius: 50%;
+  animation: ringExpand 3s ease-out infinite;
+}
+
+
+.secret-code {
+    align-self: flex-start;
+    width: ;
+
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .register-page {
+    width: 90%;
+    height: auto;
+  }
+
+  .register-image {
+    width: 45%;
+    min-height: 280px;
+  }
+
+  .register-details {
+    width: 55%;
+    padding: 24px 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .register-image {
+    display: none;
+  }
+
+  .register-page {
+    width: 85%;
+    height: auto;
+  }
+
+  .register-details {
+    width: 100%;
+    padding: 32px 24px;
+  }
+
+  .register-details h1 {
+    font-size: 15px;
+  }
+}
+
