@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Page | ModernTech Solutions</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  
+  <body class="contact-page">
+    <main class="contact-container">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <span class="badge">Contact ModernTech Solutions</span>
+        <h1>Contact Us</h1>
+        <p class="subtitle">
+          Whether you have questions, feedback, or partnership inquiries, we're
+          here to help.
+        </p>
+      </section>
+
+      <!-- Contact Form Section -->
+      <section class="contact-form-section">
+        <div class="form-container">
+          <h2>Contact Us</h2>
+          <form id="contact-form" action="#" method="post">
+            <label for="Reason">Reason for Contact:</label>
+            <select id="Reason" name="Reason" required>
+              <option value="">Select a reason</option>
+              <option value="general">General Inquiry</option>
+              <option value="support">Support Request</option>
+              <option value="partnership">Partnership Inquiry</option>
+            </select>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required>How can we help you?</textarea>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Contact Information Section -->
+      <section class="contact-info-section">
+        <div class="info-container">
+          <h2>Our Contact Information</h2>
+          <p><strong>Email:</strong> info@modern-tech.com</p>
+          <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+          <p>
+            <strong>Address:</strong> 123 Innovation Drive, Tech City, TX 75001
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

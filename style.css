@@ -1,0 +1,225 @@
+/* --- Styles for About Us Page --- */
+/* Using Our Team's Custom Palette Variables */
+:root {
+  --main-colour: #FFFEEC;
+  --secondary-colour: #FFBA27;
+  --tertiary-colour: #E66AFF;
+  --main-text-colour: black;
+  --dark-text-colour: white;
+  
+  --radius: 16px;
+}
+
+/* Base Configuration */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--main-colour);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--main-text-colour);
+  line-height: 1.6;
+}
+
+/* Base Page Wrapper */
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+/* Hero Section Style */
+.hero-section {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem auto;
+}
+
+.badge {
+  background-color: rgba(230, 106, 255, 0.15);
+  color: var(--tertiary-colour);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Modern Bento Grid Layout */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.grid-card {
+  background-color: white; 
+  border: 2px solid var(--main-text-colour);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: 4px 4px 0px var(--main-text-colour);
+}
+
+.story-card {
+  grid-column: span 2;
+}
+
+.story-card h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.brand-highlight {
+  color: var(--tertiary-colour);
+}
+
+/* Metric Card Layouts */
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.metric-card.highlight {
+  background-color: var(--tertiary-colour);
+  color: var(--dark-text-colour);
+}
+
+.metric-card.secondary-highlight {
+  background-color: var(--secondary-colour);
+  color: var(--main-text-colour);
+}
+
+.metric-card.plain {
+  background-color: white;
+  color: var(--main-text-colour);
+}
+
+.metric-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.metric-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Department Layout Section */
+.departments-section {
+  border-top: 2px solid var(--main-text-colour);
+  padding-top: 4rem;
+}
+
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.departments-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.dept-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--main-text-colour);
+}
+
+.dept-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--tertiary-colour);
+}
+
+/* Responsive Structural Adjustments */
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .story-card {
+    grid-column: span 1;
+  }
+  .departments-list {
+    grid-template-columns: 1fr;
+  }
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+
+/*--- Contact Page Styles ---*/
+.contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.contact-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-form label {
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--main-text-colour);
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+.contact-form button {
+  background-color: var(--secondary-colour);
+  color: var(--main-text-colour);
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
