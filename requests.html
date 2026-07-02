@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Leave Requests | ModernTech Solutions</title>
+
+    <link rel="stylesheet" href="./CSS/style.css" />
+  </head>
+
+  <body class="requests-page">
+  <main class="requests-container"></main>
+
+     <!-- Navigation --> 
+       
+     <section class="nav-section">
+
+      <nav>
+         <ul> 
+           <li> <a href="index.html">Home</a></li>
+           <li><a href="employee.html">Employees</a></li>
+           <li><a href="performance.html">Performance</a></li> 
+           <li><a class="active" href="requests.html">Leave Requests</a></li> 
+           <li><a href="about.html">About Us</a></li>
+           <li><a href="contact.html">Contact</a></li>
+         </ul> 
+       </nav> 
+       
+       <button class="logout"> Logout </button>
+
+     </section>
+       
+      <!-- Hero Section -->
+
+      <section class="hero-section">
+        <span class="badge">Employee Leave Management</span>
+
+        <h1>Leave Requests</h1>
+
+        <p class="subtitle">
+          Review, monitor, and manage employee leave applications while keeping
+          track of approval statuses and employee availability.
+        </p>
+      </section>
+
+      <!-- Leave Overview Section -->
+
+      <section class="leave-overview-section">
+        <div class="overview-container">
+
+          <h2>Leave Overview</h2>
+
+          <p>
+            View and manage the current leave request status of employees
+            across <strong class="brand-highlight">ModernTech Solutions</strong>.
+          </p>
+
+          <div class="leave-summary">
+
+            <div class="summary-card">
+              <h3>Total Requests</h3>
+              <p>24</p>
+            </div>
+
+            <div class="summary-card">
+              <h3>Pending Requests</h3>
+              <p>8</p>
+            </div>
+
+            <div class="summary-card">
+              <h3>Approved Requests</h3>
+              <p>12</p>
+            </div>
+
+            <div class="summary-card">
+              <h3>Rejected Requests</h3>
+              <p>4</p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- Employee Leave Applications Section -->
+
+      <section class="applications-section">
+        <div class="applications-container">
+
+          <h2>Employee Leave Applications</h2>
+
+          <p>
+            Manage employee leave requests by reviewing applications, filtering results, and updating approval status in real time.
+          </p>
+
+          <div class="filter-container">
+
+            <label for="status">Status:</label>
+
+            <select id="status">
+              <option>All Status</option>
+              <option>Pending</option>
+              <option>Approved</option>
+              <option>Rejected</option>
+            </select>
+
+          </div>
+
+          <!-- Leave Applications Table -->
+
+          <table class="leave-table">
+
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Leave Type</th>
+                <th>Leave Dates</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="leave-requests">
+
+              <!-- Leave request data from JSON -->
+
+            </tbody>
+
+          </table>
+
+        </div>
+      </section>
+
+    </main>
+
+    <script src="./JS/requests.js"></script>
+
+  </body>
+</html>

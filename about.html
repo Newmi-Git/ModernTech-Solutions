@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Leave Requests | ModernTech Solutions</title>
+
+    <link rel="stylesheet" href="./CSS/style.css" />
+  </head>
+
+  <body class="requests-page">
+  <main class="requests-container"></main>
+
+     <!-- Navigation --> 
+       
+     <section class="nav-section">
+
+      <nav>
+         <ul> 
+           <li> <a href="index.html">Home</a>
+           </li> <li><a href="employee.html">Employees</a></li>
+           <li><a href="performance.html">Performance</a></li> 
+           <li><a href="requests.html">Leave Requests</a></li> 
+           <li><a class="active" href="about.html">About Us</a></li>
+           <li><a href="contact.html">Contact</a></li>
+         </ul> 
+       </nav> 
+       
+       <button class="logout"> Logout </button>
+
+     </section>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <span class="badge">About ModernTech Solutions</span>
+      <h1>Empowering Healthcare Through Innovative Software</h1>
+      <p class="subtitle">
+        From a small startup to a team of 250, we build modern healthcare tools that put people first.
+      </p>
+    </section>
+
+    <!-- Content & Metrics Bento Grid -->
+    <section class="bento-grid">
+      <!-- Story Card (Spans 2 columns) -->
+      <div class="grid-card story-card">
+        <h2>Our Story</h2>
+        <p>
+          Founded in 2010, <strong class="brand-highlight">ModernTech Solutions</strong> began as a passionate team of just 20 pioneers. Our mission was simple: rewrite the code of healthcare infrastructure. Over the past decade, that mission has sparked rapid, year-over-year growth.
+        </p>
+        <p>
+          We don't just write software—we build lines of communication. By specializing exclusively in custom <strong>Patient Management Systems</strong> and <strong>Telemedicine Platforms</strong>, we help medical professionals connect with patients seamlessly, securely, and globally.
+        </p>
+      </div>
+
+      <!-- Quick Metrics Cards -->
+      <div class="grid-card metric-card highlight">
+        <span class="metric-number">250+</span>
+        <span class="metric-label">Dedicated Experts</span>
+      </div>
+
+      <div class="grid-card metric-card secondary-highlight">
+        <span class="metric-number">2010</span>
+        <span class="metric-label">Year Founded</span>
+      </div>
+
+      <div class="grid-card metric-card plain">
+        <span class="metric-number">Global</span>
+        <span class="metric-label">International Expansion Next</span>
+      </div>
+    </section>
+
+    <!-- Departments Section -->
+    <section class="departments-section">
+      <div class="section-header">
+        <h2>Our Pillars of Excellence</h2>
+        <p>Fostering an inclusive, growth-oriented environment across our diverse teams.</p>
+      </div>
+      
+      <!-- JavaScript will inject the department elements into this container -->
+      <div id="departments-list" class="departments-list"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

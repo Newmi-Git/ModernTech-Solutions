@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employees | ModernTech Solutions</title>
+  <link rel="stylesheet" href="./CSS/style.css" />
+</head>
+
+<body class="employees-page">
+ <main class="employees-container">
+
+   <!-- Navigation -->
+
+    <section class="nav-section">
+
+     <nav>
+       <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a class="active" href="employee.html">Employees</a></li>
+          <li><a href="performance.html">Performance</a></li>
+          <li><a href="requests.html">Leave Requests</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="logout">Logout</button>
+
+    </section>
+
+    <!-- Hero Section -->
+
+    <section class="hero-section">
+      <span class="badge">HR Employee Directory</span>
+
+      <h1>Employees</h1>
+
+      <p class="subtitle">
+        View, manage, and monitor all employee profiles across departments in <strong class="brand-highlight">ModernTech Solutions</strong>.
+      </p>
+
+    </section>
+
+    <!-- Employee Overview -->
+
+    <section class="employee-overview-section">
+      <div class="overview-container">
+
+        <h2>Employee Overview</h2>
+
+        <p>
+          Track employee details, department allocation, and role information across the organisation.
+        </p>
+
+        <div class="employee-summary">
+          <div class="summary-card">
+            <h3>Total Employees</h3>
+            <p>250+</p>
+          </div>
+
+          <div class="summary-card">
+            <h3>Departments</h3>
+            <p>--</p>
+          </div>
+
+          <div class="summary-card">
+            <h3>Average Attendance</h3>
+            <p>--</p>
+          </div>
+
+          <div class="summary-card">
+            <h3>Total Payroll</h3>
+            <p>--</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Employee Table Section -->
+
+    <section class="employees-table-section">
+      <div class="employees-table-container">
+
+        <h2>Employee Directory</h2>
+
+        <p>
+          All employee records are displayed below.
+        </p>
+
+        <table class="employees-table">
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Position</th>
+              <th>Salary</th>
+              <th>Contact</th>
+            </tr>
+          </thead>
+
+          <tbody id="employees-data">
+            <!-- Employee data from JSON  -->
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="./JS/employees.js"></script>
+
+</body>
+</html>
