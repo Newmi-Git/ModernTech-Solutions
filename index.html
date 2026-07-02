@@ -1,241 +1,506 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ModernTech Solutions - HR Control Center</title>
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="app-layout">
-        
-        <!-- Left Sidebar Navigation Panel -->
-        <aside class="sidebar-panel">
-            <div class="sidebar-brand">
-                <i class="fa-solid fa-square-poll-horizontal brand-icon"></i>
-                <span>MT<span>Solutions</span></span>
+      <!-- Left Sidebar Navigation Panel -->
+      <aside class="sidebar-panel">
+        <div class="sidebar-brand">
+          <i class="fa-solid fa-square-poll-horizontal brand-icon"></i>
+          <span>MT<span>Solutions</span></span>
+        </div>
+
+        <nav class="sidebar-menu">
+          <a href="#" class="menu-item active"
+            ><i class="fa-solid fa-chart-pie"></i> Dashboard</a
+          >
+          <a href="#" class="menu-item"
+            ><i class="fa-solid fa-address-card"></i> About Company</a
+          >
+          <a href="#" class="menu-item"
+            ><i class="fa-solid fa-users"></i> Employee Directory</a
+          >
+          <a href="#" class="menu-item"
+            ><i class="fa-solid fa-graduation-cap"></i> Performance</a
+          >
+          <a href="#" class="menu-item"
+            ><i class="fa-solid fa-user-plus"></i> Add Employee</a
+          >
+          <a href="#" class="menu-item"
+            ><i class="fa-solid fa-envelope"></i> System Support</a
+          >
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="user-avatar">HR</div>
+          <div class="user-info">
+            <p class="user-name">Admin Workspace</p>
+            <p class="user-role">HR Coordinator</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Dashboard Workspace -->
+      <main class="main-content">
+        <!-- Top App Search & Control Bar -->
+        <header class="content-topbar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="text"
+              placeholder="Search employee records, departments, files..."
+            />
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-btn">
+              <i class="fa-solid fa-bell"></i><span class="badge-dot"></span>
+            </button>
+            <span class="status-pill"
+              ><span class="pulse-dot"></span> Live Terminal</span
+            >
+          </div>
+        </header>
+
+        <div class="dashboard-body">
+          <!-- Welcome Banner Segment -->
+          <div class="welcome-banner animate-on-scroll">
+            <div class="banner-text">
+              <h1>Welcome back, HR Team</h1>
+              <p>
+                Centralized core workforce monitoring hub for ModernTech
+                Solutions. All client-side metrics are up to date.
+              </p>
             </div>
-            
-            <nav class="sidebar-menu">
-                <a href="#" class="menu-item active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-                <a href="#" class="menu-item"><i class="fa-solid fa-address-card"></i> About Company</a>
-                <a href="#" class="menu-item"><i class="fa-solid fa-users"></i> Employee Directory</a>
-                <a href="#" class="menu-item"><i class="fa-solid fa-graduation-cap"></i> Performance</a>
-                <a href="#" class="menu-item"><i class="fa-solid fa-user-plus"></i> Add Employee</a>
-                <a href="#" class="menu-item"><i class="fa-solid fa-envelope"></i> System Support</a>
-            </nav>
+          </div>
 
-            <div class="sidebar-footer">
-                <div class="user-avatar">HR</div>
-                <div class="user-info">
-                    <p class="user-name">Admin Workspace</p>
-                    <p class="user-role">HR Coordinator</p>
-                </div>
+          <!-- High-Level Metric Strip -->
+          <section class="metric-strip">
+            <div class="app-card metric-card card-indigo animate-on-scroll">
+              <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Total Workforce</span>
+                <span class="metric-number">10</span>
+              </div>
             </div>
-        </aside>
 
-        <!-- Main Dashboard Workspace -->
-        <main class="main-content">
-            
-            <!-- Top App Search & Control Bar -->
-            <header class="content-topbar">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search employee records, departments, files...">
+            <div class="app-card metric-card card-gold animate-on-scroll">
+              <div class="metric-icon">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">System Active</span>
+                <span class="metric-number">100%</span>
+              </div>
+            </div>
+            <div
+              class="app-card metric-card card-indigo animate-on-scroll"
+              style="background: #4f46e5; color: #ffffff"
+            >
+              <div
+                class="metric-icon"
+                style="font-size: 2rem; margin-right: 15px; opacity: 0.9"
+              >
+                <i class="fa-solid fa-users"></i>
+              </div>
+              <div class="metric-details">
+                <span
+                  class="metric-label"
+                  style="display: block; font-size: 0.85rem; opacity: 0.8"
+                  >Total Workforce</span
+                >
+                <span
+                  class="metric-number"
+                  style="font-size: 1.8rem; font-weight: 700"
+                  >10 Active</span
+                >
+              </div>
+            </div>
+            <div class="app-card metric-card card-indigo animate-on-scroll">
+              <div
+                class="metric-icon text-success"
+                style="font-size: 2rem; margin-right: 15px"
+              >
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+              <div class="metric-details">
+                <span
+                  class="metric-label"
+                  style="
+                    display: block;
+                    font-size: 0.85rem;
+                    color: var(--text-muted);
+                  "
+                  >Monthly Outflow</span
+                >
+                <span
+                  class="metric-number"
+                  style="font-size: 1.6rem; font-weight: 700; color: #111827"
+                  >R 634,050</span
+                >
+              </div>
+            </div>
+            <div class="app-card metric-card card-indigo animate-on-scroll">
+              <div
+                class="metric-icon"
+                style="font-size: 2rem; margin-right: 15px; color: #f59e0b"
+              >
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div class="metric-details">
+                <span
+                  class="metric-label"
+                  style="
+                    display: block;
+                    font-size: 0.85rem;
+                    color: var(--text-muted);
+                  "
+                  >Pending Approvals</span
+                >
+                <span
+                  class="metric-number"
+                  style="font-size: 1.8rem; font-weight: 700; color: #111827"
+                  >5 Actionable</span
+                >
+              </div>
+            </div>
+            <div class="app-card metric-card card-white animate-on-scroll">
+              <div class="metric-icon text-success">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Payroll Review</span>
+                <span class="metric-status">Ready</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Core Work Area Grid -->
+          <div class="workspace-grid">
+            <!-- Operational Quick Action Section -->
+            <div class="app-card action-card animate-on-scroll">
+              <h3><i class="fa-solid fa-bolt"></i> Quick Console Controls</h3>
+              <p class="section-desc">
+                Instantly dispatch mock state data changes across client views.
+              </p>
+              <form class="action-form" onsubmit="event.preventDefault()">
+                <div class="form-group">
+                  <label for="action-select">Target Interface Module</label>
+                  <select id="action-select">
+                    <option value="add">Launch New Employee Form</option>
+                    <option value="payroll">
+                      Run Automated Payroll Processing
+                    </option>
+                    <option value="leave">Open Leave Approval Panel</option>
+                  </select>
                 </div>
-                <div class="topbar-actions">
-                    <button class="icon-btn"><i class="fa-solid fa-bell"></i><span class="badge-dot"></span></button>
-                    <span class="status-pill"><span class="pulse-dot"></span> Live Terminal</span>
-                </div>
-            </header>
+                <button type="submit" class="primary-btn">
+                  Execute Operation
+                </button>
+              </form>
+            </div>
 
-            <div class="dashboard-body">
-                <!-- Welcome Banner Segment -->
-                <div class="welcome-banner animate-on-scroll">
-                    <div class="banner-text">
-                        <h1>Welcome back, HR Team</h1>
-                        <p>Centralized core workforce monitoring hub for ModernTech Solutions. All client-side metrics are up to date.</p>
-                    </div>
-                </div>
-
-                <!-- High-Level Metric Strip -->
-                <section class="metric-strip">
-                    <div class="app-card metric-card card-indigo animate-on-scroll">
-                        <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
-                        <div class="metric-details">
-                            <span class="metric-label">Total Workforce</span>
-                            <span class="metric-number">10</span>
-                        </div>
-                    </div>
-
-                    <div class="app-card metric-card card-gold animate-on-scroll">
-                        <div class="metric-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                        <div class="metric-details">
-                            <span class="metric-label">System Active</span>
-                            <span class="metric-number">100%</span>
-                        </div>
-                    </div>
-                    <div class="app-card metric-card card-indigo animate-on-scroll" style="background: #4f46e5; color: #ffffff;">
-    <div class="metric-icon" style="font-size: 2rem; margin-right: 15px; opacity: 0.9;">
-        <i class="fa-solid fa-users"></i>
-    </div>
-    <div class="metric-details">
-        <span class="metric-label" style="display: block; font-size: 0.85rem; opacity: 0.8;">Total Workforce</span>
-        <span class="metric-number" style="font-size: 1.8rem; font-weight: 700;">10 Active</span>
-    </div>
-</div>
-<div class="app-card metric-card card-indigo animate-on-scroll">
-    <div class="metric-icon text-success" style="font-size: 2rem; margin-right: 15px;">
-        <i class="fa-solid fa-wallet"></i>
-    </div>
-    <div class="metric-details">
-        <span class="metric-label" style="display: block; font-size: 0.85rem; color: var(--text-muted);">Monthly Outflow</span>
-        <span class="metric-number" style="font-size: 1.6rem; font-weight: 700; color: #111827;">R 634,050</span>
-    </div>
-</div>
-<div class="app-card metric-card card-indigo animate-on-scroll">
-    <div class="metric-icon" style="font-size: 2rem; margin-right: 15px; color: #f59e0b;">
-        <i class="fa-solid fa-clock"></i>
-    </div>
-    <div class="metric-details">
-        <span class="metric-label" style="display: block; font-size: 0.85rem; color: var(--text-muted);">Pending Approvals</span>
-        <span class="metric-number" style="font-size: 1.8rem; font-weight: 700; color: #111827;">5 Actionable</span>
-    </div>
-</div>
-                    <div class="app-card metric-card card-white animate-on-scroll">
-                        <div class="metric-icon text-success"><i class="fa-solid fa-circle-check"></i></div>
-                        <div class="metric-details">
-                            <span class="metric-label">Payroll Review</span>
-                            <span class="metric-status">Ready</span>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Core Work Area Grid -->
-                <div class="workspace-grid">
-                    
-                    <!-- Operational Quick Action Section -->
-                    <div class="app-card action-card animate-on-scroll">
-                        <h3><i class="fa-solid fa-bolt"></i> Quick Console Controls</h3>
-                        <p class="section-desc">Instantly dispatch mock state data changes across client views.</p>
-                        <form class="action-form" onsubmit="event.preventDefault();">
-                            <div class="form-group">
-                                <label for="action-select">Target Interface Module</label>
-                                <select id="action-select">
-                                    <option value="add">Launch New Employee Form</option>
-                                    <option value="payroll">Run Automated Payroll Processing</option>
-                                    <option value="leave">Open Leave Approval Panel</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="primary-btn">Execute Operation</button>
-                        </form>
-                    </div>
-
-                    <!-- Live Employee Operational Registry Table -->
-                    <div class="app-card table-card animate-on-scroll">
-                        <h3><i class="fa-solid fa-users"></i> Live Employee Operational Registry</h3>
-                        <p class="section-desc">Relational data combined dynamically across payroll, attendance, and record profiles.</p>
-                        <div class="table-responsive">
-                            <table class="dashboard-table">
-                                <thead>
-                                    <tr>
-                                        <th>Employee Name</th>
-                                        <th>Position / Dept</th>
-                                        <th>Hours Worked</th>
-                                        <th>Net Salary</th>
-                                        <th>Recent Leave Request</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="employee-table-body">
-                                    <!-- Dynamically populated via JS relational lookups -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div> <!-- End Workspace Grid -->
-            </div> <!-- End Dashboard Body -->
-        </main>
+            <!-- Live Employee Operational Registry Table -->
+            <div class="app-card table-card animate-on-scroll">
+              <h3>
+                <i class="fa-solid fa-users"></i> Live Employee Operational
+                Registry
+              </h3>
+              <p class="section-desc">
+                Relational data combined dynamically across payroll, attendance,
+                and record profiles.
+              </p>
+              <div class="table-responsive">
+                <table class="dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Employee Name</th>
+                      <th>Position / Dept</th>
+                      <th>Hours Worked</th>
+                      <th>Net Salary</th>
+                      <th>Recent Leave Request</th>
+                    </tr>
+                  </thead>
+                  <tbody id="employee-table-body">
+                    <!-- Dynamically populated via JS relational lookups -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- End Workspace Grid -->
+        </div>
+        <!-- End Dashboard Body -->
+      </main>
     </div>
 
     <!-- Data Injection & Scroll Animation Script -->
     <script>
-        // Data parsed from payroll_data.json
-        const payrollData = [
-            { "employeeId": 1, "hoursWorked": 160, "leaveDeductions": 8, "finalSalary": 69500 },
-            { "employeeId": 2, "hoursWorked": 150, "leaveDeductions": 10, "finalSalary": 79000 },
-            { "employeeId": 3, "hoursWorked": 170, "leaveDeductions": 4, "finalSalary": 54800 },
-            { "employeeId": 4, "hoursWorked": 165, "leaveDeductions": 6, "finalSalary": 59700 },
-            { "employeeId": 5, "hoursWorked": 158, "leaveDeductions": 5, "finalSalary": 57850 },
-            { "employeeId": 6, "hoursWorked": 168, "leaveDeductions": 2, "finalSalary": 64800 },
-            { "employeeId": 7, "hoursWorked": 175, "leaveDeductions": 3, "finalSalary": 71800 },
-            { "employeeId": 8, "hoursWorked": 160, "leaveDeductions": 0, "finalSalary": 56000 },
-            { "employeeId": 9, "hoursWorked": 155, "leaveDeductions": 5, "finalSalary": 61500 },
-            { "employeeId": 10, "hoursWorked": 162, "leaveDeductions": 4, "finalSalary": 57750 }
-        ];
+      // Data parsed from payroll_data.json
+      const payrollData = [
+        {
+          employeeId: 1,
+          hoursWorked: 160,
+          leaveDeductions: 8,
+          finalSalary: 69500,
+        },
+        {
+          employeeId: 2,
+          hoursWorked: 150,
+          leaveDeductions: 10,
+          finalSalary: 79000,
+        },
+        {
+          employeeId: 3,
+          hoursWorked: 170,
+          leaveDeductions: 4,
+          finalSalary: 54800,
+        },
+        {
+          employeeId: 4,
+          hoursWorked: 165,
+          leaveDeductions: 6,
+          finalSalary: 59700,
+        },
+        {
+          employeeId: 5,
+          hoursWorked: 158,
+          leaveDeductions: 5,
+          finalSalary: 57850,
+        },
+        {
+          employeeId: 6,
+          hoursWorked: 168,
+          leaveDeductions: 2,
+          finalSalary: 64800,
+        },
+        {
+          employeeId: 7,
+          hoursWorked: 175,
+          leaveDeductions: 3,
+          finalSalary: 71800,
+        },
+        {
+          employeeId: 8,
+          hoursWorked: 160,
+          leaveDeductions: 0,
+          finalSalary: 56000,
+        },
+        {
+          employeeId: 9,
+          hoursWorked: 155,
+          leaveDeductions: 5,
+          finalSalary: 61500,
+        },
+        {
+          employeeId: 10,
+          hoursWorked: 162,
+          leaveDeductions: 4,
+          finalSalary: 57750,
+        },
+      ];
 
-        // Data parsed from attendance.json
-        const attendanceAndLeave = [
-            { "employeeId": 1, "name": "Sibongile Nkosi", "leaveRequests": [{ "date": "2024-12-01", "reason": "Personal", "status": "Pending" }] },
-            { "employeeId": 2, "name": "Lungile Moyo", "leaveRequests": [{ "date": "2024-12-02", "reason": "Vacation", "status": "Approved" }] },
-            { "employeeId": 3, "name": "Thabo Molefe", "leaveRequests": [{ "date": "2024-12-05", "reason": "Personal", "status": "Pending" }] },
-            { "employeeId": 4, "name": "Keshav Naidoo", "leaveRequests": [{ "date": "2025-07-20", "reason": "Bereavement", "status": "Approved" }] },
-            { "employeeId": 5, "name": "Zanele Khumalo", "leaveRequests": [{ "date": "2024-12-01", "reason": "Childcare", "status": "Pending" }] },
-            { "employeeId": 6, "name": "Sipho Zulu", "leaveRequests": [{ "date": "2025-07-18", "reason": "Sick Leave", "status": "Approved" }] },
-            { "employeeId": 7, "name": "Naledi Moeketsi", "leaveRequests": [{ "date": "2025-07-22", "reason": "Vacation", "status": "Pending" }] },
-            { "employeeId": 8, "name": "Farai Gumbo", "leaveRequests": [{ "date": "2024-12-02", "reason": "Medical Appointment", "status": "Approved" }] },
-            { "employeeId": 9, "name": "Karabo Dlamini", "leaveRequests": [{ "date": "2025-07-19", "reason": "Childcare", "status": "Denied" }] },
-            { "employeeId": 10, "name": "Fatima Patel", "leaveRequests": [{ "date": "2024-12-03", "reason": "Vacation", "status": "Pending" }] }
-        ];
+      // Data parsed from attendance.json
+      const attendanceAndLeave = [
+        {
+          employeeId: 1,
+          name: "Sibongile Nkosi",
+          leaveRequests: [
+            { date: "2024-12-01", reason: "Personal", status: "Pending" },
+          ],
+        },
+        {
+          employeeId: 2,
+          name: "Lungile Moyo",
+          leaveRequests: [
+            { date: "2024-12-02", reason: "Vacation", status: "Approved" },
+          ],
+        },
+        {
+          employeeId: 3,
+          name: "Thabo Molefe",
+          leaveRequests: [
+            { date: "2024-12-05", reason: "Personal", status: "Pending" },
+          ],
+        },
+        {
+          employeeId: 4,
+          name: "Keshav Naidoo",
+          leaveRequests: [
+            { date: "2025-07-20", reason: "Bereavement", status: "Approved" },
+          ],
+        },
+        {
+          employeeId: 5,
+          name: "Zanele Khumalo",
+          leaveRequests: [
+            { date: "2024-12-01", reason: "Childcare", status: "Pending" },
+          ],
+        },
+        {
+          employeeId: 6,
+          name: "Sipho Zulu",
+          leaveRequests: [
+            { date: "2025-07-18", reason: "Sick Leave", status: "Approved" },
+          ],
+        },
+        {
+          employeeId: 7,
+          name: "Naledi Moeketsi",
+          leaveRequests: [
+            { date: "2025-07-22", reason: "Vacation", status: "Pending" },
+          ],
+        },
+        {
+          employeeId: 8,
+          name: "Farai Gumbo",
+          leaveRequests: [
+            {
+              date: "2024-12-02",
+              reason: "Medical Appointment",
+              status: "Approved",
+            },
+          ],
+        },
+        {
+          employeeId: 9,
+          name: "Karabo Dlamini",
+          leaveRequests: [
+            { date: "2025-07-19", reason: "Childcare", status: "Denied" },
+          ],
+        },
+        {
+          employeeId: 10,
+          name: "Fatima Patel",
+          leaveRequests: [
+            { date: "2024-12-03", reason: "Vacation", status: "Pending" },
+          ],
+        },
+      ];
 
-        // Data parsed from employee_info.json
-        const employeeInformation = [
-            { "employeeId": 1, "name": "Sibongile Nkosi", "position": "Software Engineer", "department": "Development", "salary": 70000 },
-            { "employeeId": 2, "name": "Lungile Moyo", "position": "HR Manager", "department": "HR", "salary": 80000 },
-            { "employeeId": 3, "name": "Thabo Molefe", "position": "Quality Analyst", "department": "QA", "salary": 55000 },
-            { "employeeId": 4, "name": "Keshav Naidoo", "position": "Sales Representative", "department": "Sales", "salary": 60000 },
-            { "employeeId": 5, "name": "Zanele Khumalo", "position": "Marketing Specialist", "department": "Marketing", "salary": 58000 },
-            { "employeeId": 6, "name": "Sipho Zulu", "position": "UI/UX Designer", "department": "Design", "salary": 65000 },
-            { "employeeId": 7, "name": "Naledi Moeketsi", "position": "DevOps Engineer", "department": "IT", "salary": 72000 },
-            { "employeeId": 8, "name": "Farai Gumbo", "position": "Content Strategist", "department": "Marketing", "salary": 56000 },
-            { "employeeId": 9, "name": "Karabo Dlamini", "position": "Accountant", "department": "Finance", "salary": 62000 },
-            { "employeeId": 10, "name": "Fatima Patel", "position": "Customer Support Lead", "department": "Support", "salary": 58000 }
-        ];
-// Process data into the table automatically
-function populateDashboard() {
-    const tableBody = document.getElementById("employee-table-body");
-    if(!tableBody) return;
-    
-    tableBody.innerHTML = "";
+      // Data parsed from employee_info.json
+      const employeeInformation = [
+        {
+          employeeId: 1,
+          name: "Sibongile Nkosi",
+          position: "Software Engineer",
+          department: "Development",
+          salary: 70000,
+        },
+        {
+          employeeId: 2,
+          name: "Lungile Moyo",
+          position: "HR Manager",
+          department: "HR",
+          salary: 80000,
+        },
+        {
+          employeeId: 3,
+          name: "Thabo Molefe",
+          position: "Quality Analyst",
+          department: "QA",
+          salary: 55000,
+        },
+        {
+          employeeId: 4,
+          name: "Keshav Naidoo",
+          position: "Sales Representative",
+          department: "Sales",
+          salary: 60000,
+        },
+        {
+          employeeId: 5,
+          name: "Zanele Khumalo",
+          position: "Marketing Specialist",
+          department: "Marketing",
+          salary: 58000,
+        },
+        {
+          employeeId: 6,
+          name: "Sipho Zulu",
+          position: "UI/UX Designer",
+          department: "Design",
+          salary: 65000,
+        },
+        {
+          employeeId: 7,
+          name: "Naledi Moeketsi",
+          position: "DevOps Engineer",
+          department: "IT",
+          salary: 72000,
+        },
+        {
+          employeeId: 8,
+          name: "Farai Gumbo",
+          position: "Content Strategist",
+          department: "Marketing",
+          salary: 56000,
+        },
+        {
+          employeeId: 9,
+          name: "Karabo Dlamini",
+          position: "Accountant",
+          department: "Finance",
+          salary: 62000,
+        },
+        {
+          employeeId: 10,
+          name: "Fatima Patel",
+          position: "Customer Support Lead",
+          department: "Support",
+          salary: 58000,
+        },
+      ];
+      // Process data into the table automatically
+      function populateDashboard() {
+        const tableBody = document.getElementById("employee-table-body");
+        if (!tableBody) return;
 
-    employeeInformation.forEach(info => {
-        // 1. Relate matching entries safely using employeeId
-        const payroll = payrollData.find(p => p.employeeId === info.employeeId) || {};
-        const attendance = attendanceAndLeave.find(a => a.employeeId === info.employeeId) || {};
-        
-        // 2. Safely check for leave requests without broken tracking tags
-        const hasLeave = attendance.leaveRequests && attendance.leaveRequests.length > 0;
-        const leave = hasLeave ? attendance.leaveRequests[attendance.leaveRequests.length - 1] : { reason: "None", status: "N/A" };
+        tableBody.innerHTML = "";
 
-        // 3. Set badge color styles
-        let badgeClass = "status-success";
-        if (leave.status === "Pending" || leave.status === "Denied") {
+        employeeInformation.forEach((info) => {
+          // 1. Relate matching entries safely using employeeId
+          const payroll =
+            payrollData.find((p) => p.employeeId === info.employeeId) || {};
+          const attendance =
+            attendanceAndLeave.find((a) => a.employeeId === info.employeeId) ||
+            {};
+
+          // 2. Safely check for leave requests without broken tracking tags
+          const hasLeave =
+            attendance.leaveRequests && attendance.leaveRequests.length > 0;
+          const leave = hasLeave
+            ? attendance.leaveRequests[attendance.leaveRequests.length - 1]
+            : { reason: "None", status: "N/A" };
+
+          // 3. Set badge color styles
+          let badgeClass = "status-success";
+          if (leave.status === "Pending" || leave.status === "Denied") {
             badgeClass = "status-pending";
-        }
+          }
 
-        // 4. Format monetary values dynamically
-        const currentSalary = payroll.finalSalary || info.salary;
-        const formattedSalary = "R " + currentSalary.toLocaleString();
+          // 4. Format monetary values dynamically
+          const currentSalary = payroll.finalSalary || info.salary;
+          const formattedSalary = "R " + currentSalary.toLocaleString();
 
-        // 5. Construct structural row strings cleanly
-        const row = `
+          // 5. Construct structural row strings cleanly
+          const row = `
             <tr>
                 <td><strong>${info.name}</strong></td>
                 <td><span style="font-size:0.85rem; display:block; font-weight:500;">${info.position}</span><small style="color:var(--text-muted);">${info.department}</small></td>
@@ -244,29 +509,29 @@ function populateDashboard() {
                 <td><span class="status-tag ${badgeClass}">${leave.reason} (${leave.status})</span></td>
             </tr>
         `;
-        tableBody.innerHTML += row;
-    });
-}
-
-        // Animation logic
-        function checkScroll() {
-            const triggerBottom = window.innerHeight * 0.95;
-            const cards = document.querySelectorAll('.animate-on-scroll');
-            
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if(cardTop < triggerBottom) {
-                    card.classList.add('is-visible');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('DOMContentLoaded', () => {
-            populateDashboard();
-            checkScroll();
+          tableBody.innerHTML += row;
         });
-        setTimeout(checkScroll, 150);
+      }
+
+      // Animation logic
+      function checkScroll() {
+        const triggerBottom = window.innerHeight * 0.95;
+        const cards = document.querySelectorAll(".animate-on-scroll");
+
+        cards.forEach((card) => {
+          const cardTop = card.getBoundingClientRect().top;
+          if (cardTop < triggerBottom) {
+            card.classList.add("is-visible");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", checkScroll);
+      window.addEventListener("DOMContentLoaded", () => {
+        populateDashboard();
+        checkScroll();
+      });
+      setTimeout(checkScroll, 150);
     </script>
-</body>
+  </body>
 </html>
