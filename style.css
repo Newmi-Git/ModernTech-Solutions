@@ -5,6 +5,7 @@
 
     --main-text-colour: black;
     --dark-text-colour: white;
+    --dark: #1a1400;
 }
 
 * {
@@ -455,13 +456,6 @@
 
 /* performance.css */
 
-:root {
-  --main-colour: #fffeec;
-  --secondary-colour: #ffba27;
-  --tertiary-colour: #e66aff;
-  --dark: #1a1400;
-}
-
 body.performance-body {
   background: #efefef;
   font-family: Arial, sans-serif;
@@ -537,8 +531,8 @@ body.performance-body {
 .bar-label { font-size: 11px; color: #555; }
 .bar-count { font-size: 11px; color: #888; }
 
-.bg-gold     { background-color: var(--secondary-colour) !important; }
-.bg-purple   { background-color: var(--tertiary-colour) !important; }
+.bg-gold   { background-color: var(--secondary-colour) !important; }
+.bg-purple { background-color: var(--tertiary-colour) !important; }
 .bg-gradient-brand {
   background: linear-gradient(90deg, var(--secondary-colour), var(--tertiary-colour)) !important;
 }
@@ -550,7 +544,7 @@ body.performance-body {
   border: 1px solid #ccc;
   font-size: 12px;
   outline: none;
-  width: 200px;
+  width: 220px;
 }
 
 .emp-search:focus { border-color: var(--secondary-colour); }
@@ -568,8 +562,8 @@ body.performance-body {
 .table > tbody > tr:hover > td { background: #fffbf0; }
 
 .avatar {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -610,3 +604,14 @@ body.performance-body {
 .status-badge.top     { background: #fff3cd; color: #856404; }
 .status-badge.meets   { background: #d4edda; color: #1e7e34; }
 .status-badge.improve { background: #f8d7da; color: #721c24; }
+
+/* ── Tablet ── */
+@media (max-width: 900px) {
+  .performance-stats { margin-bottom: 0; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .emp-search { width: 100%; margin-top: 8px; }
+  .performance-employees .d-flex { flex-direction: column; align-items: flex-start !important; }
+}

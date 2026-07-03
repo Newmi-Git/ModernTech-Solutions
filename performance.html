@@ -9,6 +9,36 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="performance-body">
+    <div class="modal fade" id="employeeModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="background: var(--dark);">
+            <h5 class="modal-title" id="modal-name" style="color: var(--main-colour);"></h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body">
+            <p id="modal-position" class="text-muted mb-3" style="font-size:12px;"></p>
+            <table class="table table-sm" style="font-size: 12px;">
+              <tbody>
+                <tr><td class="text-muted"></td><td id="modal-avatar"></td></tr>
+                <tr><td class="text-muted">Department</td><td id="modal-dept"></td></tr>
+                <tr><td class="text-muted">Score</td><td id="modal-score"></td></tr>
+                <tr><td class="text-muted">Attendance</td><td id="modal-attendance"></td></tr>
+                <tr><td class="text-muted">Goals Met</td><td id="modal-goals"></td></tr>
+                <tr><td class="text-muted">Base Salary</td><td id="modal-salary"></td></tr>
+                <tr><td class="text-muted">Final Salary</td><td id="modal-final"></td></tr>
+                <tr><td class="text-muted">Leave Deductions</td><td id="modal-leave"></td></tr>
+                <tr><td class="text-muted">Contact</td><td id="modal-contact"></td></tr>
+                <tr><td class="text-muted">Status</td><td id="modal-status"></td></tr>
+                <tr><td class="text-muted">History</td><td id="modal-history"></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
 
     <div class="container-lg py-4 d-flex flex-column gap-4">
 
@@ -18,7 +48,7 @@
       <!-- Title row -->
       <div class="d-flex justify-content-between align-items-center">
         <h1 class="fs-4 fw-bold mb-0" style="color: var(--dark)">Performance Overview</h1>
-        <button type="button" class="btn btn-export">Export</button>
+        <button type="button" class="btn btn-export" id="exportBtn">Export</button>
       </div>
 
       <!-- Stat cards -->
@@ -27,56 +57,53 @@
           <div class="performance-card h-100 p-3">
             <p class="card-label">Average Performance</p>
             <p class="card-value" id="stat-avg">—<span>/ 100</span></p>
-            <p class="card-change" id="stat-avg-sub"></p>
+            <p class="card-change neutral" id="stat-avg-sub">Loading...</p>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="performance-card h-100 p-3">
             <p class="card-label">Top Performers</p>
             <p class="card-value" id="stat-top">—<span> employees</span></p>
-            <p class="card-change" id="stat-top-sub"></p>
+            <p class="card-change positive" id="stat-top-sub">Loading...</p>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="performance-card h-100 p-3">
             <p class="card-label">Needs Improvement</p>
             <p class="card-value" id="stat-improve">—<span> employees</span></p>
-            <p class="card-change" id="stat-improve-sub"></p>
+            <p class="card-change negative" id="stat-improve-sub">Loading...</p>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="performance-card h-100 p-3">
-            <p class="card-label">Reviews Completed</p>
-            <p class="card-value" id="stat-reviews">—<span> employees</span></p>
-            <p class="card-change" id="stat-reviews-sub"></p>
+            <p class="card-label">Total Employees</p>
+            <p class="card-value" id="stat-total">—<span> employees</span></p>
+            <p class="card-change neutral" id="stat-total-sub">Loading...</p>
           </div>
         </div>
       </div>
 
       <!-- Score distribution + department averages -->
       <div class="row g-3">
-
         <div class="col-12 col-md-6">
           <div class="performance-stats p-4 h-100">
             <p class="stats-title">Score Distribution</p>
             <div id="score-distribution" class="d-flex flex-column gap-3"></div>
           </div>
         </div>
-
         <div class="col-12 col-md-6">
           <div class="performance-stats p-4 h-100">
             <p class="stats-title">Avg Score by Department</p>
             <div id="dept-averages" class="d-flex flex-column gap-3"></div>
           </div>
         </div>
-
       </div>
 
       <!-- Employee table -->
       <div class="performance-employees p-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <p class="stats-title mb-0">Employee Reviews</p>
-          <input type="text" id="empSearch" placeholder="Search employee..." class="emp-search" />
+          <input type="text" id="empSearch" placeholder="Search name or department..." class="emp-search" />
         </div>
         <div class="table-responsive">
           <table class="table table-hover align-middle" style="font-size: 12px;">
@@ -84,14 +111,17 @@
               <tr>
                 <th>Employee</th>
                 <th>Department</th>
+                <th>Position</th>
                 <th>Score</th>
-                <th>Goals Met</th>
                 <th>Attendance</th>
+                <th>Leave Deductions</th>
+                <th>Final Salary</th>
                 <th>Status</th>
-                <th>Reviewed By</th>
               </tr>
             </thead>
-            <tbody id="empTable"></tbody>
+            <tbody id="empTable">
+              <tr><td colspan="8" class="text-center text-muted py-4">Loading...</td></tr>
+            </tbody>
           </table>
         </div>
       </div>

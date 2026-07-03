@@ -20,7 +20,11 @@
             "department": "HR",
             "salary": 80000,
             "employmentHistory": "Joined in 2013, promoted to Manager in 2017",
-            "contact": "lungile.moyo@moderntech.com"
+            "contact": "lungile.moyo@moderntech.com",
+            "score": 88,
+            "goalsMet": 4,
+            "goalsTotal": 5,
+            "attendance": 95
         },
         {
             "employeeId": 3,
@@ -29,7 +33,11 @@
             "department": "QA",
             "salary": 55000,
             "employmentHistory": "Joined in 2018",
-            "contact": "thabo.molefe@moderntech.com"
+            "contact": "thabo.molefe@moderntech.com",
+            "score": 72,
+            "goalsMet": 3,
+            "goalsTotal": 5,
+            "attendance": 91
         },
         {
             "employeeId": 4,
@@ -38,7 +46,11 @@
             "department": "Sales",
             "salary": 60000,
             "employmentHistory": "Joined in 2020",
-            "contact": "keshav.naidoo@moderntech.com"
+            "contact": "keshav.naidoo@moderntech.com",
+            "score": 65,
+            "goalsMet": 3,
+            "goalsTotal": 5,
+            "attendance": 88
         },
         {
             "employeeId": 5,
@@ -47,7 +59,11 @@
             "department": "Marketing",
             "salary": 58000,
             "employmentHistory": "Joined in 2019",
-            "contact": "zanele.khumalo@moderntech.com"
+            "contact": "zanele.khumalo@moderntech.com",
+            "score": 81,
+            "goalsMet": 4,
+            "goalsTotal": 5,
+            "attendance": 93
         },
         {
             "employeeId": 6,
@@ -56,7 +72,11 @@
             "department": "Design",
             "salary": 65000,
             "employmentHistory": "Joined in 2016",
-            "contact": "sipho.zulu@moderntech.com"
+            "contact": "sipho.zulu@moderntech.com",
+            "score": 90,
+            "goalsMet": 5,
+            "goalsTotal": 5,
+            "attendance": 97
         },
         {
             "employeeId": 7,
@@ -65,7 +85,11 @@
             "department": "IT",
             "salary": 72000,
             "employmentHistory": "Joined in 2017",
-            "contact": "naledi.moeketsi@moderntech.com"
+            "contact": "naledi.moeketsi@moderntech.com",
+            "score": 78,
+            "goalsMet": 4,
+            "goalsTotal": 5,
+            "attendance": 90
         },
         {
             "employeeId": 8,
@@ -74,7 +98,11 @@
             "department": "Marketing",
             "salary": 56000,
             "employmentHistory": "Joined in 2021",
-            "contact": "farai.gumbo@moderntech.com"
+            "contact": "farai.gumbo@moderntech.com",
+            "score": 55,
+            "goalsMet": 2,
+            "goalsTotal": 5,
+            "attendance": 82
         },
         {
             "employeeId": 9,
@@ -83,7 +111,11 @@
             "department": "Finance",
             "salary": 62000,
             "employmentHistory": "Joined in 2018",
-            "contact": "karabo.dlamini@moderntech.com"
+            "contact": "karabo.dlamini@moderntech.com",
+            "score": 67,
+            "goalsMet": 3,
+            "goalsTotal": 5,
+            "attendance": 86
         },
         {
             "employeeId": 10,
@@ -92,7 +124,11 @@
             "department": "Support",
             "salary": 58000,
             "employmentHistory": "Joined in 2016",
-            "contact": "fatima.patel@moderntech.com"
+            "contact": "fatima.patel@moderntech.com",
+            "score": 84,
+            "goalsMet": 4,
+            "goalsTotal": 5,
+            "attendance": 94
         }
     ]
 }
