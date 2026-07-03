@@ -6,49 +6,141 @@
     <title>Contact Page | ModernTech Solutions</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  
+
   <body class="contact-page">
     <main class="contact-container">
+      <!-- Banner -->
+      <header class="banner">
+        <h1>Contact Us</h1>
+        <p class="banner-subtitle">
+          Get in touch & leave a message for us. We value your feedback and
+          inquiries.
+        </p>
+      </header>
+
+      <!-- Banner Image -->
+      <div class="banner-image">
+        <img src="https://i.ibb.co/KpKBjZ5m/dev-team.png" alt="dev team"/>
+      </div>
+
       <!-- Hero Section -->
       <section class="hero-section">
-        <span class="badge">Contact ModernTech Solutions</span>
-        <h1>Contact Us</h1>
-        <p class="subtitle">
-          Whether you have questions, feedback, or partnership inquiries, we're
-          here to help.
-        </p>
+        <h1>Let's get connected!</h1>
+        <p class="subtitle">Get in touch and leave a message for us.</p>
       </section>
 
-      <!-- Contact Form Section -->
-      <section class="contact-form-section">
+      <!-- Contact Layout -->
+      <section class="contact-section">
         <div class="form-container">
-          <h2>Contact Us</h2>
-          <form id="contact-form" action="#" method="post">
-            <label for="Reason">Reason for Contact:</label>
-            <select id="Reason" name="Reason" required>
-              <option value="">Select a reason</option>
-              <option value="general">General Inquiry</option>
-              <option value="support">Support Request</option>
-              <option value="partnership">Partnership Inquiry</option>
-            </select>
+          <form>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="first-name">First Name:</label>
+                <input
+                  type="text"
+                  id="first-name"
+                  name="first-name"
+                  required
+                  placeholder="Your first name here"
+                />
+              </div>
+              <div class="input-group">
+                <label for="last-name">Last Name:</label>
+                <input
+                  type="text"
+                  id="last-name"
+                  name="last-name"
+                  required
+                  placeholder="Your last name here"
+                />
+              </div>
+            </div>
 
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" required>How can we help you?</textarea>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Your email address here"
+                  required
+                />
+              </div>
+            </div>
 
-            <button type="submit">Send Message</button>
+            <div class="input-row">
+              <div class="input-group full-width">
+                <label for="reason">Reason for Contact:</label>
+                <select id="reason" name="reason" required>
+                  <option value="">Select a reason</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="support">Support Request</option>
+                  <option value="partnership">Partnership Inquiry</option>
+                  <option value="leave">Leave Request</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Send Message</button>
           </form>
         </div>
-      </section>
 
-      <!-- Contact Information Section -->
-      <section class="contact-info-section">
         <div class="info-container">
-          <h2>Our Contact Information</h2>
-          <p><strong>Email:</strong> info@modern-tech.com</p>
-          <p><strong>Phone:</strong> +1 (555) 123-4567</p>
-          <p>
-            <strong>Address:</strong> 123 Innovation Drive, Tech City, TX 75001
+          <span class="subheading">Let's Connect!</span>
+          <h1 class="main-heading">
+            Whether you have questions, feedback, or partnership inquiries,
+            we're here to help.
+          </h1>
+          <p class="description">
+            We value your feedback and inquiries. Our team is here to assist you
+            with any questions or concerns you may have. Whether you're looking
+            for support, partnership opportunities, or just want to say hello,
+            we're eager to hear from you. Fill out the form on the left to get
+            in touch with us.
           </p>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="icon-box">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              </div>
+              <div class="info-text">
+                <h3>Head Office</h3>
+                <p>123 Innovation Drive, Tech City, TX 75001</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon-box">
+                <i class="fa-solid fa-map" aria-hidden="true"></i>
+              </div>
+              <div class="info-text">
+                <h3>Secondary Office</h3>
+                <p>456 Innovation Boulevard, Tech City, TX 75002</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon-box">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              </div>
+              <div class="info-text">
+                <h3>Email Address</h3>
+                <p>info@modern-tech.com</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon-box">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              </div>
+              <div class="info-text">
+                <h3>Phone Number</h3>
+                <p>+1 (555) 123-4567</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
