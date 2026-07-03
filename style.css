@@ -1,18 +1,16 @@
-/* --- Professional App Dashboard Theme --- */
+/* --- Styles for About Us Page --- */
+/* Using Our Team's Custom Palette Variables */
 :root {
-  --bg-main: #F8FAFC;            /* Clean light grey app window background */
-  --sidebar-bg: #0F172A;         /* Slate dark sleek navigation bar */
-  --panel-bg: #FFFFFF;
-  --text-main: #1E293B;
-  --text-muted: #64748B;
+  --main-colour: #FFFEEC;
+  --secondary-colour: #FFBA27;
+  --tertiary-colour: #E66AFF;
+  --main-text-colour: black;
+  --dark-text-colour: white;
   
-  --color-indigo: #6366F1;
-  --color-gold: #FFBA27;
-  --border-light: #E2E8F0;
-  --radius: 10px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.05);
+  --radius: 16px;
 }
 
+/* Base Configuration */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -20,438 +18,293 @@
 }
 
 body {
-  background-color: var(--bg-main);
-  font-family: 'Inter', system-ui, sans-serif;
-  color: var(--text-main);
-  overflow-x: hidden;
+  background-color: var(--main-colour);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--main-text-colour);
+  line-height: 1.6;
+  padding-top: 80px; /* Prevents navigation bar from overlapping the top content */
 }
 
-/* Master Layout Framework */
-.app-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-/* --- App Left Sidebar Component --- */
-.sidebar-panel {
-  width: 260px;
-  background-color: var(--sidebar-bg);
-  color: #F1F5F9;
-  display: flex;
-  flex-direction: column;
+/* --- New Top Navbar Styling --- */
+.top-navbar {
   position: fixed;
-  height: 100vh;
-  left: 0;
   top: 0;
-  z-index: 100;
-}
-
-.sidebar-brand {
-  padding: 1.75rem 1.5rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-bottom: 1px solid #1E293B;
-}
-
-.brand-icon {
-  color: var(--color-indigo);
-}
-
-.sidebar-brand span span {
-  color: var(--color-gold);
-}
-
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 1.5rem 1rem;
-  flex-grow: 1;
-}
-
-.menu-item {
-  text-decoration: none;
-  color: #94A3B8;
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  transition: all 0.2s ease;
-}
-
-.menu-item i {
-  width: 20px;
-}
-
-.menu-item:hover {
-  color: #FFFFFF;
-  background-color: #1E293B;
-}
-
-.menu-item.active {
-  background-color: var(--color-indigo);
-  color: #FFFFFF;
-  font-weight: 600;
-}
-
-.sidebar-footer {
-  padding: 1.25rem;
-  border-top: 1px solid #1E293B;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.user-avatar {
-  width: 36px;
-  height: 36px;
-  background-color: var(--color-gold);
-  border-radius: 50%;
-  color: #451a03;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-}
-
-.user-name {
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.user-role {
-  font-size: 0.75rem;
-  color: #64748B;
-}
-
-/* --- Main Viewframe Panel --- */
-.main-content {
-  flex-grow: 1;
-  margin-left: 260px; /* Aligns content cleanly to the right side of sidebar */
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-/* Top App Bar controls */
-.content-topbar {
-  height: 65px;
-  background-color: var(--panel-bg);
-  border-bottom: 1px solid var(--border-light);
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: white;
+  border-bottom: 3px solid var(--main-text-colour);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 90;
+  z-index: 1000;
+  box-shadow: 0 4px 0px rgba(0, 0, 0, 0.05);
 }
 
-.search-box {
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.nav-logo span {
+  color: var(--tertiary-colour);
+}
+
+.nav-links {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  width: 400px;
-}
-
-.search-box input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 0.9rem;
-  color: var(--text-main);
-}
-
-.topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.icon-btn {
-  background: none;
-  border: none;
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  position: relative;
-}
-
-.badge-dot {
-  width: 6px;
-  height: 6px;
-  background-color: #EF4444;
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.status-pill {
-  font-size: 0.8rem;
-  font-weight: 600;
-  background-color: #F1F5F9;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  border: 1px solid var(--border-light);
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.pulse-dot {
-  width: 6px;
-  height: 6px;
-  background-color: #10B981;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
-
-/* Dashboard Interior Area Space */
-.dashboard-body {
-  padding: 2rem;
-  max-width: 1300px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.welcome-banner {
-  margin-bottom: 2rem;
-}
-
-.welcome-banner h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #0F172A;
-  margin-bottom: 0.25rem;
-}
-
-.welcome-banner p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-/* --- Metric Horizontal Ribbon Strip --- */
-.metric-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 2rem;
-}
-
-.metric-card {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  padding: 1.5rem !important;
-}
-
-.metric-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-}
-
-.metric-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.metric-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.metric-number {
-  font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-top: 0.15rem;
-}
-
-.metric-status {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #10B981;
-}
-
-/* Metric Colors */
-.card-indigo { background-color: var(--color-indigo); color: white; }
-.card-indigo .metric-icon { background: rgba(255,255,255,0.15); }
-.card-indigo .metric-label { color: rgba(255,255,255,0.7); }
-
-.card-gold { background-color: var(--color-gold); color: #451a03; }
-.card-gold .metric-icon { background: rgba(0,0,0,0.06); }
-.card-gold .metric-label { color: rgba(69,26,3,0.7); }
-
-.card-white { background: var(--panel-bg); border: 1px solid var(--border-light); }
-.card-white .metric-icon { background: #F1F5F9; }
-.card-white .metric-label { color: var(--text-muted); }
-.text-success { color: #10B981; }
-
-/* --- Workspace Grid Structure --- */
-.workspace-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.8fr;
-  gap: 1.5rem;
-}
-
-.app-card {
-  background-color: var(--panel-bg);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius);
-  padding: 1.75rem;
-  box-shadow: var(--shadow);
-}
-
-.app-card h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-.section-desc {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-}
-
-/* Forms */
-.action-form {
-  display: flex;
-  flex-direction: column;
   gap: 1rem;
 }
 
-.form-group label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 0.4rem;
+.nav-item {
+  text-decoration: none;
+  color: var(--main-text-colour);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  border-radius: calc(var(--radius) / 2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
 }
 
-.action-form select {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--border-light);
-  border-radius: 6px;
-  font-size: 0.9rem;
-  background-color: #F8FAFC;
-  outline: none;
+.nav-item i {
+  font-size: 1rem;
 }
 
-.primary-btn {
-  background-color: var(--text-main);
-  color: white;
-  padding: 0.65rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 600;
+/* Navbar Hover & Active States following Brutalist themes */
+.nav-item:hover {
+  background-color: var(--main-colour);
+  border-color: var(--main-text-colour);
+  box-shadow: 2px 2px 0px var(--main-text-colour);
+}
+
+.nav-item.active {
+  background-color: var(--secondary-colour);
+  border-color: var(--main-text-colour);
+  box-shadow: 2px 2px 0px var(--main-text-colour);
+}
+
+/* Base Page Wrapper */
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem 1.5rem; /* Adjusted top padding since Navbar is fixed */
+}
+
+/* Hero Section Style */
+.hero-section {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem auto;
+}
+
+.badge {
+  background-color: rgba(230, 106, 255, 0.15);
+  color: var(--tertiary-colour);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Modern Bento Grid Layout */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.grid-card {
+  background-color: white; 
+  border: 2px solid var(--main-text-colour);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: 4px 4px 0px var(--main-text-colour);
+}
+
+.story-card {
+  grid-column: span 2;
+}
+
+.story-card h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.brand-highlight {
+  color: var(--tertiary-colour);
+}
+
+/* Metric Card Layouts */
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.metric-card.highlight {
+  background-color: var(--tertiary-colour);
+  color: var(--dark-text-colour);
+}
+
+.metric-card.secondary-highlight {
+  background-color: var(--secondary-colour);
+  color: var(--main-text-colour);
+}
+
+.metric-card.plain {
+  background-color: white;
+  color: var(--main-text-colour);
+}
+
+.metric-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.metric-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Department Layout Section */
+.departments-section {
+  border-top: 2px solid var(--main-text-colour);
+  padding-top: 4rem;
+}
+
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.departments-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.dept-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--main-text-colour);
+}
+
+.dept-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--tertiary-colour);
+}
+
+/* Responsive Structural Adjustments */
+@media (max-width: 900px) {
+  .top-navbar {
+    height: auto;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    position: relative;
+  }
+  body {
+    padding-top: 0;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .story-card {
+    grid-column: span 1;
+  }
+  .departments-list {
+    grid-template-columns: 1fr;
+  }
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+
+/*--- Contact Page Styles ---*/
+.contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.contact-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-form label {
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--main-text-colour);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background-color: white;
+}
+
+.contact-form button {
+  background-color: var(--secondary-colour);
+  color: var(--main-text-colour);
+  padding: 0.75rem;
+  border: 2px solid var(--main-text-colour); /* Added border to match theme */
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 3px 3px 0px var(--main-text-colour);
+  transition: transform 0.1s ease;
 }
 
-/* --- Admin Data Table Layout --- */
-.table-responsive {
-  overflow-x: auto;
-}
-
-.dashboard-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.85rem;
-}
-
-.dashboard-table th {
-  background-color: #F8FAFC;
-  color: var(--text-muted);
-  padding: 0.75rem 1rem;
-  font-weight: 600;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.dashboard-table td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid var(--border-light);
-  color: #334155;
-}
-
-.status-tag {
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.status-success { background-color: #DCFCE7; color: #166534; }
-.status-pending { background-color: #FEF3C7; color: #92400E; }
-
-/* Scroll Animation states */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.animate-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 1024px) {
-  .workspace-grid { grid-template-columns: 1fr; }
-  .metric-strip { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 768px) {
-  .sidebar-panel { display: none; } /* Standard full dashboard panels shift menus to icons on mobile */
-  .main-content { margin-left: 0; }
-  .metric-strip { grid-template-columns: 1fr; }
-  .search-box { width: 200px; }
-}
-/* --- TABLE ROW HOVER EFFECT --- */
-
-/* 1. When the mouse enters the table, softly blur ALL rows */
-#employee-table-body:hover tr {
-  opacity: 0.4;
-  filter: blur(2px);
-  transition: all 0.25s ease-in-out;
-}
-
-/* 2. When hovering over a SPECIFIC row, lift it up, clear the blur, and add a shadow */
-#employee-table-body tr:hover {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(-3px); /* Lifts the row up slightly */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Adds a shadow to make it pop */
-  background-color: #ffffff; /* Ensures the background stands out */
-  z-index: 5;
-  position: relative;
-}
-
-/* Smooth transition when moving the mouse away */
-#employee-table-body tr {
-  transition: all 0.25s ease-in-out;
+.contact-form button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--main-text-colour);
 }
