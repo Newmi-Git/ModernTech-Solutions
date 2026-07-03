@@ -7,7 +7,11 @@
             "department": "Development",
             "salary": 70000,
             "employmentHistory": "Joined in 2015, promoted to Senior in 2018",
-            "contact": "sibongile.nkosi@moderntech.com"
+            "contact": "sibongile.nkosi@moderntech.com",
+            "score": 94,
+            "goalsMet": 5,
+            "goalsTotal": 5,
+            "attendance": 98
         },
         {
             "employeeId": 2,
