@@ -6,16 +6,24 @@ createApp({
       currentPage: window.location.pathname.split('/').pop()
     };
   },
-  template: `
-    <nav class="site-nav">
-      <div class="nav-brand">ModernTech Solutions</div>
-      <ul class="nav-links">
-        <li><a href="index.html" :class="{active: currentPage === 'index.html'}">Home</a></li>
-        <li><a href="dashboard.html" :class="{active: currentPage === 'dashboard.html'}">Dashboard</a></li>
-        <li><a href="login.html" :class="{active: currentPage === 'login.html'}">Login</a></li>
-      </ul>
-    </nav>
-  `
+  template: `    
+    <section class="nav-section">
+
+        <nav>
+            <ul> 
+                <li> <a href="index.html">Home</a></li>
+                <li><a href="employee.html">Employees</a></li>
+                <li><a href="performance.html">Performance</a></li> 
+                <li><a class="active" href="requests.html">Leave Requests</a></li> 
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul> 
+        </nav> 
+        
+        <button class="logout"> Logout </button>
+
+    </section>
+  `,
 }).mount('#app-navbar');
 
 
