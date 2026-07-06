@@ -15,12 +15,14 @@
         </div>
         <div class="nav-links">
             <a href="Index.html" class="nav-item active"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="Employee.html" class="nav-item"><i class="fa-solid fa-users"></i> Employees</a>
             <a href="Performance.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Performance</a>
-            <a href="Register.html" class="nav-item"><i class="fa-solid fa-user-plus"></i> Register</a>
+            <a href="Employee.html" class="nav-item"><i class="fa-solid fa-users"></i> Employees</a>
+             <a href="requests.html" class="nav-item"><i class="fa-solid fa-user-plus"></i> Request</a>
+             <a href="payroll.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i>Payroll</a>
              <a href="About.html" class="nav-item"><i class="fa-solid fa-address-card"></i> About</a>
             <a href="Contact.html" class="nav-item"><i class="fa-solid fa-envelope"></i> Contact</a>
         </div>
+        <button class="logout"> Logout </button>
     </nav>
 
     <div class="about-container">
@@ -28,7 +30,7 @@
         <header class="hero-section">
             <span class="badge">HR Management System</span>
             <h1>Welcome back, HR Team!</h1>
-            <p class="subtitle">Centralized data dashboard for ModernTech Solutions.</p>
+            <p class="subtitle">Centralized data dashboard for <strong class="brand-highlight">ModernTech Solutions</strong>.</p>
         </header>
 
         <section class="bento-grid" style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; align-items: start;">
@@ -112,7 +114,7 @@
         <section class="departments-section">
             <div class="section-header">
                 <h2>Company Departments</h2>
-                <p class="subtitle">Active operational segments within ModernTech Solutions.</p>
+                <p class="subtitle">Active operational segments within <strong class="brand-highlight">ModernTech Solutions</strong>.</p>
             </div>
             
             <div class="departments-list">
@@ -193,7 +195,7 @@
                 return leave.status === "Pending";
             });
 
-            pendingEmployees.forEach(info => {
+pendingEmployees.forEach(info => {
                 const payroll = payrollData.find(p => p.employeeId === info.employeeId) || {};
                 const attendance = attendanceAndLeave.find(a => a.employeeId === info.employeeId) || {};
                 const leave = attendance.leaveRequests[attendance.leaveRequests.length - 1];
@@ -201,8 +203,9 @@
                 const currentSalary = payroll.finalSalary || info.salary;
                 const formattedSalary = "R " + currentSalary.toLocaleString();
 
+                // 1. Added class="leave-badge" cleanly into the template variable here:
                 const row = `
-              <tr style="border-bottom: 1px solid #e0e0e0; font-size: 0.95rem; color: #222222;">
+                    <tr style="border-bottom: 1px solid #e0e0e0; font-size: 0.95rem; color: #222222;">
                         <td style="padding: 16px 8px;"><strong>${info.name}</strong></td>
                         <td style="padding: 16px 8px;">
                             <span style="font-weight: 600; display: block; font-size: 0.88rem;">${info.position}</span>
@@ -211,7 +214,9 @@
                         <td style="padding: 16px 8px; color: #444444;">${payroll.hoursWorked || 0} hrs</td>
                         <td style="padding: 16px 8px;"><strong>${formattedSalary}</strong></td>
                         <td style="padding: 16px 8px;">
-                            <span onclick="window.location.href='requests.html'" style="display: inline-block; background: #fef3c7; color: #d97706; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 6px; border: 1px solid #f59e0b; cursor: pointer;">
+                            <span onclick="window.location.href='requests.html'" 
+                                  class="leave-badge" 
+                                  style="display: inline-block; background: #fef3c7; color: #d97706; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 6px; border: 1px solid #f59e0b; cursor: pointer;">
                                 ${leave.reason} (${leave.status})
                             </span>
                         </td>
@@ -221,6 +226,7 @@
             });
         }
 
+        // 2. Cleanly execution attachment without raw HTML blocking the closing tags:
         window.addEventListener('DOMContentLoaded', populateDashboard);
     </script>
 </body>
