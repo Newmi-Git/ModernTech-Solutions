@@ -43,13 +43,11 @@
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                  <div class="grid-card metric-card secondary-highlight" 
-     onclick="window.location.href='requests.html'" 
-     style="margin: 0; min-height: fit-content; cursor: pointer;">
-                        <span class="metric-number">08</span>
-                        <span class="metric-label">Pending Leave
-                          
-                        </span>
+                    <div class="grid-card metric-card secondary-highlight pulse-card" 
+                         onclick="window.location.href='requests.html'" 
+                         style="margin: 0; min-height: fit-content; cursor: pointer;">
+                         <span class="metric-number">08</span>
+                         <span class="metric-label">Pending Leave</span>
                     </div>
 
                     <div class="grid-card metric-card plain" style="margin: 0; min-height: fit-content;">
@@ -58,30 +56,33 @@
                     </div>
                 </div>
 
-                <div class="grid-card story-card" style="margin: 0;">
-                    <h2>Quick Admin <span class="brand-highlight">Actions</span></h2>
-                    <form class="contact-form" onsubmit="event.preventDefault();">
-                        <div>
-                            <label for="action-select">Select Operation Task</label>
-                            <select id="action-select">
-                                <option value="add">Add New Employee Record</option>
-                                <option value="payroll">Run Automated Monthly Payroll</option>
-                                <option value="leave">Approve Outstanding Time-Off</option>
-                            </select>
-                        </div>
-                        <button type="submit">Launch Operations Interface</button>
-                    </form>
+               
+                    <div class="grid-card story-card" style="margin: 0;">
+            <h2>Quick Admin <span class="brand-highlight">Actions</span></h2>
+            <form class="contact-form" onsubmit="event.preventDefault();">
+                <div>
+                    <label for="action-select">Select Operation Task</label>
+                    <!-- 1. The options values now match your existing project files -->
+                    <select id="action-select">
+                        <option value="Employee.html">Add New Employee Record</option>
+                        <option value="payroll.html">Run Automated Monthly Payroll</option>
+                        <option value="requests.html">Approve Outstanding Time-Off</option>
+                    </select>
                 </div>
+                <!-- 2. Added a click trigger to call our new function -->
+                <button type="submit" onclick="handleAdminRouting()">Launch Operations Interface</button>
+            </form>
+        </div>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 20px;">
-            <div class="grid-card metric-card highlight" 
-         onclick="window.location.href='employee.html'" 
-        style="margin: 0; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer;">
-    
-         <span class="metric-number" style="font-size: 2.8rem; font-weight: 800; display: block;">250</span>
-        <span class="metric-label" style="font-size: 0.95rem; font-weight: 700;">TOTAL EMPLOYEES</span>
-        </div>
+               <div class="grid-card metric-card highlight pulse-card" 
+                onclick="window.location.href='employee.html'" 
+                style="margin: 0; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer;">
+
+                <span class="metric-number" style="font-size: 2.8rem; font-weight: 800; display: block;">250</span>
+                <span class="metric-label" style="font-size: 0.95rem; font-weight: 700;">TOTAL EMPLOYEES</span>
+            </div>
 
                 <div class="app-card table-card container-card" style="margin-top: 0; background: #ffffff; padding: 25px; border: 1px solid #000000; box-shadow: 5px 5px 0px #000000; border-radius: 12px;">
                     <h3 style="margin-top: 0; font-weight: 800; font-size: 1.4rem; color: #000000;">
@@ -179,7 +180,17 @@
             { "employeeId": 9, "name": "Karabo Dlamini", "position": "Accountant", "department": "Finance", "salary": 62000 },
             { "employeeId": 10, "name": "Fatima Patel", "position": "Customer Support Lead", "department": "Support", "salary": 58000 }
         ];
+            // Function to handle the dropdown routing choice
+            function handleAdminRouting() {
+                const selectElement = document.getElementById("action-select");
+                if (!selectElement) return;
 
+                // Get the selected file path value (e.g., 'Employee.html', 'payroll.html')
+                const destinationPage = selectElement.value;
+
+                // Navigate to the chosen page path smoothly
+                window.location.href = destinationPage;
+}
         // 2. Rendering Logic Function
         function populateDashboard() {
             const tableBody = document.getElementById("employee-table-body");
@@ -195,7 +206,7 @@
                 return leave.status === "Pending";
             });
 
-pendingEmployees.forEach(info => {
+            pendingEmployees.forEach(info => {
                 const payroll = payrollData.find(p => p.employeeId === info.employeeId) || {};
                 const attendance = attendanceAndLeave.find(a => a.employeeId === info.employeeId) || {};
                 const leave = attendance.leaveRequests[attendance.leaveRequests.length - 1];
@@ -203,7 +214,6 @@ pendingEmployees.forEach(info => {
                 const currentSalary = payroll.finalSalary || info.salary;
                 const formattedSalary = "R " + currentSalary.toLocaleString();
 
-                // 1. Added class="leave-badge" cleanly into the template variable here:
                 const row = `
                     <tr style="border-bottom: 1px solid #e0e0e0; font-size: 0.95rem; color: #222222;">
                         <td style="padding: 16px 8px;"><strong>${info.name}</strong></td>
@@ -226,7 +236,6 @@ pendingEmployees.forEach(info => {
             });
         }
 
-        // 2. Cleanly execution attachment without raw HTML blocking the closing tags:
         window.addEventListener('DOMContentLoaded', populateDashboard);
     </script>
 </body>
