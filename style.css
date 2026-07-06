@@ -295,7 +295,7 @@ h1 {
   text-align: center;
 }
 
-.contact-form {
+.contact-container .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -319,7 +319,7 @@ h1 {
   background-color: var(--secondary-colour);
   color: var(--main-text-colour);
   padding: 0.75rem;
-  border: 2px solid var(--main-text-colour); /* Added border to match theme */
+  border: 2px solid var(--main-text-colour); 
   border-radius: var(--radius);
   font-size: 1rem;
   font-weight: 700;
@@ -332,25 +332,30 @@ h1 {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 0px var(--main-text-colour);
 }
-/* 1. Apply the animation loop to the badges */
+
+/* 1. Inline Animation Class for small elements */
 .leave-badge {
-    /* Runs 'pulse-animation' over 2 seconds, smoothly, repeating forever */
     animation: auto-pulse 2s infinite ease-in-out;
     display: inline-block;
 }
 
-/* 2. Define the heartbeat rhythm stages */
+/* 2. Custom Layout Animation Class for structural cards */
+.pulse-card {
+    animation: auto-pulse 2s infinite ease-in-out;
+}
+
+/* 3. Reusable Heartbeat Keyframes loop */
 @keyframes auto-pulse {
     0% {
         transform: scale(1);
         box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4);
     }
     70% {
-        transform: scale(1.05); /* Grow slightly */
-        box-shadow: 0 0 0 6px rgba(217, 119, 6, 0); /* Create a fading glow ring */
+        transform: scale(1.04);
+        box-shadow: 0 0 0 6px rgba(217, 119, 6, 0);
     }
     100% {
-        transform: scale(1); /* Shrink back down smoothly */
+        transform: scale(1);
         box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
     }
 }
