@@ -75,6 +75,30 @@ body {
   font-size: 1rem;
 }
 
+.logout {
+  background-color: #FFBA27;
+  color: black;
+  border: 2px solid black;
+  border-radius: 16px;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 black;
+  transition: all 0.2s ease;
+}
+
+.logout:hover {
+  background-color: #E66AFF;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.logout:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0 black;
+}
+
 /* Navbar Hover & Active States following Brutalist themes */
 .nav-item:hover {
   background-color: var(--main-colour);
@@ -307,4 +331,26 @@ h1 {
 .contact-form button:active {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 0px var(--main-text-colour);
+}
+/* 1. Apply the animation loop to the badges */
+.leave-badge {
+    /* Runs 'pulse-animation' over 2 seconds, smoothly, repeating forever */
+    animation: auto-pulse 2s infinite ease-in-out;
+    display: inline-block;
+}
+
+/* 2. Define the heartbeat rhythm stages */
+@keyframes auto-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4);
+    }
+    70% {
+        transform: scale(1.05); /* Grow slightly */
+        box-shadow: 0 0 0 6px rgba(217, 119, 6, 0); /* Create a fading glow ring */
+    }
+    100% {
+        transform: scale(1); /* Shrink back down smoothly */
+        box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+    }
 }
