@@ -9,6 +9,8 @@
 </head>
 <body>
 
+    <div id="app-navbar"></div>
+
     <nav class="top-navbar">
         <div class="nav-logo">
             MT<span>Solutions</span>
@@ -17,9 +19,9 @@
             <a href="Index.html" class="nav-item active"><i class="fa-solid fa-house"></i> Home</a>
             <a href="Performance.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Performance</a>
             <a href="Employee.html" class="nav-item"><i class="fa-solid fa-users"></i> Employees</a>
-             <a href="requests.html" class="nav-item"><i class="fa-solid fa-user-plus"></i> Request</a>
-             <a href="payroll.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i>Payroll</a>
-             <a href="About.html" class="nav-item"><i class="fa-solid fa-address-card"></i> About</a>
+            <a href="requests.html" class="nav-item"><i class="fa-solid fa-user-plus"></i> Request</a>
+            <a href="payroll.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Payroll</a>
+            <a href="About.html" class="nav-item"><i class="fa-solid fa-address-card"></i> About</a>
             <a href="Contact.html" class="nav-item"><i class="fa-solid fa-envelope"></i> Contact</a>
         </div>
         <button class="logout"> Logout </button>
@@ -46,7 +48,7 @@
                     <div class="grid-card metric-card secondary-highlight pulse-card" 
                          onclick="window.location.href='requests.html'" 
                          style="margin: 0; min-height: fit-content; cursor: pointer;">
-                         <span class="metric-number">08</span>
+                         <span class="metric-number">05</span>
                          <span class="metric-label">Pending Leave</span>
                     </div>
 
@@ -56,44 +58,38 @@
                     </div>
                 </div>
 
-               
-                    <div class="grid-card story-card" style="margin: 0;">
-            <h2>Quick Admin <span class="brand-highlight">Actions</span></h2>
-            <form class="contact-form" onsubmit="event.preventDefault();">
-                <div>
-                    <label for="action-select">Select Operation Task</label>
-                    <!-- 1. The options values now match your existing project files -->
-                    <select id="action-select">
-                        <option value="Employee.html">Add New Employee Record</option>
-                        <option value="payroll.html">Run Automated Monthly Payroll</option>
-                        <option value="requests.html">Approve Outstanding Time-Off</option>
-                    </select>
+                <div class="grid-card story-card" style="margin: 0;">
+                    <h2>Quick Admin <span class="brand-highlight">Actions</span></h2>
+                    <form class="contact-form" onsubmit="event.preventDefault();">
+                        <div>
+                            <label for="action-select">Select Operation Task</label>
+                            <select id="action-select">
+                                <option value="Employee.html">Add New Employee Record</option>
+                                <option value="payroll.html">Run Automated Monthly Payroll</option>
+                                <option value="requests.html">Approve Outstanding Time-Off</option>
+                            </select>
+                        </div>
+                        <button type="submit" onclick="handleAdminRouting()">Launch Operations Interface</button>
+                    </form>
                 </div>
-                <!-- 2. Added a click trigger to call our new function -->
-                <button type="submit" onclick="handleAdminRouting()">Launch Operations Interface</button>
-            </form>
-        </div>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 20px;">
-               <div class="grid-card metric-card highlight pulse-card" 
-                onclick="window.location.href='employee.html'" 
-                style="margin: 0; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer;">
-
-                <span class="metric-number" style="font-size: 2.8rem; font-weight: 800; display: block;">250</span>
-                <span class="metric-label" style="font-size: 0.95rem; font-weight: 700;">TOTAL EMPLOYEES</span>
-            </div>
+                <div class="grid-card metric-card highlight pulse-card" 
+                     onclick="window.location.href='employee.html'" 
+                     style="margin: 0; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer;">
+                    <span class="metric-number" style="font-size: 2.8rem; font-weight: 800; display: block;">250+</span>
+                    <span class="metric-label" style="font-size: 0.95rem; font-weight: 700;">TOTAL EMPLOYEES</span>
+                </div>
 
                 <div class="app-card table-card container-card" style="margin-top: 0; background: #ffffff; padding: 25px; border: 1px solid #000000; box-shadow: 5px 5px 0px #000000; border-radius: 12px;">
-                    <h3 style="margin-top: 0; font-weight: 800; font-size: 1.4rem; color: #000000;">
-                        <i class="fa-solid fa-clock" style="margin-right: 8px;"></i> Actionable Pending Approvals
-                    </h3>
+                    <h3><i class="fa-solid fa-clock" style="margin-right: 8px;"></i> Actionable Pending Approvals</h3>
                     <p style="color: #555555; font-size: 0.9rem; margin-bottom: 20px; font-weight: 500;">
                         Operational records showing only outstanding personnel adjustments awaiting review.
                     </p>
 
                     <div style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: inherit;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
                             <thead>
                                 <tr style="border-bottom: 1px solid #000000; background: #fafafa;">
                                     <th style="padding: 12px 8px; font-weight: 800; color: #000000;">Employee Name</th>
@@ -138,10 +134,23 @@
             </div>
         </section>
 
+        <div id="app-footer">
+            <footer style="margin-top: 5rem; padding: 25px; text-align: center; border-top: 3px solid var(--main-text-colour); background-color: white; border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0px -4px 0px var(--main-text-colour);">
+                <p style="font-weight: 800; margin-bottom: 5px; color: var(--main-text-colour); letter-spacing: -0.01em;">&copy; 2026 ModernTech Solutions. All Rights Reserved.</p>
+                <p style="font-size: 0.88rem; color: #555555; font-weight: 700;">HR Management System Portal &bull; System POC Dashboard</p>
+            </footer>
+        </div>
+
     </div> 
     
+    <script src="js/auth.js"></script>
+    <script>requireRole(['hr']);</script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/footer.js"></script>
+
     <script>
-        // 1. Core Mock Data Arrays
         const payrollData = [
             { "employeeId": 1, "hoursWorked": 160, "leaveDeductions": 8, "finalSalary": 69500 },
             { "employeeId": 2, "hoursWorked": 150, "leaveDeductions": 10, "finalSalary": 79000 },
@@ -180,36 +189,42 @@
             { "employeeId": 9, "name": "Karabo Dlamini", "position": "Accountant", "department": "Finance", "salary": 62000 },
             { "employeeId": 10, "name": "Fatima Patel", "position": "Customer Support Lead", "department": "Support", "salary": 58000 }
         ];
-            // Function to handle the dropdown routing choice
-            function handleAdminRouting() {
-                const selectElement = document.getElementById("action-select");
-                if (!selectElement) return;
 
-                // Get the selected file path value (e.g., 'Employee.html', 'payroll.html')
-                const destinationPage = selectElement.value;
+        // --- LOCALSTORAGE INITIALIZATION ---
+        if (!localStorage.getItem('employees')) {
+            localStorage.setItem('employees', JSON.stringify(employeeInformation));
+        }
+        if (!localStorage.getItem('payroll')) {
+            localStorage.setItem('payroll', JSON.stringify(payrollData));
+        }
+        if (!localStorage.getItem('attendance')) {
+            localStorage.setItem('attendance', JSON.stringify(attendanceAndLeave));
+        }
 
-                // Navigate to the chosen page path smoothly
-                window.location.href = destinationPage;
-}
-        // 2. Rendering Logic Function
+        // Navigation Dropdown Routing Function
+        function handleAdminRouting() {
+            const selectElement = document.getElementById("action-select");
+            if (!selectElement) return;
+            const destinationPage = selectElement.value;
+            window.location.href = destinationPage;
+        }
+
+        // Rendering Logic Function
         function populateDashboard() {
-            const tableBody = document.getElementById("employee-table-body");
-            if(!tableBody) return;
-            
-            tableBody.innerHTML = "";
+            const tableBody = document.getElementById('employee-table-body');
+            if (!tableBody) return;
+            tableBody.innerHTML = '';
 
-            const pendingEmployees = employeeInformation.filter(info => {
-                const attendance = attendanceAndLeave.find(a => a.employeeId === info.employeeId) || {};
-                const hasLeave = attendance.leaveRequests && attendance.leaveRequests.length > 0;
-                const leave = hasLeave ? attendance.leaveRequests[attendance.leaveRequests.length - 1] : { status: "N/A" };
-                
-                return leave.status === "Pending";
-            });
+            const currentEmployees = JSON.parse(localStorage.getItem('employees'));
+            const currentPayroll = JSON.parse(localStorage.getItem('payroll'));
+            const currentAttendance = JSON.parse(localStorage.getItem('attendance'));
 
-            pendingEmployees.forEach(info => {
-                const payroll = payrollData.find(p => p.employeeId === info.employeeId) || {};
-                const attendance = attendanceAndLeave.find(a => a.employeeId === info.employeeId) || {};
-                const leave = attendance.leaveRequests[attendance.leaveRequests.length - 1];
+            if (!currentEmployees) return;
+
+            currentEmployees.forEach(info => {
+                const payroll = currentPayroll.find(p => p.employeeId === info.employeeId) || {};
+                const attendance = currentAttendance.find(a => a.employeeId === info.employeeId) || {};
+                const leave = attendance.leaveRequests ? attendance.leaveRequests[attendance.leaveRequests.length - 1] : { reason: 'None', status: 'N/A' };
 
                 const currentSalary = payroll.finalSalary || info.salary;
                 const formattedSalary = "R " + currentSalary.toLocaleString();
