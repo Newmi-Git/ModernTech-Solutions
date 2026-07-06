@@ -1,4 +1,4 @@
-/* --- Styles for About Us Page --- */
+/* --- Core Dashboard Styles --- */
 /* Using Our Team's Custom Palette Variables */
 :root {
   --main-colour: #FFFEEC;
@@ -25,7 +25,7 @@ body {
   padding-top: 80px; /* Prevents navigation bar from overlapping the top content */
 }
 
-/* --- New Top Navbar Styling --- */
+/* --- Top Navbar Styling --- */
 .top-navbar {
   position: fixed;
   top: 0;
@@ -116,7 +116,7 @@ body {
 .about-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 4rem 1.5rem; /* Adjusted top padding since Navbar is fixed */
+  padding: 2rem 1.5rem 4rem 1.5rem; 
 }
 
 /* Hero Section Style */
@@ -217,6 +217,45 @@ h1 {
   text-transform: uppercase;
 }
 
+/* Quick Admin Action Form Styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-form label {
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--main-text-colour);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background-color: white;
+}
+
+.contact-form button {
+  background-color: var(--secondary-colour);
+  color: var(--main-text-colour);
+  padding: 0.75rem;
+  border: 2px solid var(--main-text-colour); 
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px var(--main-text-colour);
+  transition: transform 0.1s ease;
+}
+
+.contact-form button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--main-text-colour);
+}
+
 /* Department Layout Section */
 .departments-section {
   border-top: 2px solid var(--main-text-colour);
@@ -282,70 +321,16 @@ h1 {
   }
 }
 
-/*--- Contact Page Styles ---*/
-.contact-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
-}
-
-.contact-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.contact-container .contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.contact-form label {
-  font-weight: 700;
-}
-
-.contact-form input,
-.contact-form select,
-.contact-form textarea {
-  padding: 0.75rem;
-  border: 2px solid var(--main-text-colour);
-  border-radius: var(--radius);
-  font-size: 1rem;
-  background-color: white;
-}
-
-.contact-form button {
-  background-color: var(--secondary-colour);
-  color: var(--main-text-colour);
-  padding: 0.75rem;
-  border: 2px solid var(--main-text-colour); 
-  border-radius: var(--radius);
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 3px 3px 0px var(--main-text-colour);
-  transition: transform 0.1s ease;
-}
-
-.contact-form button:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px var(--main-text-colour);
-}
-
-/* 1. Inline Animation Class for small elements */
+/* --- Dashboard Animation Utilities --- */
 .leave-badge {
     animation: auto-pulse 2s infinite ease-in-out;
     display: inline-block;
 }
 
-/* 2. Custom Layout Animation Class for structural cards */
 .pulse-card {
     animation: auto-pulse 2s infinite ease-in-out;
 }
 
-
-/* 3. Reusable Heartbeat Keyframes loop */
 @keyframes auto-pulse {
     0% {
         transform: scale(1);
@@ -360,10 +345,8 @@ h1 {
         box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
     }
 }
-/*===================================================FOOTER=====================================================*/
 
-
-
+/* =================================================== FOOTER ===================================================== */
 .site-footer {
   background-color: var(--dark);
   color: var(--main-colour);
