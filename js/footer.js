@@ -1,5 +1,4 @@
-
-createApp({
+Vue.createApp({
   data() {
     return {
       year: new Date().getFullYear()

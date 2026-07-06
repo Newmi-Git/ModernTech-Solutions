@@ -575,6 +575,11 @@ body.performance-body {
 .performance-card {
   background: #fff;
   border-left: 4px solid var(--secondary-colour);
+  transition: all 0.3s ease-in-out;
+}
+
+.performance-card:hover {
+    transform: translateY(-10px);
 }
 
 .card-label {
