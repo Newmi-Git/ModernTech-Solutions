@@ -38,7 +38,7 @@ body {
   margin: 0 auto 4rem auto;
 }
 
-.badge {
+.about-badge {
   background-color: rgba(230, 106, 255, 0.15);
   color: var(--tertiary-colour);
   padding: 0.5rem 1rem;
@@ -57,7 +57,7 @@ h1 {
   margin-bottom: 1.25rem;
 }
 
-.subtitle {
+.about-subtitle {
   font-size: 1.25rem;
   color: rgba(0, 0, 0, 0.7);
 }
@@ -70,7 +70,7 @@ h1 {
   margin-bottom: 5rem;
 }
 
-.grid-card {
+.about-grid-card {
   background-color: white; 
   border: 2px solid var(--main-text-colour);
   border-radius: var(--radius);
