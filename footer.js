@@ -12,7 +12,8 @@ createApp({
         <div class="footer-content-one">
             <p>Socials</p>
             <div class="footer-logos>
-                <span></span>
+                <a>Instagram</a>
+                <a></a>
             </div>
         </div>
         <div class="footer-content-two">

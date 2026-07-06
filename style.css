@@ -6,12 +6,17 @@
     --main-text-colour: black;
     --dark-text-colour: white;
     --dark: #1a1400;
+    --radius: 16px;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  padding-top: 80px
 }
 
 
@@ -301,204 +306,158 @@
     font-size: 15px;
   }
 }
-
-
-
-
-/*====================================REGISTER PAGE===============================================================*/
-
-.register-page {
-    display: flex;
-    width: 700px;
-    height: 500px;
-    background-color: #f8f8e8;
-    border: 2px solid #333;
-    border-top-right-radius: 10%;
-    border-bottom-right-radius: 10%;
-}
-
-.register-body {
-    background-color: #d0d0d0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    background-image: url(./images/successful-partnership.webp);
-}
-
-.register-details {
-    background-color: var(--main-colour);
-    width: 45%;
-    padding: 30px 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-    border-top-right-radius: 20%;
-    border-bottom-right-radius: 20%;
-  
-}
-
-.register-details h1 {
-  font-size: 30px;
-  font-weight: normal;
-  text-align: center;
-  margin-bottom: 40px;
-  color: #222;
-
-}
-
-.register-details label {
-  font-size: 15px;
-  color: #333;
-}
-
-.register-details input {
-  width: 100%;
-  height: 30px;
-  background-color: #d0d0d0;
-  border: none;
-  outline: none;
-  padding: 0 6px;
-  font-size: 12px;
-  border-radius: 0%;
-}
-
-.register-details button {
-  align-self: flex-end;
-  margin-top: 8px;
-  padding: 5px 16px;
-  background-color: var(--secondary-colour);
-  border: none;
-  font-size: 12px;
-  cursor: pointer;
-  border-radius: 10%;
-  border: #222  2px solid;
-}
-
-.register-details button:hover {
-  background-color: #a8a8a8;
-}
-
-.register-image {
-  width: 55%;
-  background-color: #1a1400;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  position: relative;
-}
-
-.register-image::before {
-  content: '';
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 186, 39, 0.15) 0%, transparent 70%);
-  animation: pulse 3s ease-in-out infinite;
-}
-
-.register-image::after {
-  content: '';
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border: 1px solid rgba(255, 186, 39, 0.2);
-  border-radius: 50%;
-  animation: ringExpand 3s ease-out infinite;
-}
-
-/* Tablet */
-@media (max-width: 768px) {
-  .register-page {
-    width: 90%;
-    height: auto;
-  }
-
-  .register-image {
-    width: 45%;
-    min-height: 280px;
-  }
-
-  .register-details {
-    width: 55%;
-    padding: 24px 20px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-  .register-image {
-    display: none;
-  }
-
-  .register-page {
-    width: 85%;
-    height: auto;
-  }
-
-  .register-details {
-    width: 100%;
-    padding: 32px 24px;
-  }
-
-  .register-details h1 {
-    font-size: 15px;
-  }
-}
 /*============================NAVBAR=====================================================*/
 
 
-.nav-section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
+:root {
+  --main-colour: #FFFEEC;
+  --secondary-colour: #FFBA27;
+  --tertiary-colour: #E66AFF;
+  --main-text-colour: black;
+  --radius: 16px;
+}
+
+/* Add this to your body block to prevent the navbar from covering content */
+body {
+  padding-top: 80px;
+}
+
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: white;
+  border-bottom: 3px solid var(--main-text-colour);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 1000;
+  box-shadow: 0 4px 0px rgba(0, 0, 0, 0.05);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.nav-section nav ul {
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--main-text-colour);
+}
+
+.nav-logo span {
+  color: var(--tertiary-colour);
+}
+
+.nav-links {
   display: flex;
-  gap: 1.5rem;
-  list-style: none;
+  gap: 1rem;
 }
 
-.nav-section nav a {
+.nav-item {
   text-decoration: none;
   color: var(--main-text-colour);
   font-weight: 700;
+  font-size: 0.95rem;
   padding: 0.5rem 1rem;
-  border-radius: 9999px;
+  border: 2px solid transparent;
+  border-radius: calc(var(--radius) / 2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
 }
 
-.nav-section nav a:hover,
-.nav-section nav .active {
+/* Brutalist Hover and Active Interaction States */
+.nav-item:hover {
+  background-color: var(--main-colour);
+  border-color: var(--main-text-colour);
+  box-shadow: 2px 2px 0px var(--main-text-colour);
+}
+
+.nav-item.active {
   background-color: var(--secondary-colour);
+  border-color: var(--main-text-colour);
+  box-shadow: 2px 2px 0px var(--main-text-colour);
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 900px) {
+  .top-navbar {
+    height: auto;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    position: relative;
+  }
+  body {
+    padding-top: 0;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
 }
 
 .logout {
-  background-color: var(--tertiary-colour);
-  color: white;
+  background-color: #FFBA27;
+  color: black;
+  border: 2px solid black;
+  border-radius: 16px;
   padding: 0.7rem 1.5rem;
-  border-radius: var(--radius);
-  border: 2px solid var(--main-text-colour);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 black;
+  transition: all 0.2s ease;
+}
+
+.logout:hover {
+  background-color: #E66AFF;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.logout:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0 black;
+}
+
+.profile-corner {
+  position: relative;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--secondary-colour);
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
   cursor: pointer;
 }
 
-.logout:hover {
-  background-color: var(--secondary-colour);
-  color: black;
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: white;
+  border: 2px solid black;
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0 black;
+  padding: 12px;
+  min-width: 140px;
+  z-index: 1001;
 }
 
-.requests-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
+.profile-corner:hover .profile-dropdown {
+  display: block;
 }
 
 /*=======================================Performance=============================================*/

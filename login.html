@@ -1,53 +1,83 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body class="register-body">
-        <div class="register-page">
-            <div class="login-image">
-                <div class="brand-animation">
-                    <div class="orbit-ring ring-1"></div>
-                    <div class="orbit-ring ring-2"></div>
-                    <div class="orbit-ring ring-3"></div>
-                    <div class="brand-core">
-                    <div class="brand-icon">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </div>
-                    </div>
-                    <div class="brand-text">
-                    <p class="brand-name">ModernTech</p>
-                    <p class="brand-sub">Solutions</p>
-                    </div>
-                    <div class="particle p1"></div>
-                    <div class="particle p2"></div>
-                    <div class="particle p3"></div>
-                    <div class="particle p4"></div>
-                </div>
-            </div>
-            <div class="login-details">
-                <h1>ModernTech Solutions</h1>
-                <label>Email:</label>
-                <input type="email">
-                <label>Password:</label>
-                <input type="password">
-                <p>Dont have one? </p>
-                <button class="login-button" type="button">Log In</button>
-            </div>
-
-            <div id="navbar-ui"></div>
+<head>
+  <meta charset="utf-8">
+  <title>Login — ModernTech Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-page">
+    <div class="login-image">
+      <div class="brand-animation">
+        <div class="orbit-ring ring-1"></div>
+        <div class="orbit-ring ring-2"></div>
+        <div class="orbit-ring ring-3"></div>
+        <div class="brand-core">
+          <div class="brand-icon">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </div>
         </div>
-        <script src="" async defer></script>
-    </body>
+        <div class="brand-text">
+          <p class="brand-name">ModernTech</p>
+          <p class="brand-sub">Solutions</p>
+        </div>
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+      </div>
+    </div>
+
+    <div class="login-details" id="login-app">
+      <h1>ModernTech Solutions</h1>
+
+      <div style="display:flex; gap:8px; margin-bottom:16px;">
+        <button type="button" @click="mode = 'hr'" :style="{fontWeight: mode==='hr' ? 'bold' : 'normal'}">HR Login</button>
+        <button type="button" @click="mode = 'employee'" :style="{fontWeight: mode==='employee' ? 'bold' : 'normal'}">Employee Login</button>
+      </div>
+
+      <!-- HR form -->
+      <template v-if="mode === 'hr'">
+        <label>HR Access Code:</label>
+        <input type="password" v-model="hrCode">
+        <button class="login-button" type="button" @click="handleHRLogin">Log In</button>
+      </template>
+
+      <!-- Employee form -->
+      <template v-else>
+        <label>Employee ID:</label>
+        <input type="text" v-model="employeeId">
+        <label>Surname:</label>
+        <input type="text" v-model="surname">
+        <button class="login-button" type="button" @click="handleEmployeeLogin">Log In</button>
+      </template>
+
+      <p v-if="error" style="color:#c0392b; font-size:12px;">{{ error }}</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return { mode: 'hr', hrCode: '', employeeId: '', surname: '', error: '' };
+      },
+      methods: {
+        handleHRLogin() {
+          const result = loginHR(this.hrCode);
+          result.success ? window.location.href = 'index.html' : this.error = result.message;
+        },
+        handleEmployeeLogin() {
+          const result = loginEmployee(this.employeeId, this.surname);
+          result.success ? window.location.href = 'requests.html' : this.error = result.message;
+        }
+      }
+    }).mount('#login-app');
+  </script>
+</body>
 </html>
