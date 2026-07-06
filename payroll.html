@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Payroll | ModernTech Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./CSS/style.css" />
+  </head>
+
+  <body class="payroll-page">
+
+    <main class="requests-container">
+
+    <nav class="top-navbar">
+    <div class="nav-logo">
+        MT<span>Solutions</span>
+    </div>
+    <div class="nav-links">
+        <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="performance.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Performance</a>
+        <a href="employee.html" class="nav-item"><i class="fa-solid fa-users"></i>Employees</a>
+        <a href="requests.html" class="nav-item"><i class="fa-solid fa-user-plus"></i> Request</a>
+        <a href="payroll.html" class="nav-item active"><i class="fa-solid fa-money-bill-wave"></i>Payroll</a>
+        <a href="about.html" class="nav-item"><i class="fa-solid fa-address-card"></i> About</a>
+        <a href="contact.html" class="nav-item"><i class="fa-solid fa-envelope"></i> Contact</a>
+    </div>
+    <button class="logout"> Logout </button>
+    </nav>
+
+     <!-- Hero Section -->
+
+      <section class="hero-section">
+
+        <span class="badge">Employee Payroll Management</span>
+
+        <h1>Payroll</h1>
+
+        <p class="subtitle">
+          Review employee payroll information including working hours,
+          leave deductions, hourly rates and final salary payments across
+          <strong class="brand-highlight">ModernTech Solutions</strong>.
+        </p>
+
+      </section>
+
+      <!-- Payroll Overview -->
+
+      <section class="payroll-overview-section">
+
+        <div class="overview-container">
+
+          <h2>Payroll Overview</h2>
+
+          <p>
+            Monitor employee salaries, working hours and payroll information
+            throughout the organisation.
+          </p>
+
+          <div class="payroll-summary">
+
+            <div class="summary-card">
+              <h3>Total Employees</h3>
+              <p>250+</p>
+            </div>
+
+            <div class="summary-card">
+              <h3>Average Salary</h3>
+              <p>R64 090</p>
+            </div>
+
+            <div class="summary-card">
+              <h3>Total Payroll</h3>
+              <p>R632 700</p>
+            </div>
+
+            <div class="summary-card">
+              <h3>Average Hours</h3>
+              <p>162 HRS</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Payroll Records -->
+
+      <section class="payroll-table-section">
+
+        <div class="payroll-table-container">
+
+          <h2>Payroll Records</h2>
+
+          <p>
+            View payroll information for all employees.
+            Select <strong>View</strong> to display complete payroll details.
+          </p>
+
+          <table class="payroll-table">
+
+            <thead>
+
+              <tr>
+
+                <th>Employee ID</th>
+
+                <th>Hours Worked</th>
+
+                <th>Final Salary</th>
+
+                <th>Action</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody id="payroll-data">
+
+              <!-- Payroll data from JSON -->
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Payroll Details Card -->
+
+    <div
+      id="payroll-card"
+      class="details-card"
+      style="display: none;">
+
+      <span
+        class="close-btn"
+        onclick="closePayrollCard()">
+
+        &times;
+
+      </span>
+
+      <h2>Payroll Details</h2>
+
+      <p>
+
+        <strong>Employee ID:</strong>
+
+        <span id="card-id"></span>
+
+      </p>
+
+      <p>
+
+        <strong>Hours Worked:</strong>
+
+        <span id="card-hours"></span>
+
+      </p>
+
+      <p>
+
+        <strong>Leave Deductions:</strong>
+
+        <span id="card-leave"></span>
+
+      </p>
+
+      <p>
+
+        <strong>Hourly Rate:</strong>
+
+        <span id="card-rate"></span>
+
+      </p>
+
+      <p>
+
+        <strong>Final Salary:</strong>
+
+        <span id="card-salary"></span>
+
+      </p>
+
+      <label for="payroll-comment">
+
+        Comments
+
+      </label>
+
+      <textarea
+        id="payroll-comment"
+        rows="5"
+        placeholder="Add payroll comments here..."></textarea>
+
+      <button
+        class="save-btn"
+        onclick="savePayrollComment()">
+
+        Save Comment
+
+      </button>
+
+    </div>
+
+    <script src="./JS/payroll.js"></script>
+
+  </body>
+
+</html>
