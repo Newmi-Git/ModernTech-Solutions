@@ -17,6 +17,11 @@
 
 body {
   padding-top: 80px
+
+}
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 
@@ -383,24 +388,6 @@ body {
 }
 
 /* Mobile Responsive Adjustments */
-@media (max-width: 900px) {
-  .top-navbar {
-    height: auto;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
-    position: relative;
-  }
-  body {
-    padding-top: 0;
-  }
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-}
-
 .logout {
   background-color: #FFBA27;
   color: black;
@@ -458,6 +445,95 @@ body {
 
 .profile-corner:hover .profile-dropdown {
   display: block;
+}
+
+/*===================================================FOOTER=====================================================*/
+
+
+.site-footer {
+  background-color: var(--dark);
+  color: var(--main-colour);
+  margin-top: 3rem;
+  border-top: 3px solid black;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.footer-top {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--main-colour);
+}
+
+.footer-logo span {
+  color: var(--tertiary-colour);
+}
+
+.footer-tagline {
+  font-size: 0.85rem;
+  color: rgba(255, 254, 236, 0.6);
+  margin-top: 0.5rem;
+  max-width: 220px;
+}
+
+.footer-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--secondary-colour);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.footer-links, .footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links a {
+  color: var(--main-colour);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--tertiary-colour);
+}
+
+.footer-contact p {
+  font-size: 0.85rem;
+  color: rgba(255, 254, 236, 0.7);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 254, 236, 0.15);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.75rem;
+  color: rgba(255, 254, 236, 0.5);
+}
+
+@media (max-width: 600px) {
+  .footer-top {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links, .footer-contact {
+    align-items: center;
+  }
 }
 
 /*=======================================Performance=============================================*/
@@ -554,7 +630,7 @@ body.performance-body {
   border: 1px solid #ccc;
   font-size: 12px;
   outline: none;
-  width: 220px;
+  width: 220px; 
 }
 
 .emp-search:focus { border-color: var(--secondary-colour); }
@@ -615,13 +691,219 @@ body.performance-body {
 .status-badge.meets   { background: #d4edda; color: #1e7e34; }
 .status-badge.improve { background: #f8d7da; color: #721c24; }
 
-/* ── Tablet ── */
-@media (max-width: 900px) {
-  .performance-stats { margin-bottom: 0; }
+.nav-bar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-/* ── Mobile ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: var(--main-text-colour);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: translateY(8.5px) rotate(45deg);
+}
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.active span:nth-child(3) {
+  transform: translateY(-8.5px) rotate(-45deg);
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET & MOBILE
+   All breakpoints for the whole site live here only.
+   ============================================================ */
+
+/* Safety net: never allow horizontal scroll on the page */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* ── TABLET (max-width: 900px) ── */
+@media (max-width: 900px) {
+
+  /* Login / Register pages */
+  .login-page,
+  .register-page {
+    width: 90%;
+    height: auto;
+  }
+
+  .login-image,
+  .register-image {
+    width: 45%;
+    min-height: 280px;
+  }
+
+  .login-details,
+  .register-details {
+    width: 55%;
+    padding: 24px 20px;
+  }
+
+  /* Navbar */
+  body {
+    padding-top: 0;
+  }
+
+  .top-navbar {
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem 1.5rem;
+    position: relative;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    max-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    transition: max-height 0.3s ease;
+  }
+
+  .nav-links.open {
+    max-height: 600px;
+    padding-top: 1rem;
+  }
+
+  .nav-item {
+    padding: 0.85rem 1rem;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .profile-corner {
+    margin-top: 0.75rem;
+    align-self: center;
+  }
+
+  .profile-dropdown {
+    position: static;
+    display: block;
+    box-shadow: none;
+    border: none;
+    text-align: center;
+    padding-top: 0.5rem;
+  }
+
+  /* Performance page */
+  .container-lg {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .card-value {
+    font-size: 22px;
+  }
+
+  .performance-stats {
+    margin-bottom: 0;
+  }
+
+  .emp-search {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .performance-employees .d-flex {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+}
+
+/* ── MOBILE (max-width: 480px) ── */
 @media (max-width: 480px) {
-  .emp-search { width: 100%; margin-top: 8px; }
-  .performance-employees .d-flex { flex-direction: column; align-items: flex-start !important; }
+
+  /* Login / Register pages */
+  .login-image,
+  .register-image {
+    display: none;
+  }
+
+  .login-page,
+  .register-page {
+    width: 85%;
+    height: auto;
+  }
+
+  .login-details,
+  .register-details {
+    width: 100%;
+    padding: 32px 24px;
+  }
+
+  .login-details h1,
+  .register-details h1 {
+    font-size: 15px;
+  }
+
+  /* Navbar */
+  .top-navbar {
+    padding: 0.85rem 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-item {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  /* Footer */
+  .footer-top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links,
+  .footer-contact {
+    align-items: center;
+  }
+
+  /* Performance page */
+  .performance-card {
+    padding: 0.75rem !important;
+  }
+
+  .card-value {
+    font-size: 18px;
+  }
+
+  .table-responsive {
+    font-size: 11px;
+  }
+
+  .modal-dialog {
+    margin: 0.75rem;
+  }
 }
