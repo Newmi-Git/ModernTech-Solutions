@@ -165,17 +165,12 @@
 }
 
 .index-bento-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.index-dashboard-bento-layout {
   grid-template-columns: 1.1fr 0.85fr;
-  margin-bottom: 0;
+  gap: 1.25rem;
+  margin: 0 auto 3rem;
   align-items: start;
-  justify-items: center;
+  justify-items: stretch;
   width: min(100%, 1120px);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .dashboard-column {
@@ -475,7 +470,7 @@
   .index-departments-list {
     grid-template-columns: 1fr;
   }
-  h1 {
+  .index-h1 {
     font-size: 2.25rem;
   }
 }
