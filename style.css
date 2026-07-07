@@ -278,7 +278,8 @@
   color: var(--tertiary-colour);
 }
 
-.index-app-card {
+.index-app-card,
+.app-card {
   background: white;
   border: 2px solid var(--main-text-colour);
   border-radius: var(--radius);
@@ -316,7 +317,8 @@
 }
 
 /* Metric Card Layouts */
-.index-metric-card {
+.index-metric-card,
+.metric-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -324,29 +326,34 @@
   text-align: center;
 }
 
-.index-metric-card.highlight {
+.index-metric-card.highlight,
+.metric-card.highlight {
   background-color: var(--tertiary-colour);
   color: var(--dark-text-colour);
 }
 
-.index-metric-card.secondary-highlight {
+.index-metric-card.secondary-highlight,
+.metric-card.secondary-highlight {
   background-color: var(--secondary-colour);
   color: var(--main-text-colour);
 }
 
-.index-metric-card.plain {
+.index-metric-card.plain,
+.metric-card.plain {
   background-color: white;
   color: var(--main-text-colour);
 }
 
-.index-metric-number {
+.index-metric-number,
+.metric-number {
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1;
   margin-bottom: 0.5rem;
 }
 
-.index-metric-label {
+.index-metric-label,
+.metric-label {
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -393,7 +400,8 @@
 }
 
 /* Department Layout Section */
-.departments-section {
+.index-department,
+.index-departments-section {
   border-top: 2px solid var(--main-text-colour);
   padding-top: 4rem;
 }
@@ -435,7 +443,7 @@
     gap: 1rem;
     position: relative;
   }
-  body {
+  .index-body {
     padding-top: 0;
   }
   .nav-links {
@@ -464,7 +472,7 @@
   .index-hero-section {
     padding: 1.5rem 1rem;
   }
-  .departments-list {
+  .index-departments-list {
     grid-template-columns: 1fr;
   }
   h1 {
