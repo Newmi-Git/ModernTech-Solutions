@@ -118,6 +118,39 @@
 
           </table>
 
+          <!-- ================= 1. Confirmation Popup ================= -->
+          <div id="confirm-popup" class="success-popup" style="display: none;">
+           <div class="success-content">
+             <i id="confirm-icon" class="fa-solid fa-circle-question"></i>
+             <h3 id="confirm-title">Confirm Action</h3>
+             <p id="confirm-message">Are you sure you want to continue?</p>
+             <div class="popup-buttons">
+               <button class="cancel-btn" onclick="closeConfirmPopup()">Cancel</button>
+               <button id="confirm-action" class="approve" onclick="confirmAction()">Confirm</button>
+             </div>
+            </div>
+          </div>
+
+         <!-- ================= 2. Success Popup ================= -->
+        <div id="popup" class="success-popup" style="display: none;">
+           <div class="success-content">
+             <i id="popup-icon" class="fa-solid fa-circle-check"></i>
+             <h3 id="popup-title">Action Successful</h3>
+             <p id="popup-message"></p>
+             <button class="save-btn" onclick="closePopup()">OK</button>
+           </div>
+       </div>
+
+         <!-- ================= 3. View Details Popup ================= -->
+         <div id="view-popup" class="success-popup" style="display: none;">
+           <div class="success-content">
+             <i id="view-icon" class="fa-solid fa-circle-info" style="color: #3b82f6;"></i>
+             <h3 id="view-title">Leave Request Details</h3>
+             <div id="view-message" style="text-align: left; margin: 15px 0; white-space: pre-line; line-height: 1.6;"></div>
+             <button class="save-btn" onclick="closeViewPopup()">Close</button>
+           </div>
+          </div>
+
         </div>
 
       </section>
