@@ -734,16 +734,8 @@ body.performance-body {
   transform: translateY(-8.5px) rotate(-45deg);
 }
 
-/* ============================================================
-   RESPONSIVE — TABLET & MOBILE
-   All breakpoints for the whole site live here only.
-   ============================================================ */
+/* =============================================RESPONSIVE — TABLET & MOBILE============================================================ */
 
-/* Safety net: never allow horizontal scroll on the page */
-html, body {
-  overflow-x: hidden;
-  max-width: 100%;
-}
 
 /* ── TABLET (max-width: 900px) ── */
 @media (max-width: 900px) {

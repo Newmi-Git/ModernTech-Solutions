@@ -6,7 +6,7 @@ A front-end HR web application built as a proof of concept for **ModernTech Solu
 
 ## Live Site
 
-[View the live site](#) <!-- replace with your GitHub Pages URL -->
+[View the live site](#)
 
 ## Features
 
