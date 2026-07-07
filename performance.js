@@ -1,5 +1,4 @@
 // ── Helpers ──────────────────────────────────────────────
-
 function getInitials(name) {
   return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 }
@@ -22,6 +21,25 @@ function getStatus(score) {
 
 function formatCurrency(amount) {
   return `R ${amount.toLocaleString('en-ZA')}`;
+}
+
+
+function loadData(storageKey, jsonFile, jsonProperty) {
+  const savedData = localStorage.getItem(storageKey);
+
+  if (savedData) {
+    return Promise.resolve(JSON.parse(savedData))
+  }
+
+  return fetch(jsonFile).then(
+    response => response.json()
+  ).then(
+    data => {
+      localStorage.setItem(storageKey, JSON.stringify(data[jsonProperty]));
+      return data[jsonProperty];
+    }
+  )
+  
 }
 
 // ── Score calculation ─────────────────────────────────────
@@ -254,24 +272,41 @@ function initExport(data) {
 // ── Init ──────────────────────────────────────────────────
 
 Promise.all([
-  fetch('DummyData/employee_info.json').then(r => r.json()),
-  fetch('DummyData/payroll_data.json').then(r => r.json()),
-  fetch('DummyData/attendance.json').then(r => r.json())
+    loadData(
+        "employees",
+        "DummyData/employee_info.json",
+        "employeeInformation"
+    ),
+
+    loadData(
+        "payroll",
+        "DummyData/payroll_data.json",
+        "payrollData"
+    ),
+
+    loadData(
+        "attendance",
+        "DummyData/attendance.json",
+        "attendanceAndLeave"
+    )
+
 ])
-.then(([empData, payData, attData]) => {
-  const employees  = empData.employeeInformation;
-  const payrolls   = payData.payrollData;
-  const attendances = attData.attendanceAndLeave;
+.then(([employees, payrolls, attendances]) => {
 
-  const merged = mergeData(employees, payrolls, attendances);
+    const merged = mergeData(
+        employees,
+        payrolls,
+        attendances
+    );
 
-  renderStats(merged);
-  renderScoreDistribution(merged);
-  renderDeptAverages(merged);
-  renderTable(merged);
-  initSearch(merged);
-  initExport(merged);
-  initModal(merged);
+    renderStats(merged);
+    renderScoreDistribution(merged);
+    renderDeptAverages(merged);
+    renderTable(merged);
+    initSearch(merged);
+    initExport(merged);
+    initModal(merged);
+
 })
 .catch(err => {
   console.error('Failed to load data:', err);
