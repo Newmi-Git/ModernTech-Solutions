@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernTech Solutions - HR Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="index-body">
+
+    <div id="app-navbar"></div>
+
+    <nav class="top-navbar">
+        <div class="nav-logo">
+            MT<span>Solutions</span>
+        </div>
+        <div class="nav-links">
+            <a href="Index.html" class="nav-item active"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="Performance.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Performance</a>
+            <a href="Employee.html" class="nav-item"><i class="fa-solid fa-users"></i> Employees</a>
+            <a href="requests.html" class="nav-item"><i class="fa-solid fa-user-plus"></i> Request</a>
+            <a href="payroll.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Payroll</a>
+            <a href="About.html" class="nav-item"><i class="fa-solid fa-address-card"></i> About</a>
+            <a href="Contact.html" class="nav-item"><i class="fa-solid fa-envelope"></i> Contact</a>
+        </div>
+        <button class="logout"> Logout </button>
+    </nav>
+
+  
+        
+        <header class="index-hero-section">
+            <span class="index-badge">HR Management System</span>
+            <h1 class="index-h1">Welcome back, HR Team!</h1>
+            <p class="index-subtitle">Centralized data dashboard for <strong class="brand-highlight">ModernTech Solutions</strong>.</p>
+        </header>
+
+ <section class="index-bento-grid">
+            
+            <div class="dashboard-column">
+                
+                <div class="index-grid-card story-card">
+                    <h2>System <span class="index-brand-highlight">Overview</span></h2>
+                    <p>Welcome to the modernized front-end proof of concept. This application replaces fragmented spreadsheets with an interactive interface. Use the links above to track corporate records, run mock payroll calculations, and organize core workforce data. All live data operations persist strictly on the client-side.</p>
+                </div>
+
+                <div class="metrics-subgrid">
+                    <div class="index-grid-card index-metric-card secondary-highlight pulse-card" onclick="window.location.href='requests.html'">
+                         <span class="index-metric-number">05</span>
+                         <span class="index-metric-label">Pending Leave</span>
+                    </div>
+
+                    <div class="index-grid-card index-metric-card plain">
+                        <span class="index-metric-number"><i class="fa-solid fa-square-check"></i></span>
+                        <span class="index-metric-label">Payroll Ready</span>
+                    </div>
+                </div>
+
+                <div class="index-grid-card index-story-card">
+                    <h2>Quick Admin <span class="index-brand-highlight">Actions</span></h2>
+                    <form class="index-contact-form" onsubmit="event.preventDefault();">
+                        <div>
+                            <label for="action-select">Select Operation Task</label>
+                            <select id="action-select">
+                                <option value="Employee.html">Add New Employee Record</option>
+                                <option value="payroll.html">Run Automated Monthly Payroll</option>
+                                <option value="requests.html">Approve Outstanding Time-Off</option>
+                            </select>
+                        </div>
+                        <button type="submit" onclick="handleAdminRouting()">Launch Operations Interface</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="dashboard-column">
+                <div class="index-grid-card metric-card highlight pulse-card" onclick="window.location.href='employee.html'">
+                    <span class="metric-number">250+</span>
+                    <span class="metric-label">TOTAL EMPLOYEES</span>
+                </div>
+
+                <div class="app-card table-card">
+                    <h3><i class="fa-solid fa-clock"></i> Actionable Pending Approvals</h3>
+                    <p class="table-card-subtitle">
+                        Operational records showing only outstanding personnel adjustments awaiting review.
+                    </p>
+
+                    <div class="table-responsive-wrapper">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee Name</th>
+                                    <th>Position / Dept</th>
+                                    <th>Hours</th>
+                                    <th>Net Salary</th>
+                                    <th>Leave Request</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employee-table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>     
+
+        <div id="app-footer">
+            <footer style="margin-top: 5rem; padding: 25px; text-align: center; border-top: 3px solid var(--main-text-colour); background-color: white; border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0px -4px 0px var(--main-text-colour);">
+                <p style="font-weight: 800; margin-bottom: 5px; color: var(--main-text-colour); letter-spacing: -0.01em;">&copy; 2026 ModernTech Solutions. All Rights Reserved.</p>
+                <p style="font-size: 0.88rem; color: #555555; font-weight: 700;">HR Management System Portal &bull; System POC Dashboard</p>
+            </footer>
+        </div>
+
+    </div> 
+    
+    <script src="js/auth.js"></script>
+    <script>requireRole(['hr']);</script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/footer.js"></script>
+
+    <script>
+        const payrollData = [
+            { "employeeId": 1, "hoursWorked": 160, "leaveDeductions": 8, "finalSalary": 69500 },
+            { "employeeId": 2, "hoursWorked": 150, "leaveDeductions": 10, "finalSalary": 79000 },
+            { "employeeId": 3, "hoursWorked": 170, "leaveDeductions": 4, "finalSalary": 54800 },
+            { "employeeId": 4, "hoursWorked": 165, "leaveDeductions": 6, "finalSalary": 59700 },
+            { "employeeId": 5, "hoursWorked": 158, "leaveDeductions": 5, "finalSalary": 57850 },
+            { "employeeId": 6, "hoursWorked": 168, "leaveDeductions": 2, "finalSalary": 64800 },
+            { "employeeId": 7, "hoursWorked": 175, "leaveDeductions": 3, "finalSalary": 71800 },
+            { "employeeId": 8, "hoursWorked": 160, "leaveDeductions": 0, "finalSalary": 56000 },
+            { "employeeId": 9, "hoursWorked": 155, "leaveDeductions": 5, "finalSalary": 61500 },
+            { "employeeId": 10, "hoursWorked": 162, "leaveDeductions": 4, "finalSalary": 57750 }
+        ];
+
+        const attendanceAndLeave = [
+            { "employeeId": 1, "name": "Sibongile Nkosi", "leaveRequests": [{ "date": "2024-12-01", "reason": "Personal", "status": "Pending" }] },
+            { "employeeId": 2, "name": "Lungile Moyo", "leaveRequests": [{ "date": "2024-12-02", "reason": "Vacation", "status": "Approved" }] },
+            { "employeeId": 3, "name": "Thabo Molefe", "leaveRequests": [{ "date": "2024-12-05", "reason": "Personal", "status": "Pending" }] },
+            { "employeeId": 4, "name": "Keshav Naidoo", "leaveRequests": [{ "date": "2025-07-20", "reason": "Bereavement", "status": "Approved" }] },
+            { "employeeId": 5, "name": "Zanele Khumalo", "leaveRequests": [{ "date": "2024-12-01", "reason": "Childcare", "status": "Pending" }] },
+            { "employeeId": 6, "name": "Sipho Zulu", "leaveRequests": [{ "date": "2025-07-18", "reason": "Sick Leave", "status": "Approved" }] },
+            { "employeeId": 7, "name": "Naledi Moeketsi", "leaveRequests": [{ "date": "2025-07-22", "reason": "Vacation", "status": "Pending" }] },
+            { "employeeId": 8, "name": "Farai Gumbo", "leaveRequests": [{ "date": "2024-12-02", "reason": "Medical Appointment", "status": "Approved" }] },
+            { "employeeId": 9, "name": "Karabo Dlamini", "leaveRequests": [{ "date": "2025-07-19", "reason": "Childcare", "status": "Denied" }] },
+            { "employeeId": 10, "name": "Fatima Patel", "leaveRequests": [{ "date": "2024-12-03", "reason": "Vacation", "status": "Pending" }] }
+        ];
+
+        const employeeInformation = [
+            { "employeeId": 1, "name": "Sibongile Nkosi", "position": "Software Engineer", "department": "Development", "salary": 70000 },
+            { "employeeId": 2, "name": "Lungile Moyo", "position": "HR Manager", "department": "HR", "salary": 80000 },
+            { "employeeId": 3, "name": "Thabo Molefe", "position": "Quality Analyst", "department": "QA", "salary": 55000 },
+            { "employeeId": 4, "name": "Keshav Naidoo", "position": "Sales Representative", "department": "Sales", "salary": 60000 },
+            { "employeeId": 5, "name": "Zanele Khumalo", "position": "Marketing Specialist", "department": "Marketing", "salary": 58000 },
+            { "employeeId": 6, "name": "Sipho Zulu", "position": "UI/UX Designer", "department": "Design", "salary": 65000 },
+            { "employeeId": 7, "name": "Naledi Moeketsi", "position": "DevOps Engineer", "department": "IT", "salary": 72000 },
+            { "employeeId": 8, "name": "Farai Gumbo", "position": "Content Strategist", "department": "Marketing", "salary": 56000 },
+            { "employeeId": 9, "name": "Karabo Dlamini", "position": "Accountant", "department": "Finance", "salary": 62000 },
+            { "employeeId": 10, "name": "Fatima Patel", "position": "Customer Support Lead", "department": "Support", "salary": 58000 }
+        ];
+
+        // --- LOCALSTORAGE INITIALIZATION ---
+        if (!localStorage.getItem('employees')) {
+            localStorage.setItem('employees', JSON.stringify(employeeInformation));
+        }
+        if (!localStorage.getItem('payroll')) {
+            localStorage.setItem('payroll', JSON.stringify(payrollData));
+        }
+        if (!localStorage.getItem('attendance')) {
+            localStorage.setItem('attendance', JSON.stringify(attendanceAndLeave));
+        }
+
+        // Navigation Dropdown Routing Function
+        function handleAdminRouting() {
+            const selectElement = document.getElementById("action-select");
+            if (!selectElement) return;
+            const destinationPage = selectElement.value;
+            window.location.href = destinationPage;
+        }
+
+        // Rendering Logic Function
+        function populateDashboard() {
+            const tableBody = document.getElementById('employee-table-body');
+            if (!tableBody) return;
+            tableBody.innerHTML = '';
+
+            const currentEmployees = JSON.parse(localStorage.getItem('employees'));
+            const currentPayroll = JSON.parse(localStorage.getItem('payroll'));
+            const currentAttendance = JSON.parse(localStorage.getItem('attendance'));
+
+            if (!currentEmployees) return;
+
+            currentEmployees.forEach(info => {
+                const payroll = currentPayroll.find(p => p.employeeId === info.employeeId) || {};
+                const attendance = currentAttendance.find(a => a.employeeId === info.employeeId) || {};
+                const leave = attendance.leaveRequests ? attendance.leaveRequests[attendance.leaveRequests.length - 1] : { reason: 'None', status: 'N/A' };
+
+                const currentSalary = payroll.finalSalary || info.salary;
+                const formattedSalary = "R " + currentSalary.toLocaleString();
+
+                const row = `
+                    <tr style="border-bottom: 1px solid #e0e0e0; font-size: 0.95rem; color: #222222;">
+                        <td style="padding: 16px 8px;"><strong>${info.name}</strong></td>
+                        <td style="padding: 16px 8px;">
+                            <span style="font-weight: 600; display: block; font-size: 0.88rem;">${info.position}</span>
+                            <small style="color: #666666; font-size: 0.78rem;">${info.department}</small>
+                        </td>
+                        <td style="padding: 16px 8px; color: #444444;">${payroll.hoursWorked || 0} hrs</td>
+                        <td style="padding: 16px 8px;"><strong>${formattedSalary}</strong></td>
+                        <td style="padding: 16px 8px;">
+                            <span onclick="window.location.href='requests.html'" 
+                                  class="leave-badge" 
+                                  style="display: inline-block; background: #fef3c7; color: #d97706; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 6px; border: 1px solid #f59e0b; cursor: pointer;">
+                                ${leave.reason} (${leave.status})
+                            </span>
+                        </td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', populateDashboard);
+    </script>
+</body>
+</html>
