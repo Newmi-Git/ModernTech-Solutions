@@ -116,7 +116,7 @@ html, body {
 
 .ring-2 {
   width: 120px;
-  height: 120px;
+  height: 120px;  
   animation: spin 10s linear infinite reverse;
   border-right-color: #E66AFF;
 }
