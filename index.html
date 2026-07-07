@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="index-body">
 
     <div id="app-navbar"></div>
 
@@ -27,40 +27,38 @@
         <button class="logout"> Logout </button>
     </nav>
 
-    <div class="about-container">
+  
         
-        <header class="hero-section">
-            <span class="badge">HR Management System</span>
-            <h1>Welcome back, HR Team!</h1>
-            <p class="subtitle">Centralized data dashboard for <strong class="brand-highlight">ModernTech Solutions</strong>.</p>
+        <header class="index-hero-section">
+            <span class="index-badge">HR Management System</span>
+            <h1 class="index-h1">Welcome back, HR Team!</h1>
+            <p class="index-subtitle">Centralized data dashboard for <strong class="brand-highlight">ModernTech Solutions</strong>.</p>
         </header>
 
-        <section class="bento-grid" style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; align-items: start;">
+ <section class="index-bento-grid">
             
-            <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="dashboard-column">
                 
-                <div class="grid-card story-card" style="margin: 0;">
-                    <h2>System <span class="brand-highlight">Overview</span></h2>
+                <div class="index-grid-card story-card">
+                    <h2>System <span class="index-brand-highlight">Overview</span></h2>
                     <p>Welcome to the modernized front-end proof of concept. This application replaces fragmented spreadsheets with an interactive interface. Use the links above to track corporate records, run mock payroll calculations, and organize core workforce data. All live data operations persist strictly on the client-side.</p>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="grid-card metric-card secondary-highlight pulse-card" 
-                         onclick="window.location.href='requests.html'" 
-                         style="margin: 0; min-height: fit-content; cursor: pointer;">
-                         <span class="metric-number">05</span>
-                         <span class="metric-label">Pending Leave</span>
+                <div class="metrics-subgrid">
+                    <div class="index-grid-card index-metric-card secondary-highlight pulse-card" onclick="window.location.href='requests.html'">
+                         <span class="index-metric-number">05</span>
+                         <span class="index-metric-label">Pending Leave</span>
                     </div>
 
-                    <div class="grid-card metric-card plain" style="margin: 0; min-height: fit-content;">
-                        <span class="metric-number"><i class="fa-solid fa-square-check"></i></span>
-                        <span class="metric-label">Payroll Ready</span>
+                    <div class="index-grid-card index-metric-card plain">
+                        <span class="index-metric-number"><i class="fa-solid fa-square-check"></i></span>
+                        <span class="index-metric-label">Payroll Ready</span>
                     </div>
                 </div>
 
-                <div class="grid-card story-card" style="margin: 0;">
-                    <h2>Quick Admin <span class="brand-highlight">Actions</span></h2>
-                    <form class="contact-form" onsubmit="event.preventDefault();">
+                <div class="index-grid-card index-story-card">
+                    <h2>Quick Admin <span class="index-brand-highlight">Actions</span></h2>
+                    <form class="index-contact-form" onsubmit="event.preventDefault();">
                         <div>
                             <label for="action-select">Select Operation Task</label>
                             <select id="action-select">
@@ -74,29 +72,27 @@
                 </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div class="grid-card metric-card highlight pulse-card" 
-                     onclick="window.location.href='employee.html'" 
-                     style="margin: 0; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer;">
-                    <span class="metric-number" style="font-size: 2.8rem; font-weight: 800; display: block;">250+</span>
-                    <span class="metric-label" style="font-size: 0.95rem; font-weight: 700;">TOTAL EMPLOYEES</span>
+            <div class="dashboard-column">
+                <div class="index-grid-card metric-card highlight pulse-card" onclick="window.location.href='employee.html'">
+                    <span class="metric-number">250+</span>
+                    <span class="metric-label">TOTAL EMPLOYEES</span>
                 </div>
 
-                <div class="app-card table-card container-card" style="margin-top: 0; background: #ffffff; padding: 25px; border: 1px solid #000000; box-shadow: 5px 5px 0px #000000; border-radius: 12px;">
-                    <h3><i class="fa-solid fa-clock" style="margin-right: 8px;"></i> Actionable Pending Approvals</h3>
-                    <p style="color: #555555; font-size: 0.9rem; margin-bottom: 20px; font-weight: 500;">
+                <div class="app-card table-card">
+                    <h3><i class="fa-solid fa-clock"></i> Actionable Pending Approvals</h3>
+                    <p class="table-card-subtitle">
                         Operational records showing only outstanding personnel adjustments awaiting review.
                     </p>
 
-                    <div style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <div class="table-responsive-wrapper">
+                        <table class="dashboard-table">
                             <thead>
-                                <tr style="border-bottom: 1px solid #000000; background: #fafafa;">
-                                    <th style="padding: 12px 8px; font-weight: 800; color: #000000;">Employee Name</th>
-                                    <th style="padding: 12px 8px; font-weight: 800; color: #000000;">Position / Dept</th>
-                                    <th style="padding: 12px 8px; font-weight: 800; color: #000000;">Hours</th>
-                                    <th style="padding: 12px 8px; font-weight: 800; color: #000000;">Net Salary</th>
-                                    <th style="padding: 12px 8px; font-weight: 800; color: #000000;">Leave Request</th>
+                                <tr>
+                                    <th>Employee Name</th>
+                                    <th>Position / Dept</th>
+                                    <th>Hours</th>
+                                    <th>Net Salary</th>
+                                    <th>Leave Request</th>
                                 </tr>
                             </thead>
                             <tbody id="employee-table-body">
@@ -106,33 +102,7 @@
                 </div>
             </div>
 
-        </section>
-
-        <section class="departments-section">
-            <div class="section-header">
-                <h2>Company Departments</h2>
-                <p class="subtitle">Active operational segments within <strong class="brand-highlight">ModernTech Solutions</strong>.</p>
-            </div>
-            
-            <div class="departments-list">
-                <div class="dept-item">
-                    <h3><i class="fa-solid fa-code"></i> Engineering & QA</h3>
-                    <p>Core software development, architecture, and system feature validation.</p>
-                </div>
-                <div class="dept-item">
-                    <h3><i class="fa-solid fa-heart-pulse"></i> Healthcare Systems</h3>
-                    <p>Specialized patient management and telemedicine solution pipelines.</p>
-                </div>
-                <div class="dept-item">
-                    <h3><i class="fa-solid fa-headset"></i> Support & Success</h3>
-                    <p>Client onboarding, issue management, and platform feedback metrics.</p>
-                </div>
-                <div class="dept-item">
-                    <h3><i class="fa-solid fa-chart-line"></i> Sales & Marketing</h3>
-                    <p>Domestic client retention strategy and upcoming international expansion tasks.</p>
-                </div>
-            </div>
-        </section>
+        </section>     
 
         <div id="app-footer">
             <footer style="margin-top: 5rem; padding: 25px; text-align: center; border-top: 3px solid var(--main-text-colour); background-color: white; border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0px -4px 0px var(--main-text-colour);">
