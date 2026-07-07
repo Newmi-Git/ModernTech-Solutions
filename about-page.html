@@ -3,26 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us | ModernTech Solutions</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>About Us | ModernTech HR Portal</title>
+    <link rel="stylesheet" href="about-&-contact-page-style.css" />
   </head>
-  <body>
-    <main class="about-container">
-      <!-- Hero Section -->
-      <section class="hero-section">
-        <span class="badge">About ModernTech Solutions</span>
-        <h1>Empowering Healthcare Through Innovative Software</h1>
-        <p class="subtitle">
-          From a small startup to a team of 250, we build modern healthcare
-          tools that put people first.
-        </p>
-      </section>
 
+  <div id="app-navbar"></div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/auth.js"></script>
+<script>requireRole(['hr']);</script>
+
+  <body class="about-page">
+
+    <main class="about-container">
       <!-- Content & Metrics Bento Grid -->
-      <section class="bento-grid">
+       <!-- Banner -->
+      <header class="about-banner">
+        <h1>About Us</h1>
+        <p class="banner-subtitle">
+          Learn more about our company, our mission, and the team behind the
+          ModernTech HR portal.
+        </p>
+      </header>
+      <section class="about-hero-section">
+          <h2>About the HR Portal</h2>
+          <p>
+            Welcome to the
+            <strong class="brand-highlight">ModernTech HR portal.</strong>
+          </p>
+          <p>
+            The HR portal provides a centralized platform for managing
+            <strong>employee records</strong>, <strong>payroll</strong>,
+            <strong>attendance</strong>, and <strong>leave requests</strong>. It
+            is designed to <strong>streamline HR processes</strong>,
+            <strong>enhance employee engagement</strong>, and
+            <strong>ensure compliance with labor regulations</strong>.
+          </p>
+        </section>
+        
+        <section class="bento-grid">
         <!-- Story Card (Spans 2 columns) -->
-        <div class="grid-card story-card">
-          <h2>Our Story</h2>
+        <div class="grid-card story-card feature-card">
+          <h2>Portal Features</h2>
+          <div class="features">
+            <div class="feature">
+              <h3>Centralized Employee Management</h3>
+              <p>
+                Effortlessly manage employee records in one secure location.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Streamlined Payroll Processing</h3>
+              <p>
+                Automate and simplify payroll calculations and disbursements.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Real-Time Attendance Tracking</h3>
+              <p>Monitor and manage employee attendance with precision.</p>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="grid-card metric-card plain">
+          <h2>About ModernTech Solutions</h2>
           <p>
             Founded in 2010,
             <strong class="brand-highlight">ModernTech Solutions</strong> began
@@ -30,6 +78,7 @@
             rewrite the code of healthcare infrastructure. Over the past decade,
             that mission has sparked rapid, year-over-year growth.
           </p>
+          <br />
           <p>
             We don't just write software—we build lines of communication. By
             specializing exclusively in custom
@@ -37,6 +86,39 @@
             <strong>Telemedicine Platforms</strong>, we help medical
             professionals connect with patients seamlessly, securely, and
             globally.
+          </p>
+        </div>
+
+        <div class="grid-card metric-card plain">
+          <h2>Our Vision</h2>
+          <p>
+            Our vision is to be the leading provider of innovative HR solutions
+            that empower organizations to streamline their HR processes, enhance
+            employee engagement, and drive business success.
+          </p>
+          <br />
+          <h2>Our Mission</h2>
+
+          Our mission is to provide HR staff with a centralized platform for
+          managing employee records, payroll, attendance and leave requests in
+          one secure location.
+          <br />
+          <h2>Our Values</h2>
+          <p>
+            <strong>Integrity:</strong> We uphold the highest standards of
+            integrity in all of our actions
+            <br />
+            <strong>Innovation:</strong> We foster a culture of innovation to
+            continuously improve our solutions.
+            <br />
+            <strong>Collaboration:</strong> We believe in the power of
+            collaboration to achieve common goals.
+            <br />
+            <strong>Customer Focus:</strong> We are dedicated to meeting the
+            needs of our customers and exceeding their expectations.
+            <br />
+            <strong>Excellence:</strong> We strive for excellence in everything
+            we do, from product development to customer service.
           </p>
         </div>
 
@@ -72,6 +154,9 @@
       </section>
     </main>
 
-    <script src="le-script.js"></script>
+    <script src="about-page-script.js"></script>
+
+        <!-- Footer -->
+<div id="app-footer"></div>
   </body>
 </html>
