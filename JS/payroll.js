@@ -137,24 +137,52 @@ function closePayrollCard() {
 
 }
 
-
-
 // ---------------- Save Comment ----------------
 
 function savePayrollComment() {
 
-  const comment = document.getElementById("payroll-comment").value.trim();
+    const comment = document.getElementById("payroll-comment").value.trim();
 
-  if (comment === "") {
+    if (comment === "") {
 
-    alert("Please enter a comment first.");
+        document.getElementById("popup-icon").className =
+            "fa-solid fa-circle-exclamation";
 
-    return;
+        document.getElementById("popup-icon").style.color = "#f59e0b";
 
-  }
+        document.getElementById("popup-title").textContent =
+            "No Comment";
 
-  alert("Comment saved successfully!");
+        document.getElementById("popup-message").textContent =
+            "Please enter a comment before saving.";
 
-  document.getElementById("payroll-comment").value = "";
+        document.getElementById("popup").style.display = "flex";
+
+        return;
+
+    }
+
+    document.getElementById("payroll-comment").value = "";
+
+    document.getElementById("payroll-card").style.display = "none";
+
+    document.getElementById("popup-icon").className =
+        "fa-solid fa-circle-check";
+
+    document.getElementById("popup-icon").style.color = "#22c55e";
+
+    document.getElementById("popup-title").textContent =
+        "Comment Saved!";
+
+    document.getElementById("popup-message").textContent =
+        "Your payroll comment has been saved successfully.";
+
+    document.getElementById("popup").style.display = "flex";
+
+}
+
+function closePopup() {
+
+    document.getElementById("popup").style.display = "none";
 
 }
