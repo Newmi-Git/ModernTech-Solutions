@@ -3,36 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Page | ModernTech Solutions</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Contact Page | ModernTech HR Portal</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
+  <script>
+    requireRole(["employee"]);
+  </script>
+  <div id="app-navbar"></div>
 
   <body class="contact-page">
-    <main class="contact-container">
+    <div class="contact-container">
       <!-- Banner -->
-      <header class="banner">
+      <header class="contact-banner">
         <h1>Contact Us</h1>
         <p class="banner-subtitle">
-          Get in touch & leave a message for us. We value your feedback and
-          inquiries.
+          Need assistance or have questions? Reach out to us through the form
+          below, and our team will get back to you promptly.
         </p>
       </header>
 
-      <!-- Banner Image -->
-      <div class="banner-image">
-        <img src="https://i.ibb.co/KpKBjZ5m/dev-team.png" alt="dev team"/>
-      </div>
-
       <!-- Hero Section -->
       <section class="hero-section">
-        <h1>Let's get connected!</h1>
+        <h2>Let's get connected!</h2>
         <p class="subtitle">Get in touch and leave a message for us.</p>
+        <br />
       </section>
 
       <!-- Contact Layout -->
       <section class="contact-section">
         <div class="form-container">
-          <form>
+          <form method="post" action="#">
             <div class="input-row">
               <div class="input-group">
                 <label for="first-name">First Name:</label>
@@ -82,21 +86,33 @@
               </div>
             </div>
 
+            <div class="input-row">
+              <div class="input-group full-width">
+                <label for="message">Message:</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Write your message here"
+                  required
+                ></textarea>
+              </div>
+            </div>
+
             <button type="submit" class="submit-btn">Send Message</button>
           </form>
         </div>
 
         <div class="info-container">
           <span class="subheading">Let's Connect!</span>
-          <h1 class="main-heading">
+          <h2 class="main-heading">
             Whether you have questions, feedback, or partnership inquiries,
             we're here to help.
-          </h1>
+          </h2>
           <p class="description">
             We value your feedback and inquiries. Our team is here to assist you
             with any questions or concerns you may have. Whether you're looking
             for support, partnership opportunities, or just want to say hello,
-            we're eager to hear from you. Fill out the form on the left to get
+            we're eager to hear from you. Please fill out the form to get
             in touch with us.
           </p>
 
@@ -143,6 +159,14 @@
           </div>
         </div>
       </section>
-    </main>
+    </div>
+
+    <!-- Footer -->
+    <div id="app-footer"></div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/auth.js"></script>
   </body>
 </html>
