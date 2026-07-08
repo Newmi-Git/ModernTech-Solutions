@@ -1,0 +1,499 @@
+/* Using Our Team's Custom Palette Variables */
+:root {
+  --main-colour: #FFFEEC;
+  --secondary-colour: #FFBA27;
+  --tertiary-colour: #E66AFF;
+  --main-text-colour: black;
+  --dark-text-colour: white;
+  
+  --radius: 16px;
+}
+
+/* Base Configuration */
+
+.about-page, .contact-page {
+  background-color: var(--main-colour);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--main-text-colour);
+  line-height: 1.6;
+}
+
+/* --- ABOUT PAGE STYLES --- */
+.about-page {
+  background-color: var(--main-colour);
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  color: var(--main-text-colour);
+  line-height: 1.6;
+}
+
+/* Base Page Wrapper */
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.about-banner {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  background: var(--secondary-colour);
+  color: var(--main-text-colour);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  box-sizing: border-box;
+}
+
+.about-banner .banner-subtitle {
+  max-width: 740px;
+  margin: 0 auto;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.about-banner  h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.banner-subtitle{
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.about-hero-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.about-hero-section p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Modern Bento Grids Layout */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.grid-card {
+  background-color: white; 
+  border: 2px solid var(--main-text-colour);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: 4px 4px 0px var(--main-text-colour);
+}
+
+.story-card {
+  grid-column: span 1;
+}
+
+.story-card h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+}
+
+.brand-highlight {
+  color: var(--tertiary-colour);
+}
+
+/* Metric Card Layouts */
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.metric-card.highlight {
+  background-color: var(--tertiary-colour);
+  color: var(--dark-text-colour);
+}
+
+.metric-card.secondary-highlight {
+  background-color: var(--secondary-colour);
+  color: var(--main-text-colour);
+}
+
+.metric-card.plain {
+  background-color: white;
+  color: var(--main-text-colour);
+}
+
+.metric-card .metric-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.metric-card .metric-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Department Layout Section */
+.departments-section {
+  border-top: 2px solid var(--main-text-colour);
+  padding-top: 4rem;
+}
+
+.departments-section .departments-header {
+  margin-bottom: 3rem;
+}
+
+.departments-section .departments-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.departments-section .departments-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.departments-section .dept-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--main-text-colour);
+}
+
+.dept-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--tertiary-colour);
+}
+
+/* About page responsive styles */
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .story-card {
+    grid-column: span 1;
+  }
+  .departments-list {
+    grid-template-columns: 1fr;
+  }
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+
+/* Additional breakpoints for the About page */
+@media (max-width: 600px) {
+  .about-container {
+    padding: 2rem 1rem;
+  }
+
+  .about-banner {
+    padding: 1.5rem 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .about-banner h1 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .about-banner .banner-subtitle {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .about-hero-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-hero-section p {
+    font-size: 1rem;
+  }
+
+  .grid-card {
+    padding: 1.25rem;
+  }
+
+  .metric-card .metric-number {
+    font-size: 2.25rem;
+  }
+
+  .departments-section .departments-list {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-page .contact-section {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+/* Medium screens: two-column bento grid */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .story-card {
+    grid-column: span 2;
+  }
+  .departments-section .departments-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+
+/*--- CONTACT PAGE STYLES ---*/
+body.contact-page {
+  background-color: var(--main-colour);
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  color: var(--main-text-colour);
+  line-height: 1.6;
+}
+
+.contact-page .contact-container,
+.about-page .about-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.contact-banner {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  background: var(--secondary-colour);
+  color: var(--main-text-colour);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  box-sizing: border-box;
+}
+
+.contact-banner .banner-subtitle {
+  max-width: 740px;
+  margin: 0 auto;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.contact-banner h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.contact-page .hero-section h2 {
+  font-size: 2.5rem;
+}
+
+/* Contact Section Layout Wrapper */
+.contact-page .contact-section {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  background-color: var(--main-colour);
+  gap: 60px;
+  align-items: flex-start;
+}
+
+/*--- Left Column: Form Box Styles ---*/
+.contact-page .form-container {
+  flex: 1;
+  background-color: #fce3ff;
+  padding: 50px;
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0px var(--main-text-colour);
+}
+
+.contact-page .input-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.contact-page .input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-page .input-group.full-width {
+  margin-bottom: 20px;
+}
+
+.contact-page .input-group label {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.contact-page .input-group textarea {
+  border-radius: var(--radius);
+  height: 140px;
+  resize: none;
+}
+
+.contact-page .input-group input,
+.contact-page .input-group textarea,
+.contact-page .input-group select {
+  padding: 16px 18px;
+  font-size: 15px;
+  border-radius: var(--radius);
+}
+
+.contact-page .input-group input::placeholder,
+.contact-page .input-group textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* --- Contact Form Button Styles --- */
+.contact-page .submit-btn {
+  background-color: var(--secondary-colour);
+  color: var(--main-text-colour);
+  padding: 18px;
+  width: 100%;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-page .submit-btn:hover {
+  background-color: var(--tertiary-colour);
+  color: var(--dark-text-colour);
+}
+
+/*--- Right column: Content Styles ---*/
+.contact-page .info-container {
+  flex: 1.3;
+  padding-right: 20px;
+  margin-top: -18px;
+}
+
+.contact-page .subheading {
+  color: var(--tertiary-colour);
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 18px;
+}
+
+.contact-page .main-heading {
+  color: var(--main-text-colour);
+  line-height: 1.2;
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.contact-page .description {
+  color: var(--main-text-colour);
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+/* Grid for split details */
+.contact-page .info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.contact-page .info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.contact-page .icon-box {
+  background-color: var(--secondary-colour);
+  color: var(--main-text-colour);
+  font-size: 20px;
+  margin-top: 3px;
+  border-radius: 5%;
+}
+
+.contact-page .info-text h3 {
+  color: var(--main-text-colour);
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.contact-page .info-text p {
+  font-size: 13px;
+  color: var(--main-text-colour);
+  line-height: 1.6;
+}
+
+/* Contact Page Responsive Styles */
+@media (max-width: 900px) {
+  .contact-page .contact-section {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .contact-page .info-container {
+    padding-right: 0;
+  }
+
+  .contact-page .input-row {
+    flex-direction: column;
+  }
+
+  .contact-page .contact-section {
+    gap: 20px;
+  }
+
+  .contact-page .form-container {
+    padding: 30px;
+  }
+
+  .contact-page .banner {
+    padding: 1.5rem 1rem;
+  }
+
+  .contact-page .info-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | ModernTech HR Portal</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <div id="app-navbar"></div>
+
+  <body class="about-page">
+    <main class="about-container">
+      <!-- Content & Metrics Bento Grid -->
+      <!-- Banner -->
+      <header class="about-banner">
+        <h1>About Us</h1>
+        <p class="banner-subtitle">
+          Learn more about our company, our mission, and the team behind the
+          ModernTech HR portal.
+        </p>
+      </header>
+      <section class="about-hero-section">
+        <h2>About the HR Portal</h2>
+        <p>
+          Welcome to the
+          <strong class="brand-highlight">ModernTech HR portal.</strong>
+        </p>
+        <p>
+          The HR portal provides a centralized platform for managing
+          <strong>employee records</strong>, <strong>payroll</strong>,
+          <strong>attendance</strong>, and <strong>leave requests</strong>. It
+          is designed to <strong>streamline HR processes</strong>,
+          <strong>enhance employee engagement</strong>, and
+          <strong>ensure compliance with labor regulations</strong>.
+        </p>
+      </section>
+
+      <section class="bento-grid">
+        <!-- Story Card (Spans 2 columns) -->
+        <div class="grid-card story-card feature-card">
+          <h2>Portal Features</h2>
+          <div class="features">
+            <div class="feature">
+              <h3>Centralized Employee Management</h3>
+              <p>
+                Effortlessly manage employee records in one secure location.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Streamlined Payroll Processing</h3>
+              <p>
+                Automate and simplify payroll calculations and disbursements.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Real-Time Attendance Tracking</h3>
+              <p>Monitor and manage employee attendance with precision.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-card metric-card plain">
+          <h2>About ModernTech Solutions</h2>
+          <p>
+            Founded in 2010,
+            <strong class="brand-highlight">ModernTech Solutions</strong> began
+            as a passionate team of just 20 pioneers. Our mission was simple:
+            rewrite the code of healthcare infrastructure. Over the past decade,
+            that mission has sparked rapid, year-over-year growth.
+          </p>
+          <br />
+          <p>
+            We don't just write software—we build lines of communication. By
+            specializing exclusively in custom
+            <strong>Patient Management Systems</strong> and
+            <strong>Telemedicine Platforms</strong>, we help medical
+            professionals connect with patients seamlessly, securely, and
+            globally.
+          </p>
+        </div>
+
+        <div class="grid-card metric-card plain">
+          <h2>Our Vision</h2>
+          <p>
+            Our vision is to be the leading provider of innovative HR solutions
+            that empower organizations to streamline their HR processes, enhance
+            employee engagement, and drive business success.
+          </p>
+          <br />
+          <h2>Our Mission</h2>
+
+          Our mission is to provide HR staff with a centralized platform for
+          managing employee records, payroll, attendance and leave requests in
+          one secure location.
+          <br />
+          <h2>Our Values</h2>
+          <p>
+            <strong>Integrity:</strong> We uphold the highest standards of
+            integrity in all of our actions
+            <br />
+            <strong>Innovation:</strong> We foster a culture of innovation to
+            continuously improve our solutions.
+            <br />
+            <strong>Collaboration:</strong> We believe in the power of
+            collaboration to achieve common goals.
+            <br />
+            <strong>Customer Focus:</strong> We are dedicated to meeting the
+            needs of our customers and exceeding their expectations.
+            <br />
+            <strong>Excellence:</strong> We strive for excellence in everything
+            we do, from product development to customer service.
+          </p>
+        </div>
+
+        <!-- Quick Metrics Cards -->
+        <div class="grid-card metric-card highlight">
+          <span class="metric-number">250+</span>
+          <span class="metric-label">Dedicated Experts</span>
+        </div>
+
+        <div class="grid-card metric-card secondary-highlight">
+          <span class="metric-number">2010</span>
+          <span class="metric-label">Year Founded</span>
+        </div>
+
+        <div class="grid-card metric-card plain">
+          <span class="metric-number">Global</span>
+          <span class="metric-label">International Expansion Next</span>
+        </div>
+      </section>
+
+      <!-- Departments Section -->
+      <section class="departments-section">
+        <div class="section-header">
+          <h2>Our Pillars of Excellence</h2>
+          <p>
+            Fostering an inclusive, growth-oriented environment across our
+            diverse teams.
+          </p>
+        </div>
+
+        <!-- JavaScript will inject the department elements into this container -->
+        <div id="departments-list" class="departments-list"></div>
+      </section>
+    </main>
+
+    <script src="./js/about-page.js"></script>
+
+    <!-- Footer -->
+    <div id="app-footer"></div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      requireRole(["hr, employee"]);
+    </script>
+  </body>
+</html>
