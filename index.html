@@ -9,27 +9,9 @@
 </head>
 <body class="index-body">
 
-    <div id="app-navbar"></div>
-
-    <nav class="top-navbar">
-        <div class="nav-logo">
-            MT<span>Solutions</span>
-        </div>
-        <div class="nav-links">
-            <a href="Index.html" class="nav-item active"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="Performance.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Performance</a>
-            <a href="Employee.html" class="nav-item"><i class="fa-solid fa-users"></i> Employees</a>
-            <a href="requests.html" class="nav-item"><i class="fa-solid fa-user-plus"></i> Request</a>
-            <a href="payroll.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Payroll</a>
-            <a href="About.html" class="nav-item"><i class="fa-solid fa-address-card"></i> About</a>
-            <a href="Contact.html" class="nav-item"><i class="fa-solid fa-envelope"></i> Contact</a>
-        </div>
-        <button class="logout"> Logout </button>
-    </nav>
-
-  
+<div id="app-navbar"></div>
         
-        <header class="index-hero-section">
+        <header class="index-hero-section"> 
             <span class="index-badge">HR Management System</span>
             <h1 class="index-h1">Welcome back, HR Team!</h1>
             <p class="index-subtitle">Centralized data dashboard for <strong class="brand-highlight">ModernTech Solutions</strong>.</p>
@@ -104,19 +86,15 @@
 
         </section>     
 
-        <div id="app-footer">
-            <footer style="margin-top: 5rem; padding: 25px; text-align: center; border-top: 3px solid var(--main-text-colour); background-color: white; border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0px -4px 0px var(--main-text-colour);">
-                <p style="font-weight: 800; margin-bottom: 5px; color: var(--main-text-colour); letter-spacing: -0.01em;">&copy; 2026 ModernTech Solutions. All Rights Reserved.</p>
-                <p style="font-size: 0.88rem; color: #555555; font-weight: 700;">HR Management System Portal &bull; System POC Dashboard</p>
-            </footer>
-        </div>
+        
 
     </div> 
-    
-    <script src="js/auth.js"></script>
-    <script>requireRole(['hr']);</script>
+
+    <div id="app-footer"></div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/auth.js"></script>
+    <script>requireRole(['hr']);</script>
     <script src="js/navbar.js"></script>
     <script src="js/footer.js"></script>
 

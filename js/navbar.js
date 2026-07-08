@@ -1,5 +1,3 @@
-
-
 Vue.createApp({
   data() {
     return {
@@ -19,13 +17,23 @@ Vue.createApp({
         </div>
 
         <div class="nav-links" :class="{open: menuOpen}">
-            <a href="index.html" class="nav-item" :class="{active: currentPage === 'index.html'}">Home</a>
-            <a href="requests.html" class="nav-item" :class="{active: currentPage === 'requests.html'}">Requests</a>
-            <a v-if="currentUser?.role === 'hr'" href="performance.html" class="nav-item" :class="{active: currentPage === 'performance.html'}">Performance</a>
-            <a v-if="currentUser?.role === 'hr'" href="employee.html" class="nav-item" :class="{active: currentPage === 'employee.html'}">Employees</a>
-            <a v-if="currentUser?.role === 'hr'" href="payroll.html" class="nav-item" :class="{active: currentPage === 'payroll.html'}">Payroll</a>
-            <a href="about.html" class="nav-item" :class="{active: currentPage === 'about.html'}">About</a>
-            <a href="contact.html" class="nav-item" :class="{active: currentPage === 'contact.html'}">Contact</a>
+            <!-- HR Navigation -->
+            <template v-if="currentUser?.role === 'hr'">
+                <a href="index.html" class="nav-item" :class="{active: currentPage === 'index.html'}">Home</a>
+                <a href="requests.html" class="nav-item" :class="{active: currentPage === 'requests.html'}">Requests</a>
+                <a href="performance.html" class="nav-item" :class="{active: currentPage === 'performance.html'}">Performance</a>
+                <a href="employee.html" class="nav-item" :class="{active: currentPage === 'employee.html'}">Employees</a>
+                <a href="payroll.html" class="nav-item" :class="{active: currentPage === 'payroll.html'}">Payroll</a>
+                <!-- ADD THE LINE BELOW HERE -->
+                <a href="attendance.html" class="nav-item" :class="{active: currentPage === 'attendance.html'}">Attendance</a>
+                <a href="about.html" class="nav-item" :class="{active: currentPage === 'about.html'}">About</a>
+            </template>
+            
+            <!-- Employee Navigation -->
+            <template v-else-if="currentUser?.role === 'employee'">
+                <a href="about.html" class="nav-item" :class="{active: currentPage === 'about.html'}">About</a>
+                <a href="contact.html" class="nav-item" :class="{active: currentPage === 'contact.html'}">Contact</a>
+            </template>
 
             <div class="profile-corner">
               <div class="profile-avatar">{{ currentUser?.name?.charAt(0) || '?' }}</div>

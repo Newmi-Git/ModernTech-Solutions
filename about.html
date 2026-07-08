@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
 
-  <div id="app-navbar"></div>
-
   <body class="about-page">
+    <div id="app-navbar"></div>
+    
     <main class="about-container">
       <!-- Content & Metrics Bento Grid -->
       <!-- Banner -->
@@ -89,10 +89,11 @@
           </p>
           <br />
           <h2>Our Mission</h2>
-
-          Our mission is to provide HR staff with a centralized platform for
-          managing employee records, payroll, attendance and leave requests in
-          one secure location.
+          <p>
+            Our mission is to provide HR staff with a centralized platform for
+            managing employee records, payroll, attendance and leave requests in
+            one secure location.
+          </p>
           <br />
           <h2>Our Values</h2>
           <p>
@@ -145,17 +146,15 @@
       </section>
     </main>
 
-    <script src="./js/about-page.js"></script>
-
-    <!-- Footer -->
     <div id="app-footer"></div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/navbar.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="./js/about-page.js"></script>
     <script>
-      requireRole(["hr"]);
+      requireRole(["hr", "employee"]);
     </script>
   </body>
 </html>

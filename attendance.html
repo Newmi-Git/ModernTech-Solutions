@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance Tracking | ModernTech HR Portal</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+
+  <body class="attendance-page">
+    <div id="app-navbar"></div>
+
+    <header class="attendance-banner">
+      <h1>Attendance Tracking</h1>
+      <p class="banner-subtitle">Real-time employee attendance monitoring. Click on cells to toggle statuses.</p>
+    </header>
+
+    <div class="attendance-container" id="attendance-app">
+      
+      <!-- Top Controls & Stats -->
+      <div class="controls-and-stats">
+        <div class="date-picker-card">
+          <h3><i class="fa-solid fa-calendar-days"></i> Select Week</h3>
+          <div class="date-input-group">
+            <label for="start-date">Start Date</label>
+            <input type="date" id="start-date" v-model="startDate" @change="updateView">
+          </div>
+          <div class="date-input-group">
+            <label for="end-date">End Date</label>
+            <input type="date" id="end-date" v-model="endDate" @change="updateView">
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card gold">
+            <h4>Total Staff</h4>
+            <div class="stat-num">{{ employees.length }}</div>
+          </div>
+          <div class="stat-card purple">
+            <h4>Avg Present</h4>
+            <div class="stat-num">{{ avgPresent }}%</div>
+          </div>
+          <div class="stat-card gold">
+            <h4>Avg Absent</h4>
+            <div class="stat-num">{{ avgAbsent }}%</div>
+          </div>
+          <div class="stat-card purple">
+            <h4>Pending Leaves</h4>
+            <div class="stat-num">{{ pendingLeaves }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spreadsheet -->
+      <div class="spreadsheet-container">
+        <div class="spreadsheet-header">
+          <h2><i class="fa-solid fa-table-cells-large"></i> Attendance Sheet</h2>
+          <div class="spreadsheet-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #dcfce7;"></div> Present
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #fee2e2;"></div> Absent
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #f8f9fa; border: 1px dashed #ccc;"></div> No Data
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="attendance-table">
+            <thead>
+              <tr>
+                <th class="row-header">Employee Name</th>
+                <th v-for="date in columns" :key="date">{{ formatDateHeader(date) }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="emp in employees" :key="emp.employeeId">
+                <td class="row-data">
+                  {{ emp.name }}
+                </td>
+                <td v-for="date in columns" :key="emp.employeeId + date">
+                  <div 
+                    class="att-cell" 
+                    :class="getStatusClass(emp.employeeId, date)"
+                    @click="toggleStatus(emp.employeeId, date)"
+                    :title="'Click to toggle status'"
+                  >
+                    {{ getStatusText(emp.employeeId, date) }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="app-footer"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/auth.js"></script>
+    <script>requireRole(["hr"]);</script>
+    <script src="js/navbar.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/attendance.js"></script>
+  </body>
+</html>
