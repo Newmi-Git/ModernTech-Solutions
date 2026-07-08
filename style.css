@@ -10,11 +10,6 @@
 }
 
 /* Base Configuration */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 .about-page, .contact-page {
   background-color: var(--main-colour);
@@ -24,7 +19,7 @@
 }
 
 /* --- ABOUT PAGE STYLES --- */
-body.about-page {
+.about-page {
   background-color: var(--main-colour);
   display: flex;
   align-items: center;
@@ -193,7 +188,7 @@ body.about-page {
   color: var(--tertiary-colour);
 }
 
-/* Responsive Structural Adjustments */
+/* About page responsive styles */
 @media (max-width: 900px) {
   .bento-grid {
     grid-template-columns: 1fr;
@@ -208,6 +203,68 @@ body.about-page {
     font-size: 2.25rem;
   }
 }
+
+/* Additional breakpoints for the About page */
+@media (max-width: 600px) {
+  .about-container {
+    padding: 2rem 1rem;
+  }
+
+  .about-banner {
+    padding: 1.5rem 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .about-banner h1 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .about-banner .banner-subtitle {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .about-hero-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-hero-section p {
+    font-size: 1rem;
+  }
+
+  .grid-card {
+    padding: 1.25rem;
+  }
+
+  .metric-card .metric-number {
+    font-size: 2.25rem;
+  }
+
+  .departments-section .departments-list {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-page .contact-section {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+/* Medium screens: two-column bento grid */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .story-card {
+    grid-column: span 2;
+  }
+  .departments-section .departments-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
 
 /*--- CONTACT PAGE STYLES ---*/
 body.contact-page {
@@ -408,7 +465,7 @@ body.contact-page {
   line-height: 1.6;
 }
 
-/* Responsive Rules for small displays */
+/* Contact Page Responsive Styles */
 @media (max-width: 900px) {
   .contact-page .contact-section {
     flex-direction: column;

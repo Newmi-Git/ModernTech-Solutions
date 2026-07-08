@@ -4,22 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us | ModernTech HR Portal</title>
-    <link rel="stylesheet" href="about-&-contact-page-style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <div id="app-navbar"></div>
 
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="js/footer.js"></script>
-<script src="js/navbar.js"></script>
-<script src="js/auth.js"></script>
-<script>requireRole(['hr']);</script>
-
   <body class="about-page">
-
     <main class="about-container">
       <!-- Content & Metrics Bento Grid -->
-       <!-- Banner -->
+      <!-- Banner -->
       <header class="about-banner">
         <h1>About Us</h1>
         <p class="banner-subtitle">
@@ -28,22 +21,22 @@
         </p>
       </header>
       <section class="about-hero-section">
-          <h2>About the HR Portal</h2>
-          <p>
-            Welcome to the
-            <strong class="brand-highlight">ModernTech HR portal.</strong>
-          </p>
-          <p>
-            The HR portal provides a centralized platform for managing
-            <strong>employee records</strong>, <strong>payroll</strong>,
-            <strong>attendance</strong>, and <strong>leave requests</strong>. It
-            is designed to <strong>streamline HR processes</strong>,
-            <strong>enhance employee engagement</strong>, and
-            <strong>ensure compliance with labor regulations</strong>.
-          </p>
-        </section>
-        
-        <section class="bento-grid">
+        <h2>About the HR Portal</h2>
+        <p>
+          Welcome to the
+          <strong class="brand-highlight">ModernTech HR portal.</strong>
+        </p>
+        <p>
+          The HR portal provides a centralized platform for managing
+          <strong>employee records</strong>, <strong>payroll</strong>,
+          <strong>attendance</strong>, and <strong>leave requests</strong>. It
+          is designed to <strong>streamline HR processes</strong>,
+          <strong>enhance employee engagement</strong>, and
+          <strong>ensure compliance with labor regulations</strong>.
+        </p>
+      </section>
+
+      <section class="bento-grid">
         <!-- Story Card (Spans 2 columns) -->
         <div class="grid-card story-card feature-card">
           <h2>Portal Features</h2>
@@ -66,8 +59,6 @@
             </div>
           </div>
         </div>
-
-
 
         <div class="grid-card metric-card plain">
           <h2>About ModernTech Solutions</h2>
@@ -156,7 +147,15 @@
 
     <script src="about-page-script.js"></script>
 
-        <!-- Footer -->
-<div id="app-footer"></div>
+    <!-- Footer -->
+    <div id="app-footer"></div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      requireRole(["hr, employee"]);
+    </script>
   </body>
 </html>
