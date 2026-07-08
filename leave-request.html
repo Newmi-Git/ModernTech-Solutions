@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leave Request | ModernTech HR Portal</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="contact-page leave-page">
+    <div id="app-navbar"></div>
+
+    <div class="leave-container">
+      <header class="contact-banner">
+        <h1>Leave Request Form</h1>
+        <p class="banner-subtitle">
+          Submit your leave request details here and we will review them promptly.
+        </p>
+      </header>
+
+      <section class="form-container leave-form-card">
+        <div id="leaveFormFeedback" class="leave-feedback" aria-live="polite"></div>
+        <form id="leaveRequestForm">
+          <div class="input-row">
+            <div class="input-group">
+              <label for="first-name">First Name:</label>
+              <input
+                type="text"
+                id="first-name"
+                name="first-name"
+                required
+              />
+            </div>
+            <div class="input-group">
+              <label for="last-name">Last Name:</label>
+              <input
+                type="text"
+                id="last-name"
+                name="last-name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label for="leaveType">Leave type</label>
+              <select id="leaveType" name="leaveType" required>
+                <option value="">Select a type</option>
+                <option value="Annual">Annual Leave</option>
+                <option value="Sick">Sick Leave</option>
+                <option value="Personal">Personal Leave</option>
+                <option value="Maternity">Maternity/Paternity Leave</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label for="startDate">Start date</label>
+              <input type="date" id="startDate" name="startDate" required />
+            </div>
+            <div class="input-group">
+              <label for="endDate">End date</label>
+              <input type="date" id="endDate" name="endDate" required />
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group full-width">
+              <label for="reasonText">Reason for leave</label>
+              <textarea id="reasonText" name="reasonText" required></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Leave Request</button>
+        </form>
+      </section>
+    </div>
+
+    <div id="app-footer"></div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/contact-page-script.js"></script>
+  </body>
+</html>

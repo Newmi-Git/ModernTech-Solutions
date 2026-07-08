@@ -97,6 +97,8 @@
                 ></textarea>
               </div>
             </div>
+            <br>
+
 
             <button type="submit" class="submit-btn">Send Message</button>
           </form>
@@ -161,6 +163,17 @@
       </section>
     </div>
 
+    <div id="leaveModal" class="leave-modal hidden" role="dialog" aria-modal="true" aria-labelledby="leaveModalTitle">
+      <div class="leave-modal-content">
+        <h3 id="leaveModalTitle">Leave request selected</h3>
+        <p>We’ll take you to a dedicated form so you can submit your leave request.</p>
+        <div class="leave-modal-actions">
+          <button type="button" class="secondary-btn" data-close-modal>Cancel</button>
+          <a href="leave-request.html" class="modal-link">Continue</a>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer -->
     <div id="app-footer"></div>
 
@@ -168,5 +181,6 @@
     <script src="js/footer.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/contact-page-script.js"></script>
   </body>
 </html>
