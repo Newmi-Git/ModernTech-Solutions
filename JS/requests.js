@@ -3,6 +3,7 @@
 // ==========================================
 
 let employees = [];
+let currentFilter = "all status";
 let selectedEmployee = null;
 let selectedRequest = null;
 let selectedAction = "";
@@ -101,18 +102,56 @@ function displayRequests(data) {
 // ==========================================
 
 function refreshTable() {
+
     updateCounters();
-    filterStatus();
+
+    if (currentFilter === "all status") {
+
+        displayRequests(employees);
+
+        return;
+
+    }
+
+    const filteredEmployees = [];
+
+    employees.forEach(employee => {
+
+        const requests = employee.leaveRequests.filter(request => {
+
+            const status = request.status.trim().toLowerCase();
+
+            if (currentFilter === "rejected") {
+                return status === "denied" || status === "rejected";
+            }
+
+            return status === currentFilter;
+
+        });
+
+        if (requests.length > 0) {
+
+            filteredEmployees.push({
+
+                ...employee,
+
+                leaveRequests: requests
+
+            });
+
+        }
+
+    });
+
+    displayRequests(filteredEmployees);
+
 }
 
 function filterStatus() {
-  const dropdown = document.getElementById("status");
-  const selectedStatus = dropdown ? dropdown.value.trim().toLowerCase() : "all status";
-
-  if (selectedStatus === "all status" || selectedStatus === "") {
-    displayRequests(employees);
-    return;
-  }
+    const dropdown = document.getElementById("status");
+    currentFilter = dropdown.value.trim().toLowerCase();
+    refreshTable();
+}
 
   const filteredEmployees = [];
 
@@ -138,7 +177,7 @@ function filterStatus() {
   });
 
   displayRequests(filteredEmployees);
-}
+ 
 
 function updateCounters() {
     let total = 0;
