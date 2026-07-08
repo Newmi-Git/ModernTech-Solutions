@@ -9,8 +9,10 @@
 </head>
 <body class="index-body">
 
+    <!-- Main app shell that loads the shared navigation and footer sections -->
     <div id="app-navbar"></div>
 
+    <!-- Top navigation bar linking to the main HR sections -->
     <nav class="top-navbar">
         <div class="nav-logo">
             MT<span>Solutions</span>
@@ -27,15 +29,15 @@
         <button class="logout"> Logout </button>
     </nav>
 
-  
-        
-        <header class="index-hero-section">
+    <!-- Hero section welcoming the HR team and introducing the dashboard -->
+    <header class="index-hero-section">
             <span class="index-badge">HR Management System</span>
             <h1 class="index-h1">Welcome back, HR Team!</h1>
             <p class="index-subtitle">Centralized data dashboard for <strong class="brand-highlight">ModernTech Solutions</strong>.</p>
         </header>
 
- <section class="index-bento-grid">
+    <!-- Main dashboard area containing overview cards and pending approval data -->
+    <section class="index-bento-grid">
             
             <div class="dashboard-column">
                 
@@ -104,6 +106,7 @@
 
         </section>     
 
+        <!-- Footer area with company copyright and portal details -->
         <div id="app-footer">
             <footer style="margin-top: 5rem; padding: 25px; text-align: center; border-top: 3px solid var(--main-text-colour); background-color: white; border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0px -4px 0px var(--main-text-colour);">
                 <p style="font-weight: 800; margin-bottom: 5px; color: var(--main-text-colour); letter-spacing: -0.01em;">&copy; 2026 ModernTech Solutions. All Rights Reserved.</p>
@@ -113,6 +116,7 @@
 
     </div> 
     
+    <!-- Page scripts for role checks, navigation, and dashboard rendering -->
     <script src="js/auth.js"></script>
     <script>requireRole(['hr']);</script>
 
