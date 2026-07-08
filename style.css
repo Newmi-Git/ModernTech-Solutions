@@ -1159,3 +1159,116 @@ body.performance-body {
     margin: 0.75rem;
   }
 }
+
+/* =====================================================
+   FILTER TABS + SORT TOGGLE + RESET BUTTON + SORTABLE HEADERS
+   ===================================================== */
+
+.filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  background: #fff;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--dark);
+  transition: all 0.15s ease;
+}
+
+.filter-tab:hover {
+  background: var(--main-colour);
+}
+
+.filter-tab.active {
+  background: var(--secondary-colour);
+  box-shadow: 2px 2px 0 black;
+}
+
+.filter-tab-sort {
+  border-style: dashed;
+  color: #555;
+}
+
+.filter-tab-sort.active {
+  background: var(--tertiary-colour);
+  color: #fff;
+  border-style: solid;
+  box-shadow: 2px 2px 0 black;
+}
+
+.filter-divider {
+  width: 1px;
+  height: 20px;
+  background: #ccc;
+  margin: 0 2px;
+}
+
+.filter-count {
+  font-size: 10px;
+  color: #888;
+  margin-left: 2px;
+}
+
+.filter-tab.active .filter-count,
+.filter-tab-sort.active .filter-count {
+  color: #333;
+}
+
+.btn-reset {
+  background: #fff;
+  color: var(--dark);
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-reset:hover {
+  background: #f8d7da;
+  border-color: #c0392b;
+  color: #721c24;
+}
+
+.table-dark-custom th[data-sort] {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table-dark-custom th[data-sort]:hover {
+  color: var(--secondary-colour);
+}
+
+.sort-arrow {
+  font-size: 9px;
+  margin-left: 2px;
+  display: inline-block;
+}
+
+.grade-section-heading {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--secondary-colour);
+  margin-bottom: 6px;
+}
+
+@media (max-width: 900px) {
+  .filter-tabs {
+    width: 100%;
+  }
+  .filter-divider {
+    display: none;
+  }
+}

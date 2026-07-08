@@ -36,6 +36,9 @@
             <div id="modal-dynamic-body"></div>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn-grade" id="modal-edit-btn" style="margin-right: auto;">
+              Edit
+            </button>
             <button type="button" class="btn-export" id="modal-export-btn">
               Export Performance Report
             </button>
@@ -44,12 +47,12 @@
       </div>
     </div>
 
-    <!-- New: Grade modal -->
+    <!-- Grade / Edit modal -->
     <div class="modal fade" id="gradeModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="background: var(--dark)">
-            <h5 class="modal-title" style="color: var(--main-colour)">
+            <h5 class="modal-title" id="grade-modal-title" style="color: var(--main-colour)">
               Grade Employee
             </h5>
             <button
@@ -66,6 +69,50 @@
                 id="grade-emp-name"
               ></p>
 
+              <p class="grade-section-heading">Employee Info</p>
+              <div class="row g-2 mb-2">
+                <div class="col-6">
+                  <label class="grade-label">Position</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="grade-position"
+                  />
+                  <div class="invalid-feedback" id="err-position"></div>
+                </div>
+                <div class="col-6">
+                  <label class="grade-label">Department</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="grade-department"
+                  />
+                  <div class="invalid-feedback" id="err-department"></div>
+                </div>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <label class="grade-label">Base Salary (R)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    class="form-control form-control-sm"
+                    id="grade-salary"
+                  />
+                  <div class="invalid-feedback" id="err-salary"></div>
+                </div>
+                <div class="col-6">
+                  <label class="grade-label">Contact</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="grade-contact"
+                  />
+                  <div class="invalid-feedback" id="err-contact"></div>
+                </div>
+              </div>
+
+              <p class="grade-section-heading">Performance</p>
               <div class="row g-2 mb-2">
                 <div class="col-6">
                   <label class="grade-label">Goals Met</label>
@@ -146,7 +193,7 @@
               >
                 Cancel
               </button>
-              <button type="submit" class="btn-grade">Save Grade</button>
+              <button type="submit" class="btn-grade">Save</button>
             </div>
           </form>
         </div>
@@ -157,13 +204,18 @@
 
     <div class="container-lg py-4 d-flex flex-column gap-4">
       <!-- Title row -->
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
         <h1 class="fs-4 fw-bold mb-0" style="color: var(--dark)">
           Performance Overview
         </h1>
-        <button type="button" class="btn btn-export" id="exportBtn">
-          Export
-        </button>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn-reset" id="resetDataBtn" title="Clear graded data and reload the original sample data">
+            Reset Sample Data
+          </button>
+          <button type="button" class="btn btn-export" id="exportBtn">
+            Export
+          </button>
+        </div>
       </div>
 
       <!-- Stat cards -->
@@ -216,7 +268,7 @@
 
       <!-- Employee table -->
       <div class="performance-employees p-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
           <p class="stats-title mb-0">Employee Reviews</p>
           <input
             type="text"
@@ -225,17 +277,35 @@
             class="emp-search"
           />
         </div>
+
+        <!-- Filter tabs (hide non-matching rows) + sort toggle (reorders only) -->
+        <div class="filter-tabs mb-3">
+          <button type="button" class="filter-tab active" data-filter="all">
+            All <span class="filter-count" id="count-all"></span>
+          </button>
+          <button type="button" class="filter-tab" data-filter="top">
+            Top Achievers <span class="filter-count" id="count-top"></span>
+          </button>
+          <button type="button" class="filter-tab" data-filter="improve">
+            Needs Attention <span class="filter-count" id="count-improve"></span>
+          </button>
+          <span class="filter-divider"></span>
+          <button type="button" class="filter-tab filter-tab-sort" id="needsReviewToggle" title="Reorders the list — doesn't hide anyone">
+            ⇅ Needs Review First <span class="filter-count" id="count-pending"></span>
+          </button>
+        </div>
+
         <div class="table-responsive">
           <table class="table table-hover align-middle" style="font-size: 12px">
             <thead class="table-dark-custom">
               <tr>
-                <th>Employee</th>
-                <th>Department</th>
-                <th>Position</th>
-                <th>Score</th>
-                <th>Attendance</th>
-                <th>Leave Deductions</th>
-                <th>Final Salary</th>
+                <th data-sort="name">Employee <span class="sort-arrow" id="arrow-name"></span></th>
+                <th data-sort="department">Department <span class="sort-arrow" id="arrow-department"></span></th>
+                <th data-sort="position">Position <span class="sort-arrow" id="arrow-position"></span></th>
+                <th data-sort="score">Score <span class="sort-arrow" id="arrow-score"></span></th>
+                <th data-sort="attendancePct">Attendance <span class="sort-arrow" id="arrow-attendancePct"></span></th>
+                <th data-sort="leaveDeductions">Leave Deductions <span class="sort-arrow" id="arrow-leaveDeductions"></span></th>
+                <th data-sort="finalSalary">Final Salary <span class="sort-arrow" id="arrow-finalSalary"></span></th>
                 <th>Status</th>
               </tr>
             </thead>

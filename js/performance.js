@@ -45,6 +45,11 @@ function loadEmployees() {
 
 // ── Scoring ──────────────────────────────────────────────
 // 60% weight from attendance %, 40% weight from payroll efficiency (finalSalary / baseSalary)
+// Only called at grading time (see saveGrade) — the result is persisted onto
+// the employee's own `score`/`attendance` fields, which are the source of
+// truth read everywhere else. We don't recompute this on every render, since
+// that overwrote the seeded employee_info.json values (score, attendance)
+// with a freshly-derived number every time, even for un-graded employees.
 function calcScore(baseSalary, finalSalary, attendancePercentage) {
   const attendanceComponent = (attendancePercentage / 100) * 60;
   const payrollEff = baseSalary > 0 ? Math.min(finalSalary / baseSalary, 1) : 0;
@@ -52,96 +57,106 @@ function calcScore(baseSalary, finalSalary, attendancePercentage) {
   return Math.round(attendanceComponent + payrollComponent);
 }
 
-// Normalises a stored payroll record so it always has finalSalary
+// Normalises a stored payroll record so it always has the fields the UI expects.
+// FIX: bonus/deductions were previously dropped here, so they never made it
+// back into the merged employee object (export reports always showed "—").
 function resolvePayroll(baseSalary, payrollRecord) {
+  if (!payrollRecord) return null;
 
-    if (!payrollRecord) return null;
-
-    return {
-        employeeId: payrollRecord.employeeId,
-
-        hoursWorked: payrollRecord.hoursWorked || 0,
-
-        leaveDeductions: payrollRecord.leaveDeductions || 0,
-
-        finalSalary: payrollRecord.finalSalary
-    };
-
+  return {
+    employeeId: payrollRecord.employeeId,
+    hoursWorked: payrollRecord.hoursWorked || 0,
+    leaveDeductions: payrollRecord.leaveDeductions || 0,
+    bonus: payrollRecord.bonus || 0,
+    deductions: payrollRecord.deductions || 0,
+    finalSalary: payrollRecord.finalSalary,
+  };
 }
 
-// Normalises a stored attendance record so it always has attendancePercentage
+// Normalises a stored attendance record so it always has attendancePercentage.
+// Now only used to surface the detailed day-by-day breakdown (leaveRequests)
+// in mergeData — the canonical attendance % lives on the employee record
+// itself (emp.attendance) and is no longer recalculated from this on render.
 function resolveAttendance(attendanceRecord, employee) {
-
   // Attendance record exists in localStorage
   if (attendanceRecord) {
-
     if (typeof attendanceRecord.attendancePercentage === "number") {
       return attendanceRecord;
     }
 
     if (Array.isArray(attendanceRecord.attendance)) {
-
       const total = attendanceRecord.attendance.length;
 
       const present = attendanceRecord.attendance.filter(
-        a => a.status === "Present"
+        (a) => a.status === "Present"
       ).length;
 
       return {
-        attendancePercentage:
-          total ? Math.round((present / total) * 100) : 0,
-
-        leaveTaken: total - present
+        attendancePercentage: total ? Math.round((present / total) * 100) : 0,
+        leaveTaken: total - present,
       };
-
     }
-
   }
 
   // Fall back to employee_info.json values
   return {
-    attendancePercentage: employee.attendance || 0,
-    leaveTaken: 0
+    attendancePercentage: (employee && employee.attendance) || 0,
+    leaveTaken: 0,
   };
-
 }
+
 // ── Merge employees + payroll + attendance, flag reviewed state ──
+// The employee record (employee_info.json) is the source of truth for
+// performance: `score`, `attendance`, `goalsMet`, `goalsTotal` are used
+// directly rather than recalculated here. An employee counts as "reviewed"
+// once they have a real score on file — true for seeded employees straight
+// away, false for a newly-added employee until someone grades them.
+// Payroll records supply financial detail only (final salary, bonus,
+// deductions, leave-deduction days) and don't drive the score.
 function mergeData(employees, payrolls, attendances) {
   return employees.map((emp, i) => {
     const payrollRaw = payrolls.find((p) => p.employeeId === emp.employeeId);
     const attendanceRaw = attendances.find((a) => a.employeeId === emp.employeeId);
     const payroll = resolvePayroll(emp.salary, payrollRaw);
-    const attendance = resolveAttendance(attendanceRaw);
-    const reviewed = Boolean(payroll && attendance);
+    const attendanceDetail = resolveAttendance(attendanceRaw, emp);
+    const reviewed = typeof emp.score === "number";
 
     if (!reviewed) {
       return {
         ...emp, index: i, reviewed: false,
         score: null, finalSalary: null, attendancePct: null, leaveDeductions: null,
+        bonus: null, deductions: null,
       };
     }
 
-    const score = calcScore(emp.salary, payroll.finalSalary, attendance.attendancePercentage);
-
     return {
-      ...emp, index: i, reviewed: true, score,
-      finalSalary: payroll.finalSalary,
-      hoursWorked: payroll.hoursWorked,
-      leaveDeductions: payroll.leaveDeductions,
-      attendancePct: attendance.attendancePercentage,
-      leaveRequests: attendance.leaveRequests || []
+      ...emp, index: i, reviewed: true,
+      score: emp.score,
+      attendancePct: emp.attendance,
+      finalSalary: payroll ? payroll.finalSalary : emp.salary,
+      hoursWorked: payroll ? payroll.hoursWorked : 0,
+      leaveDeductions: payroll ? payroll.leaveDeductions : 0,
+      bonus: payroll ? payroll.bonus : 0,
+      deductions: payroll ? payroll.deductions : 0,
+      leaveRequests: attendanceDetail.leaveRequests || [],
     };
   });
 }
 
 // ── App state ──────────────────────────────────────────────
-const state = { employees: [], payrolls: [], attendances: [], data: [] };
+const state = {
+  employees: [], payrolls: [], attendances: [], data: [],
+  filter: "all",              // 'all' | 'top' | 'improve'  (true filters — hide non-matches)
+  needsReviewFirst: false,    // sort toggle — reorders, doesn't hide anyone
+  sort: { field: null, dir: 1 },
+};
 
 function refresh() {
   state.data = mergeData(state.employees, state.payrolls, state.attendances);
   renderStats(state.data);
   renderScoreDistribution(state.data);
   renderDeptAverages(state.data);
+  renderFilterCounts(state.data);
   renderTable(document.getElementById("empSearch").value);
 }
 
@@ -174,12 +189,15 @@ function renderStats(data) {
 }
 
 // ── Score distribution (reviewed employees only) ─────────
+// FIX: bands now line up with the same thresholds used by getStatus/getScoreClass
+// (>=80 top, 60-79 meets, <60 improve). Previously "75–89" straddled two
+// categories so this chart never matched the table/status badges.
 function renderScoreDistribution(data) {
   const reviewed = data.filter((e) => e.reviewed);
   const bands = [
     { label: "90–100", min: 90, max: 100, cls: "bg-gold" },
-    { label: "75–89", min: 75, max: 89, cls: "bg-gold" },
-    { label: "60–74", min: 60, max: 74, cls: "bg-purple" },
+    { label: "80–89", min: 80, max: 89, cls: "bg-gold" },
+    { label: "60–79", min: 60, max: 79, cls: "bg-purple" },
     { label: "Below 60", min: 0, max: 59, cls: "bg-danger" },
   ];
   const total = reviewed.length;
@@ -241,19 +259,78 @@ function renderDeptAverages(data) {
   });
 }
 
+// ── Filtering & sorting ───────────────────────────────────
+const FILTER_LABELS = {
+  all: "employees",
+  top: "top achievers",
+  improve: "employees needing attention",
+};
+
+function matchesFilter(emp, filter) {
+  if (filter === "top") return emp.reviewed && emp.score >= 80;
+  if (filter === "improve") return emp.reviewed && emp.score < 60;
+  return true; // 'all'
+}
+
+function sortEmployees(list, field, dir) {
+  const copy = [...list];
+  copy.sort((a, b) => {
+    let va = a[field];
+    let vb = b[field];
+    if (va === null || va === undefined) va = -Infinity;
+    if (vb === null || vb === undefined) vb = -Infinity;
+    if (typeof va === "string") { va = va.toLowerCase(); vb = String(vb).toLowerCase(); }
+    if (va < vb) return -1 * dir;
+    if (va > vb) return 1 * dir;
+    return 0;
+  });
+  return copy;
+}
+
+function emptyStateMessage(query) {
+  const label = FILTER_LABELS[state.filter] || "employees";
+  if (query) return `No ${label} match "${query}".`;
+  return `There are no ${label} right now.`;
+}
+
+// Updates the count badges shown on each filter tab / the sort toggle
+function renderFilterCounts(data) {
+  const countAll = document.getElementById("count-all");
+  const countTop = document.getElementById("count-top");
+  const countImprove = document.getElementById("count-improve");
+  const countPending = document.getElementById("count-pending");
+  if (countAll) countAll.textContent = `(${data.length})`;
+  if (countTop) countTop.textContent = `(${data.filter((e) => e.reviewed && e.score >= 80).length})`;
+  if (countImprove) countImprove.textContent = `(${data.filter((e) => e.reviewed && e.score < 60).length})`;
+  if (countPending) countPending.textContent = `(${data.filter((e) => !e.reviewed).length})`;
+}
+
 // ── Employee table ────────────────────────────────────────
 function renderTable(query = "") {
   const tbody = document.getElementById("empTable");
   const q = query.toLowerCase();
-  const filtered = state.data.filter((e) =>
-    e.name.toLowerCase().includes(q) ||
-    e.department.toLowerCase().includes(q) ||
-    e.position.toLowerCase().includes(q)
+
+  let filtered = state.data.filter((e) =>
+    matchesFilter(e, state.filter) &&
+    (e.name.toLowerCase().includes(q) ||
+      e.department.toLowerCase().includes(q) ||
+      e.position.toLowerCase().includes(q))
   );
+
+  if (state.needsReviewFirst) {
+    filtered = filtered.slice().sort((a, b) => {
+      const aPending = a.reviewed ? 1 : 0;
+      const bPending = b.reviewed ? 1 : 0;
+      if (aPending !== bPending) return aPending - bPending; // unreviewed first
+      return a.name.localeCompare(b.name);
+    });
+  } else if (state.sort.field) {
+    filtered = sortEmployees(filtered, state.sort.field, state.sort.dir);
+  }
 
   tbody.innerHTML = "";
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-4">No employees found.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-4">${emptyStateMessage(query)}</td></tr>`;
     return;
   }
 
@@ -281,6 +358,66 @@ function renderTable(query = "") {
   });
 }
 
+// ── Filter tabs ───────────────────────────────────────────
+function initFilterTabs() {
+  document.querySelectorAll(".filter-tab[data-filter]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      state.filter = btn.dataset.filter;
+      document.querySelectorAll(".filter-tab[data-filter]").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderTable(document.getElementById("empSearch").value);
+    });
+  });
+}
+
+// "Needs Review First" is a SORT, not a filter — it reorders the list rather
+// than hiding anyone, so it's kept separate from the category filter tabs.
+function initNeedsReviewToggle() {
+  const btn = document.getElementById("needsReviewToggle");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    state.needsReviewFirst = !state.needsReviewFirst;
+    btn.classList.toggle("active", state.needsReviewFirst);
+    if (state.needsReviewFirst) {
+      state.sort.field = null;
+      updateSortArrows();
+    }
+    renderTable(document.getElementById("empSearch").value);
+  });
+}
+
+// Click-to-sort table headers. Clicking the same header again reverses
+// direction; picking a column sort cancels the "needs review first" toggle
+// so the two ordering modes don't fight each other.
+function initSortableHeaders() {
+  document.querySelectorAll("th[data-sort]").forEach((th) => {
+    th.addEventListener("click", () => {
+      const field = th.dataset.sort;
+      if (state.sort.field === field) {
+        state.sort.dir *= -1;
+      } else {
+        state.sort.field = field;
+        state.sort.dir = 1;
+      }
+      if (state.needsReviewFirst) {
+        state.needsReviewFirst = false;
+        const toggle = document.getElementById("needsReviewToggle");
+        if (toggle) toggle.classList.remove("active");
+      }
+      updateSortArrows();
+      renderTable(document.getElementById("empSearch").value);
+    });
+  });
+}
+
+function updateSortArrows() {
+  document.querySelectorAll(".sort-arrow").forEach((el) => (el.textContent = ""));
+  if (state.sort.field) {
+    const arrowEl = document.getElementById(`arrow-${state.sort.field}`);
+    if (arrowEl) arrowEl.textContent = state.sort.dir === 1 ? "▲" : "▼";
+  }
+}
+
 // ── Search ────────────────────────────────────────────────
 function initSearch() {
   document.getElementById("empSearch").addEventListener("input", function () {
@@ -305,6 +442,15 @@ function openEmployeeModal(emp) {
   const body = document.getElementById("modal-dynamic-body");
   body.innerHTML = emp.reviewed ? renderAdvancedStats(emp) : renderAwaitingReviewPanel(emp);
   if (!emp.reviewed) attachGradeButtonListener(emp);
+
+  // Edit is only shown for already-reviewed employees — an un-reviewed
+  // employee already has their own "Grade Employee" button in the panel,
+  // so we don't show a second, redundant entry point.
+  const editBtn = document.getElementById("modal-edit-btn");
+  if (editBtn) {
+    editBtn.style.display = emp.reviewed ? "inline-block" : "none";
+    editBtn.onclick = () => openGradeModal(emp);
+  }
 
   const exportBtn = document.getElementById("modal-export-btn");
   exportBtn.onclick = () => exportEmployeeReport(emp);
@@ -386,17 +532,36 @@ let gradeTargetEmp = null;
 
 function openGradeModal(emp) {
   gradeTargetEmp = emp;
-  document.getElementById("grade-emp-name").textContent = `Grading ${emp.name} — ${emp.position}`;
+
+  const titleEl = document.getElementById("grade-modal-title");
+  if (titleEl) titleEl.textContent = emp.reviewed ? "Edit Performance Record" : "Grade Employee";
+  document.getElementById("grade-emp-name").textContent = emp.reviewed
+    ? `Editing ${emp.name} — ${emp.position}`
+    : `Grading ${emp.name} — ${emp.position}`;
+
   document.getElementById("gradeForm").reset();
-  document.getElementById("grade-bonus").value = 0;
-  document.getElementById("grade-deductions").value = 0;
+
+  // FIX: pre-fill with the employee's current values when re-grading instead
+  // of leaving fields blank. Previously blank Attendance %/Leave fields were
+  // silently treated as 0 on submit, quietly zeroing out real data on re-grade.
+  document.getElementById("grade-position").value = emp.position || "";
+  document.getElementById("grade-department").value = emp.department || "";
+  document.getElementById("grade-salary").value = emp.salary ?? "";
+  document.getElementById("grade-contact").value = emp.contact || "";
+  document.getElementById("grade-goalsMet").value = emp.goalsMet ?? "";
+  document.getElementById("grade-goalsTotal").value = emp.goalsTotal ?? "";
+  document.getElementById("grade-attendance").value = emp.reviewed ? emp.attendancePct : "";
+  document.getElementById("grade-leave").value = emp.reviewed ? emp.leaveDeductions : "";
+  document.getElementById("grade-bonus").value = emp.reviewed ? (emp.bonus || 0) : 0;
+  document.getElementById("grade-deductions").value = emp.reviewed ? (emp.deductions || 0) : 0;
+
   clearGradeErrors();
   bootstrap.Modal.getOrCreateInstance(document.getElementById("employeeModal")).hide();
   bootstrap.Modal.getOrCreateInstance(document.getElementById("gradeModal")).show();
 }
 
 function clearGradeErrors() {
-  ["goalsMet", "goalsTotal", "attendance", "leave", "bonus", "deductions"].forEach((f) => {
+  ["position", "department", "salary", "contact", "goalsMet", "goalsTotal", "attendance", "leave", "bonus", "deductions"].forEach((f) => {
     document.getElementById(`grade-${f}`).classList.remove("is-invalid");
     const errEl = document.getElementById(`err-${f}`);
     if (errEl) { errEl.textContent = ""; errEl.style.display = "none"; }
@@ -408,12 +573,27 @@ function initGradeForm() {
     e.preventDefault();
     clearGradeErrors();
 
-    const goalsMet = Number(document.getElementById("grade-goalsMet").value);
-    const goalsTotal = Number(document.getElementById("grade-goalsTotal").value);
-    const attendance = Number(document.getElementById("grade-attendance").value);
-    const leave = Number(document.getElementById("grade-leave").value);
-    const bonus = Number(document.getElementById("grade-bonus").value);
-    const deductions = Number(document.getElementById("grade-deductions").value);
+    // FIX: read raw string values first so blank fields can be rejected
+    // explicitly — Number("") evaluates to 0 and previously slipped past
+    // validation, silently zeroing out attendance/leave on submit.
+    const rawPosition = document.getElementById("grade-position").value.trim();
+    const rawDepartment = document.getElementById("grade-department").value.trim();
+    const rawSalary = document.getElementById("grade-salary").value.trim();
+    const rawContact = document.getElementById("grade-contact").value.trim();
+    const rawGoalsMet = document.getElementById("grade-goalsMet").value.trim();
+    const rawGoalsTotal = document.getElementById("grade-goalsTotal").value.trim();
+    const rawAttendance = document.getElementById("grade-attendance").value.trim();
+    const rawLeave = document.getElementById("grade-leave").value.trim();
+    const rawBonus = document.getElementById("grade-bonus").value.trim();
+    const rawDeductions = document.getElementById("grade-deductions").value.trim();
+
+    const salary = Number(rawSalary);
+    const goalsMet = Number(rawGoalsMet);
+    const goalsTotal = Number(rawGoalsTotal);
+    const attendance = Number(rawAttendance);
+    const leave = Number(rawLeave);
+    const bonus = Number(rawBonus);
+    const deductions = Number(rawDeductions);
 
     let hasError = false;
     const markError = (field, message) => {
@@ -423,24 +603,58 @@ function initGradeForm() {
       hasError = true;
     };
 
-    if (!Number.isFinite(goalsMet) || goalsMet < 0) markError("goalsMet", "Enter a valid number of goals met.");
-    if (!Number.isFinite(goalsTotal) || goalsTotal < 1) markError("goalsTotal", "Total goals must be at least 1.");
-    if (goalsTotal >= 1 && goalsMet > goalsTotal) markError("goalsMet", "Goals met can't exceed total goals.");
-    if (!Number.isFinite(attendance) || attendance < 0 || attendance > 100) markError("attendance", "Enter a value between 0 and 100.");
-    if (!Number.isFinite(leave) || leave < 0) markError("leave", "Leave days can't be negative.");
-    if (!Number.isFinite(bonus) || bonus < 0) markError("bonus", "Bonus can't be negative.");
-    if (!Number.isFinite(deductions) || deductions < 0) markError("deductions", "Deductions can't be negative.");
+    if (rawPosition === "") markError("position", "Position is required.");
+    if (rawDepartment === "") markError("department", "Department is required.");
+    if (rawContact === "") markError("contact", "Contact is required.");
+    if (rawSalary === "") markError("salary", "This field is required.");
+    else if (!Number.isFinite(salary) || salary <= 0) markError("salary", "Enter a valid base salary.");
+
+    if (rawGoalsMet === "") markError("goalsMet", "This field is required.");
+    else if (!Number.isFinite(goalsMet) || goalsMet < 0) markError("goalsMet", "Enter a valid number of goals met.");
+    if (rawGoalsTotal === "") markError("goalsTotal", "This field is required.");
+    else if (!Number.isFinite(goalsTotal) || goalsTotal < 1) markError("goalsTotal", "Total goals must be at least 1.");
+
+    if (rawGoalsMet !== "" && rawGoalsTotal !== "" && goalsTotal >= 1 && goalsMet > goalsTotal) {
+      markError("goalsMet", "Goals met can't exceed total goals.");
+    }
+
+    if (rawAttendance === "") markError("attendance", "This field is required.");
+    else if (!Number.isFinite(attendance) || attendance < 0 || attendance > 100) markError("attendance", "Enter a value between 0 and 100.");
+
+    if (rawLeave === "") markError("leave", "This field is required.");
+    else if (!Number.isFinite(leave) || leave < 0) markError("leave", "Leave days can't be negative.");
+
+    if (rawBonus === "") markError("bonus", "This field is required.");
+    else if (!Number.isFinite(bonus) || bonus < 0) markError("bonus", "Bonus can't be negative.");
+
+    if (rawDeductions === "") markError("deductions", "This field is required.");
+    else if (!Number.isFinite(deductions) || deductions < 0) markError("deductions", "Deductions can't be negative.");
 
     if (hasError) return;
-    saveGrade(gradeTargetEmp, { goalsMet, goalsTotal, attendance, leave, bonus, deductions });
+    saveGrade(gradeTargetEmp, {
+      position: rawPosition, department: rawDepartment, salary, contact: rawContact,
+      goalsMet, goalsTotal, attendance, leave, bonus, deductions,
+    });
   });
 }
 
-function saveGrade(emp, { goalsMet, goalsTotal, attendance, leave, bonus, deductions }) {
-  const finalSalary = emp.salary + bonus - deductions;
+function saveGrade(emp, { position, department, salary, contact, goalsMet, goalsTotal, attendance, leave, bonus, deductions }) {
+  const wasReviewed = emp.reviewed;
+  const finalSalary = salary + bonus - deductions;
+  const score = calcScore(salary, finalSalary, attendance);
 
+  // Payroll record: financial detail only (final salary, bonus, deductions,
+  // leave-deduction days) — no longer the thing the score is derived from
+  // on every render.
   const payrollIndex = state.payrolls.findIndex((p) => p.employeeId === emp.employeeId);
-  const payrollRecord = { employeeId: emp.employeeId, salary: emp.salary, bonus, deductions, finalSalary };
+  const payrollRecord = {
+    employeeId: emp.employeeId,
+    salary,
+    bonus,
+    deductions,
+    leaveDeductions: leave,
+    finalSalary,
+  };
   if (payrollIndex >= 0) state.payrolls[payrollIndex] = payrollRecord;
   else state.payrolls.push(payrollRecord);
   localStorage.setItem("payroll", JSON.stringify(state.payrolls));
@@ -451,16 +665,27 @@ function saveGrade(emp, { goalsMet, goalsTotal, attendance, leave, bonus, deduct
   else state.attendances.push(attendanceRecord);
   localStorage.setItem("attendance", JSON.stringify(state.attendances));
 
+  // FIX: persist the computed score, goals, attendance %, and basic info
+  // directly onto the employee record. These are the fields employee_info.json
+  // ships with (score, attendance, goalsMet, goalsTotal, position, department,
+  // salary, contact) — grading/editing is what keeps them live and up to
+  // date, rather than them sitting unused.
   const empIndex = state.employees.findIndex((e) => e.employeeId === emp.employeeId);
   if (empIndex >= 0) {
+    state.employees[empIndex].position = position;
+    state.employees[empIndex].department = department;
+    state.employees[empIndex].salary = salary;
+    state.employees[empIndex].contact = contact;
     state.employees[empIndex].goalsMet = goalsMet;
     state.employees[empIndex].goalsTotal = goalsTotal;
+    state.employees[empIndex].attendance = attendance;
+    state.employees[empIndex].score = score;
     localStorage.setItem("employees", JSON.stringify(state.employees));
   }
 
   refresh();
   bootstrap.Modal.getOrCreateInstance(document.getElementById("gradeModal")).hide();
-  showToast(`${emp.name} has been graded.`);
+  showToast(`${emp.name} has been ${wasReviewed ? "updated" : "graded"}.`);
 
   const updatedEmp = state.data.find((e) => e.employeeId === emp.employeeId);
   if (updatedEmp) setTimeout(() => openEmployeeModal(updatedEmp), 300);
@@ -520,6 +745,10 @@ function buildReportDocument(title, bodyHtml) {
 
 function openReportWindow(html) {
   const win = window.open("", "_blank");
+  if (!win) {
+    showToast("Please allow pop-ups to export the report.");
+    return;
+  }
   win.document.write(html);
   win.document.close();
 }
@@ -588,6 +817,25 @@ function exportEmployeeReport(emp) {
   openReportWindow(buildReportDocument(`Performance Report — ${emp.name}`, body));
 }
 
+// ── Reset sample data (QOL) ───────────────────────────────
+// Handy escape hatch: clears any graded/edited data in localStorage and
+// re-seeds from the original JSON files, in case test/demo data gets into
+// a confusing state.
+function initResetButton() {
+  const btn = document.getElementById("resetDataBtn");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const confirmed = window.confirm(
+      "This will erase all graded/edited employee data in this browser and reload the original sample data. Continue?"
+    );
+    if (!confirmed) return;
+    localStorage.removeItem("employees");
+    localStorage.removeItem("payroll");
+    localStorage.removeItem("attendance");
+    window.location.reload();
+  });
+}
+
 // ── Init ──────────────────────────────────────────────────
 Promise.all([
   loadEmployees(),
@@ -603,6 +851,10 @@ Promise.all([
     initSearch();
     initModal();
     initGradeForm();
+    initFilterTabs();
+    initNeedsReviewToggle();
+    initSortableHeaders();
+    initResetButton();
     document.getElementById("exportBtn").addEventListener("click", exportFullReport);
   })
   .catch((err) => {
