@@ -6,7 +6,7 @@
 
     <title>Leave Requests | ModernTech Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./CSS/style.css" />
   </head>
 
   <body class="requests-page">
@@ -104,7 +104,8 @@
               <tr>
                 <th>Employee</th>
                 <th>Leave Type</th>
-                <th>Leave Dates</th>
+                <th>Start Date</th>
+                <th>End Date</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -142,14 +143,35 @@
        </div>
 
          <!-- ================= 3. View Details Popup ================= -->
-         <div id="view-popup" class="success-popup" style="display: none;">
-           <div class="success-content">
-             <i id="view-icon" class="fa-solid fa-circle-info" style="color: #3b82f6;"></i>
-             <h3 id="view-title">Leave Request Details</h3>
-             <div id="view-message" style="text-align: left; margin: 15px 0; white-space: pre-line; line-height: 1.6;"></div>
-             <button class="save-btn" onclick="closeViewPopup()">Close</button>
-           </div>
-          </div>
+         <!-- ================= View Employee Profile Popup ================= -->
+
+<!-- ================= View Employee Profile Popup ================= -->
+
+<div id="view-popup" class="success-popup" style="display:none;">
+
+    <div class="success-content">
+
+        <h3>Employee Leave Profile</h3>
+
+        <div id="view-message"> 
+
+            <!-- Filled by JavaScript -->
+
+        </div>
+
+        <button
+            class="save-btn"
+            onclick="closeViewPopup()">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+            <!-- Filled automatically by JavaScript -->
 
         </div>
 
