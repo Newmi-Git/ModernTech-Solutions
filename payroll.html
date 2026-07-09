@@ -1,235 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payroll | ModernTech Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
+    <link rel="stylesheet" href="./CSS/style.css">
+</head>
+<body class="payroll-page">
 
-  <body class="payroll-page">
-
-    <main class="requests-container">
-
-    <!-- Navbar placeholder -->
+<main class="requests-container">
+    <!-- Navbar -->
     <div id="app-navbar"></div>
 
-     <!-- Hero Section -->
-
-      <section class="hero-section">
-
+    <!-- Hero -->
+    <section class="hero-section">
         <span class="badge">Employee Payroll Management</span>
-
         <h1>Payroll</h1>
-
         <p class="subtitle">
-          Review employee payroll information including working hours,
-          leave deductions, hourly rates and final salary payments across
-          <strong class="brand-highlight">ModernTech Solutions</strong>.
+            Review employee payroll information including working hours,
+            leave deductions, hourly rates and final salary payments across
+            <strong class="brand-highlight">ModernTech Solutions</strong>.
         </p>
+    </section>
 
-      </section>
-
-      <!-- Payroll Overview -->
-
-      <section class="payroll-overview-section">
-
+    <!-- Payroll Overview -->
+    <section class="payroll-overview-section">
         <div class="overview-container">
-
-          <h2>Payroll Overview</h2>
-
-          <p>
-            Monitor employee salaries, working hours and payroll information
-            throughout the organisation.
-          </p>
-
-          <div class="payroll-summary">
-
-            <div class="summary-card">
-              <h3>Total Employees</h3>
-              <p>250+</p>
+            <h2>Payroll Overview</h2>
+            <p>Monitor employee salaries, working hours and payroll information throughout the organisation.</p>
+            <div class="payroll-summary">
+                <div class="summary-card"><h3>Total Employees</h3><p>250+</p></div>
+                <div class="summary-card"><h3>Average Salary</h3><p>R64 090</p></div>
+                <div class="summary-card"><h3>Total Payroll</h3><p>R632 700</p></div>
+                <div class="summary-card"><h3>Average Hours</h3><p>162 HRS</p></div>
             </div>
-
-            <div class="summary-card">
-              <h3>Average Salary</h3>
-              <p>R64 090</p>
-            </div>
-
-            <div class="summary-card">
-              <h3>Total Payroll</h3>
-              <p>R632 700</p>
-            </div>
-
-            <div class="summary-card">
-              <h3>Average Hours</h3>
-              <p>162 HRS</p>
-            </div>
-
-          </div>
-
         </div>
+    </section>
 
-      </section>
-
-      <!-- Payroll Records -->
-
-      <section class="payroll-table-section">
-
+    <!-- Payroll Table -->
+    <section class="payroll-table-section">
         <div class="payroll-table-container">
-
-          <h2>Payroll Records</h2>
-
-          <p>
-            View payroll information for all employees.
-            Select <strong>View</strong> to display complete payroll details.
-          </p>
-
-          <table class="payroll-table">
-
-            <thead>
-
-              <tr>
-
-                <th>Employee ID</th>
-
-                <th>Hours Worked</th>
-
-                <th>Final Salary</th>
-
-                <th>Action</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody id="payroll-data">
-
-              <!-- Payroll data from JSON -->
-
-            </tbody>
-
-          </table>
-
+            <h2>Payroll Records</h2>
+            <p>View payroll information for all employees. Select <strong>View</strong> to display complete payroll details.</p>
+            <table class="payroll-table">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Hours Worked</th>
+                        <th>Final Salary</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="payroll-data">
+                    <!-- JS inserts rows -->
+                </tbody>
+            </table>
         </div>
+    </section>
+</main>
 
-      </section>
+<!-- Payroll Details Card -->
+<div id="payroll-overlay" class="popup-overlay" style="display: none;">
+  <div id="payroll-card" class="details-card">
+    <span class="close-btn" onclick="closePayrollCard()">&times;</span>
 
-    </main>
+    <div class="payslip-header">
+      <h2>ModernTech Solutions</h2>
+      <p>Employee Monthly Payslip</p>
+    </div>
+    <hr>
+    <div class="payslip-section">
+      <p><strong>Employee ID:</strong> <span id="card-id"></span></p>
+      <p><strong>Hours Worked:</strong> <span id="card-hours"></span></p>
+      <p><strong>Leave Deductions:</strong> <span id="card-leave"></span></p>
+      <p><strong>Hourly Rate:</strong> <span id="card-rate"></span></p>
+    </div>
+    <hr>
+    <h3>Earnings</h3>
+    <table class="payslip-table">
+      <tr>
+        <td><strong>Monthly Salary</strong></td>
+        <td id="card-salary"></td>
+      </tr>
+      <!-- ADDED BACK: Annual Salary Row on the Card View -->
+      <tr>
+        <td><strong>Annual Salary</strong></td>
+        <td id="card-annual"></td>
+      </tr>
+    </table>
+    <hr>
+    <label for="payroll-comment">Comments</label>
+    <textarea id="payroll-comment" rows="4" placeholder="Add payroll comments here..."></textarea>
 
-    <!-- Payroll Details Card -->
-
-    <div
-      id="payroll-card"
-      class="details-card"
-      style="display: none;">
-
-      <span
-        class="close-btn"
-        onclick="closePayrollCard()">
-
-        &times;
-
-      </span>
-
-      <h2>Payroll Details</h2>
-
-      <p>
-
-        <strong>Employee ID:</strong>
-
-        <span id="card-id"></span>
-
-      </p>
-
-      <p>
-
-        <strong>Hours Worked:</strong>
-
-        <span id="card-hours"></span>
-
-      </p>
-
-      <p>
-
-        <strong>Leave Deductions:</strong>
-
-        <span id="card-leave"></span>
-
-      </p>
-
-      <p>
-
-        <strong>Hourly Rate:</strong>
-
-        <span id="card-rate"></span>
-
-      </p>
-
-      <p>
-
-        <strong>Final Salary:</strong>
-
-        <span id="card-salary"></span>
-
-      </p>
-
-      <label for="payroll-comment">
-
-        Comments
-
-      </label>
-
-      <textarea
-        id="payroll-comment"
-        rows="5"
-        placeholder="Add payroll comments here..."></textarea>
-
-      <button
-        class="save-btn"
-        onclick="savePayrollComment()">
-
-        Save Comment
-
+    <div class="payroll-buttons">
+      <button class="save-btn" onclick="savePayrollComment()">Save Comment</button>
+      <button class="view-btn" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> Print Payslip
       </button>
-
     </div>
-
-<!-- Success Popup -->
-
-<div id="popup" class="success-popup">
-
-    <div class="success-content">
-
-        <i id="popup-icon" class="fa-solid fa-circle-check"></i>
-
-        <h3 id="popup-title"></h3>
-
-        <p id="popup-message"></p>
-
-        <button onclick="closePopup()">
-            OK
-        </button>
-
-    </div>
-
-
-
+  </div>
 </div>
 
-    <script src="./JS/payroll.js"></script>
+<!-- Success Popup -->
+<div id="popup" class="success-popup">
+    <div class="success-content">
+        <i id="popup-icon" class="fa-solid fa-circle-check"></i>
+        <h3 id="popup-title"></h3>
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
 
-    <div id="app-footer"></div>
-    
+<!-- Hidden Printable Payslip -->
+<div id="print-payslip" class="print-payslip">
+    <h1>ModernTech Solutions</h1>
+    <h3>Employee Payslip</h3>
+    <hr>
+    <p><strong>Employee ID:</strong> <span id="print-id"></span></p>
+    <p><strong>Hours Worked:</strong> <span id="print-hours"></span></p>
+    <hr>
+    <table class="payslip-table">
+        <tr>
+            <td>Monthly Salary</td>
+            <td id="print-salary"></td>
+        </tr>
+        <tr>
+            <td>Tax (18%)</td>
+            <td id="print-tax"></td>
+        </tr>
+        <tr>
+            <td>Pension (5%)</td>
+            <td id="print-pension"></td>
+        </tr>
+        <tr>
+            <td>Medical Aid (2%)</td>
+            <td id="print-medical"></td>
+        </tr>
+        <tr>
+            <td><strong>Net Salary</strong></td>
+            <td id="print-net"></td>
+        </tr>
+        <tr>
+            <td><strong>Annual Salary</strong></td>
+            <td id="print-annual"></td>
+        </tr>
+    </table>
+</div>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/navbar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="performance.js"></script>
-    <script src="js/footer.js"></script>
-    
-    <script>requireRole(['hr']);</script>
-  </body>
+<script src="./JS/payroll.js"></script>
+<div id="app-footer"></div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="performance.js"></script>
+<script src="js/footer.js"></script>
+<script>requireRole(['hr']);</script>
+</body>
 </html>
