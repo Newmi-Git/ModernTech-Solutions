@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ModernTech Solutions - HR Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body class="index-body">
 
@@ -178,27 +178,26 @@
                 const formattedSalary = "R " + currentSalary.toLocaleString();
 
                 const row = `
-                    <tr style="border-bottom: 1px solid #e0e0e0; font-size: 0.95rem; color: #222222;">
-                        <td style="padding: 16px 8px;"><strong>${info.name}</strong></td>
-                        <td style="padding: 16px 8px;">
-                            <span style="font-weight: 600; display: block; font-size: 0.88rem;">${info.position}</span>
-                            <small style="color: #666666; font-size: 0.78rem;">${info.department}</small>
-                        </td>
-                        <td style="padding: 16px 8px; color: #444444;">${payroll.hoursWorked || 0} hrs</td>
-                        <td style="padding: 16px 8px;"><strong>${formattedSalary}</strong></td>
-                        <td style="padding: 16px 8px;">
-                            <span onclick="window.location.href='requests.html'" 
-                                  class="leave-badge" 
-                                  style="display: inline-block; background: #fef3c7; color: #d97706; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 6px; border: 1px solid #f59e0b; cursor: pointer;">
-                                ${leave.reason} (${leave.status})
-                            </span>
-                        </td>
-                    </tr>
+                <tr>
+                    <td style="padding: 16px 8px;"><strong>${info.name}</strong></td>
+                    <td style="padding: 16px 8px;">
+                    <span style="font-weight: 600; display: block; font-size: 0.88rem;">${info.position}</span>
+                    <small style="color: #888; font-size: 0.78rem;">${info.department}</small>
+                    </td>
+                    <td style="padding: 16px 8px;">${payroll.hoursWorked || 0} hrs</td>
+                    <td style="padding: 16px 8px;"><strong>${formattedSalary}</strong></td>
+                    <td style="padding: 16px 8px;">
+                    <span onclick="window.location.href='requests.html'" 
+                            class="leave-badge" 
+                            style="display: inline-block; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 6px; border: 1px solid #f59e0b; cursor: pointer;">
+                        ${leave.reason} (${leave.status})
+                    </span>
+                    </td>
+                </tr>
                 `;
                 tableBody.innerHTML += row;
             });
-        }
-
+            }
         window.addEventListener('DOMContentLoaded', populateDashboard);
     </script>
 </body>

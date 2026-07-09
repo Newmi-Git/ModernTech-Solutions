@@ -13,7 +13,7 @@
 
     <header class="attendance-banner">
       <h1>Attendance Tracking</h1>
-      <p class="banner-subtitle">Real-time employee attendance monitoring. Click on cells to toggle statuses.</p>
+      <p class="banner-subtitle">Real-time employee attendance monitoring. Click cells to cycle through statuses.</p>
     </header>
 
     <div class="attendance-container" id="attendance-app">
@@ -21,7 +21,14 @@
       <!-- Top Controls & Stats -->
       <div class="controls-and-stats">
         <div class="date-picker-card">
-          <h3><i class="fa-solid fa-calendar-days"></i> Select Week</h3>
+          <h3><i class="fa-solid fa-calendar-days"></i> Select Dates</h3>
+          
+          <div class="preset-buttons">
+            <button @click="setPresetToday" class="preset-btn">Today</button>
+            <button @click="setPresetWeek" class="preset-btn">This Week</button>
+            <button @click="setPresetMonth" class="preset-btn">This Month</button>
+          </div>
+
           <div class="date-input-group">
             <label for="start-date">Start Date</label>
             <input type="date" id="start-date" v-model="startDate" @change="updateView">
@@ -42,7 +49,7 @@
             <div class="stat-num">{{ avgPresent }}%</div>
           </div>
           <div class="stat-card gold">
-            <h4>Avg Absent</h4>
+            <h4>Absent / Leave</h4>
             <div class="stat-num">{{ avgAbsent }}%</div>
           </div>
           <div class="stat-card purple">
@@ -56,38 +63,51 @@
       <div class="spreadsheet-container">
         <div class="spreadsheet-header">
           <h2><i class="fa-solid fa-table-cells-large"></i> Attendance Sheet</h2>
-          <div class="spreadsheet-legend">
-            <div class="legend-item">
-              <div class="legend-dot" style="background: #dcfce7;"></div> Present
+          <div class="header-actions">
+            <div class="spreadsheet-legend">
+              <div class="legend-item"><div class="legend-dot att-present"></div> Present</div>
+              <div class="legend-item"><div class="legend-dot att-late"></div> Late</div>
+              <div class="legend-item"><div class="legend-dot att-absent"></div> Absent</div>
+              <div class="legend-item"><div class="legend-dot att-half-day"></div> Half Day</div>
+              <div class="legend-item"><div class="legend-dot att-leave"></div> Leave</div>
             </div>
-            <div class="legend-item">
-              <div class="legend-dot" style="background: #fee2e2;"></div> Absent
-            </div>
-            <div class="legend-item">
-              <div class="legend-dot" style="background: #f8f9fa; border: 1px dashed #ccc;"></div> No Data
-            </div>
+            <button @click="exportCSV" class="export-btn">
+              <i class="fa-solid fa-file-csv"></i> Export CSV
+            </button>
           </div>
         </div>
+        
+        <div v-if="loading" style="text-align: center; padding: 3rem; font-weight: 700; color: #666;">
+          <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+          Loading Attendance Data...
+        </div>
+        <div v-else-if="error" style="text-align: center; padding: 3rem; background: #fee2e2; border: 2px solid #f87171; border-radius: 16px; color: #991b1b; font-weight: 700;">
+          <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+          {{ error }}
+        </div>
 
-        <div class="table-wrapper">
+        <div v-else class="table-wrapper">
           <table class="attendance-table">
             <thead>
               <tr>
                 <th class="row-header">Employee Name</th>
-                <th v-for="date in columns" :key="date">{{ formatDateHeader(date) }}</th>
+                <th v-for="date in columns" :key="date">
+                  <div class="date-col-header">
+                    <span>{{ formatDateHeader(date) }}</span>
+                    <button @click.stop="markAllPresent(date)" class="bulk-btn" title="Mark all present for this day">Fill All P</button>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="emp in employees" :key="emp.employeeId">
-                <td class="row-data">
-                  {{ emp.name }}
-                </td>
+                <td class="row-data">{{ emp.name }}</td>
                 <td v-for="date in columns" :key="emp.employeeId + date">
                   <div 
                     class="att-cell" 
                     :class="getStatusClass(emp.employeeId, date)"
                     @click="toggleStatus(emp.employeeId, date)"
-                    :title="'Click to toggle status'"
+                    :title="'Click to change status'"
                   >
                     {{ getStatusText(emp.employeeId, date) }}
                   </div>
@@ -97,12 +117,10 @@
           </table>
         </div>
       </div>
-
     </div>
 
     <div id="app-footer"></div>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/auth.js"></script>
     <script>requireRole(["hr"]);</script>
