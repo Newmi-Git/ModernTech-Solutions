@@ -28,7 +28,7 @@
 
                 <div class="metrics-subgrid">
                     <div class="index-grid-card index-metric-card secondary-highlight pulse-card" onclick="window.location.href='requests.html'">
-                         <span class="index-metric-number">05</span>
+                         <span class="index-metric-number" id="pending-leave-count">05</span>
                          <span class="index-metric-label">Pending Leave</span>
                     </div>
 
@@ -149,6 +149,31 @@
             localStorage.setItem('attendance', JSON.stringify(attendanceAndLeave));
         }
 
+        // Reads the leaveRequests key (an array of employees, each with
+        // its own leaveRequests array) and counts every request across
+        // all employees that is still awaiting a decision.
+        function updatePendingLeaveCount() {
+            const countEl = document.getElementById('pending-leave-count');
+            if (!countEl) return;
+
+            const stored = localStorage.getItem('leaveRequests');
+            let records = [];
+            try {
+                records = stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                records = [];
+            }
+
+            let pendingCount = 0;
+            records.forEach(employee => {
+                (employee.leaveRequests || []).forEach(request => {
+                    if (request.status === 'Pending') pendingCount++;
+                });
+            });
+
+            countEl.textContent = String(pendingCount).padStart(2, '0');
+        }
+
         // Navigation Dropdown Routing Function
         function handleAdminRouting() {
             const selectElement = document.getElementById("action-select");
@@ -165,14 +190,19 @@
 
             const currentEmployees = JSON.parse(localStorage.getItem('employees'));
             const currentPayroll = JSON.parse(localStorage.getItem('payroll'));
-            const currentAttendance = JSON.parse(localStorage.getItem('attendance'));
+            const currentAttendance = JSON.parse(localStorage.getItem('leaveRequests'));
 
             if (!currentEmployees) return;
 
             currentEmployees.forEach(info => {
                 const payroll = currentPayroll.find(p => p.employeeId === info.employeeId) || {};
-                const attendance = currentAttendance.find(a => a.employeeId === info.employeeId) || {};
-                const leave = attendance.leaveRequests ? attendance.leaveRequests[attendance.leaveRequests.length - 1] : { reason: 'None', status: 'N/A' };
+                const employeeLeave = currentAttendance.find(a => a.employeeId === info.employeeId) || {};
+
+                // Only interested in requests still awaiting a decision.
+                const pendingRequests = (employeeLeave.leaveRequests || []).filter(r => r.status === 'Pending');
+                if (pendingRequests.length === 0) return; // skip employees with nothing pending
+
+                const leave = pendingRequests[pendingRequests.length - 1];
 
                 const currentSalary = payroll.finalSalary || info.salary;
                 const formattedSalary = "R " + currentSalary.toLocaleString();
@@ -197,8 +227,46 @@
                 `;
                 tableBody.innerHTML += row;
             });
+
+            // Nothing pending anywhere: tell the user instead of leaving it blank.
+            if (tableBody.innerHTML.trim() === '') {
+                tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align: center; color: #888; padding: 24px 8px;">
+                        <i class="fa-solid fa-circle-check" style="margin-right: 8px; color: #22c55e;"></i>
+                        No pending leave requests right now.
+                    </td>
+                </tr>
+                `;
             }
-        window.addEventListener('DOMContentLoaded', populateDashboard);
+            }
+        window.addEventListener('DOMContentLoaded', () => {
+            populateDashboard();
+            updatePendingLeaveCount();
+        });
+
+        // Fires when another tab/window (e.g. requests.html) changes localStorage.
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'leaveRequests') {
+                updatePendingLeaveCount();
+                populateDashboard();
+            }
+        });
+
+        // Fires when this page is restored from the back/forward cache
+        // (e.g. navigating back from requests.html), so the count is
+        // never stale even if 'storage' didn't fire in this tab.
+        window.addEventListener('pageshow', () => {
+            updatePendingLeaveCount();
+            populateDashboard();
+        });
+
+        // Fallback for same-tab edits, since the 'storage' event only
+        // fires in OTHER tabs/windows, not the one that made the change.
+        setInterval(() => {
+            updatePendingLeaveCount();
+            populateDashboard();
+        }, 1000);
     </script>
 </body>
 </html>

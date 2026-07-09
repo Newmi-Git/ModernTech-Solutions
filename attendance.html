@@ -11,18 +11,24 @@
   <body class="attendance-page">
     <div id="app-navbar"></div>
 
-    <header class="attendance-banner">
-      <h1>Attendance Tracking</h1>
-      <p class="banner-subtitle">Real-time employee attendance monitoring. Click cells to cycle through statuses.</p>
-    </header>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <span class="badge">HR Attendance Tracking</span>
+      <h1>Attendance</h1>
+      <p class="subtitle">
+        Real-time employee attendance monitoring across
+        <strong class="brand-highlight">ModernTech Solutions</strong>.
+        Click cells to cycle through statuses.
+      </p>
+    </section>
 
     <div class="attendance-container" id="attendance-app">
-      
+
       <!-- Top Controls & Stats -->
       <div class="controls-and-stats">
         <div class="date-picker-card">
           <h3><i class="fa-solid fa-calendar-days"></i> Select Dates</h3>
-          
+
           <div class="preset-buttons">
             <button @click="setPresetToday" class="preset-btn">Today</button>
             <button @click="setPresetWeek" class="preset-btn">This Week</button>
@@ -76,7 +82,7 @@
             </button>
           </div>
         </div>
-        
+
         <div v-if="loading" style="text-align: center; padding: 3rem; font-weight: 700; color: #666;">
           <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
           Loading Attendance Data...
@@ -103,8 +109,8 @@
               <tr v-for="emp in employees" :key="emp.employeeId">
                 <td class="row-data">{{ emp.name }}</td>
                 <td v-for="date in columns" :key="emp.employeeId + date">
-                  <div 
-                    class="att-cell" 
+                  <div
+                    class="att-cell"
                     :class="getStatusClass(emp.employeeId, date)"
                     @click="toggleStatus(emp.employeeId, date)"
                     :title="'Click to change status'"
