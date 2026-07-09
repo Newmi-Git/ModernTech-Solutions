@@ -3,26 +3,40 @@
 // ==========================================
 
 let employees = [];
+let currentFilter = "all status";
 let selectedEmployee = null;
 let selectedRequest = null;
 let selectedAction = "";
 
-// Fetch data from local storage or JSON file
-const savedRequests = localStorage.getItem("leaveRequests");
+// Fetch the default JSON structure first, then check if local storage holds updates
+fetch("./JSON/attendance.json")
+  .then(response => response.json())
+  .then(data => {
+    const defaultEmployees = data.attendanceAndLeave;
+    const savedRequests = localStorage.getItem("leaveRequests");
 
-if (savedRequests) {
-    employees = JSON.parse(savedRequests);
+    if (savedRequests) {
+      const parsedSaved = JSON.parse(savedRequests);
+      
+      // Safety fix: If data was formatted under old flat array logic, reset cleanly
+      if (parsedSaved.length > 0 && !parsedSaved[0].hasOwnProperty('name')) {
+        employees = defaultEmployees;
+      } else {
+        employees = parsedSaved;
+      }
+    } else {
+      employees = defaultEmployees;
+    }
+    
+    saveRequests();
     refreshTable();
-} else {
-    fetch("./JSON/attendance.json")
-        .then(response => response.json())
-        .then(data => {
-            employees = data.attendanceAndLeave;
-            saveRequests();
-            refreshTable();
-        })
-        .catch(error => console.log(error));
-}
+  })
+  .catch(error => {
+    console.error("Error loading initialization payload data:", error);
+    const savedRequests = localStorage.getItem("leaveRequests");
+    if (savedRequests) employees = JSON.parse(savedRequests);
+    refreshTable();
+  });
 
 function saveRequests() {
     localStorage.setItem("leaveRequests", JSON.stringify(employees));
@@ -36,10 +50,11 @@ function displayRequests(data) {
     const table = document.getElementById("leave-requests");
     table.innerHTML = "";
 
+    // Bumped colspan to 6 to account for the new column split
     if (!data || data.length === 0) {
         table.innerHTML = `
             <tr>
-                <td colspan="5" style="text-align: center; color: #888; padding: 20px;">
+                <td colspan="6" style="text-align: center; color: #888; padding: 20px;">
                     No leave requests found matching this status.
                 </td>
             </tr>
@@ -48,7 +63,6 @@ function displayRequests(data) {
     }
 
     data.forEach(employee => {
-        // Find absolute global indices to prevent filtering mismatches
         const employeeIndex = employees.findIndex(emp => emp.name === employee.name);
         if (employeeIndex === -1) return;
 
@@ -77,11 +91,22 @@ function displayRequests(data) {
                 `;
             }
 
+            // Logic to parse the date ranges into distinct Start and End variables
+            let startDate = request.date || "N/A";
+            let endDate = "N/A";
+
+            if (request.date && request.date.includes(" to ")) {
+                const parts = request.date.split(" to ");
+                startDate = parts[0];
+                endDate = parts[1];
+            }
+
             table.innerHTML += `
                 <tr>
                     <td><strong>${employee.name}</strong></td>
                     <td>${request.reason}</td>
-                    <td>${request.date}</td>
+                    <td>${startDate}</td>
+                    <td>${endDate}</td>
                     <td>
                         <span class="${request.status.toLowerCase()}">
                             ${request.status}
@@ -102,42 +127,41 @@ function displayRequests(data) {
 
 function refreshTable() {
     updateCounters();
-    filterStatus();
+
+    if (currentFilter === "all status") {
+        displayRequests(employees);
+        return;
+    }
+
+    const filteredEmployees = [];
+
+    employees.forEach(employee => {
+        if (!employee.leaveRequests) return;
+
+        const requests = employee.leaveRequests.filter(request => {
+            const status = request.status.trim().toLowerCase();
+
+            if (currentFilter === "rejected") {
+                return status === "denied" || status === "rejected";
+            }
+            return status === currentFilter;
+        });
+
+        if (requests.length > 0) {
+            filteredEmployees.push({
+                ...employee,
+                leaveRequests: requests
+            });
+        }
+    });
+
+    displayRequests(filteredEmployees);
 }
 
 function filterStatus() {
-  const dropdown = document.getElementById("status");
-  const selectedStatus = dropdown ? dropdown.value.trim().toLowerCase() : "all status";
-
-  if (selectedStatus === "all status" || selectedStatus === "") {
-    displayRequests(employees);
-    return;
-  }
-
-  const filteredEmployees = [];
-
-  employees.forEach(employee => {
-    if (!employee.leaveRequests) return;
-
-    const requests = employee.leaveRequests.filter(request => {
-      const currentStatus = request.status ? request.status.trim().toLowerCase() : "";
-
-      if (selectedStatus === "rejected") {
-        return currentStatus === "denied" || currentStatus === "rejected";
-      }
-
-      return currentStatus === selectedStatus;
-    });
-
-    if (requests.length > 0) {
-      filteredEmployees.push({
-        ...employee,
-        leaveRequests: requests
-      });
-    }
-  });
-
-  displayRequests(filteredEmployees);
+    const dropdown = document.getElementById("status");
+    currentFilter = dropdown.value.trim().toLowerCase();
+    refreshTable();
 }
 
 function updateCounters() {
@@ -158,7 +182,6 @@ function updateCounters() {
         }
     });
 
-    // Update the layout's overview metric texts automatically
     const totalEl = document.querySelector('.summary-card:nth-child(1) p');
     const pendingEl = document.querySelector('.summary-card:nth-child(2) p');
     const approvedEl = document.querySelector('.summary-card:nth-child(3) p');
@@ -229,7 +252,6 @@ function closeConfirmPopup() {
     document.getElementById("confirm-popup").style.display = "none";
 }
 
-// 1. Success Popup Handlers (id="popup")
 function showPopup(title, message, icon, colour) {
     document.getElementById("popup-title").textContent = title;
     document.getElementById("popup-message").textContent = message;
@@ -238,29 +260,66 @@ function showPopup(title, message, icon, colour) {
     document.getElementById("popup").style.display = "flex";
 }
 
+// Fixed outside click handler dependencies
 function closePopup() {
     document.getElementById("popup").style.display = "none";
-}
-
-// 2. View Details Popup Handlers (id="view-popup")
-function viewRequest(employeeIndex, requestIndex) {
-    const employee = employees[employeeIndex];
-    const request = employee.leaveRequests[requestIndex];
-    
-    const message = `<strong>Employee:</strong> ${employee.name}<br><br>
-<strong>Leave Type:</strong> ${request.reason}<br><br>
-<strong>Date:</strong> ${request.date}<br><br>
-<strong>Status:</strong> ${request.status}`;
-
-    document.getElementById("view-message").innerHTML = message;
-    document.getElementById("view-popup").style.display = "flex";
 }
 
 function closeViewPopup() {
     document.getElementById("view-popup").style.display = "none";
 }
 
-// 3. Outside Click Listener for All 3 Popups
+function viewRequest(employeeIndex, requestIndex) {
+    const employee = employees[employeeIndex];
+    const request = employee.leaveRequests[requestIndex];
+
+    const approved = employee.leaveRequests.filter(r => r.status === "Approved").length;
+    const pending = employee.leaveRequests.filter(r => r.status === "Pending").length;
+    const denied = employee.leaveRequests.filter(r => r.status === "Denied").length;
+
+    const totalWorkingDays = 220;
+    const leaveDays = approved;
+    const presentDays = totalWorkingDays - leaveDays;
+    const attendanceRate = ((presentDays / totalWorkingDays) * 100).toFixed(1);
+
+    // New multi-column structural design to reduce vertical height
+    document.getElementById("view-message").innerHTML = `
+        <div class="modal-profile-header">
+            <i class="fa-solid fa-circle-user" style="font-size: 3rem; color: #22c55e;"></i>
+            <h3>${employee.name}</h3>
+            <p class="modal-subtitle">Employee Leave Profile</p>
+        </div>
+        
+        <div class="modal-grid-layout">
+            <div class="modal-card-box">
+                <h4>Attendance Summary</h4>
+                <p><strong>Present Days:</strong> ${presentDays}</p>
+                <p><strong>Leave Days:</strong> ${leaveDays}</p>
+                <p><strong>Attendance Rate:</strong> ${attendanceRate}%</p>
+            </div>
+            
+            <div class="modal-card-box">
+                <h4>Leave Request Summary</h4>
+                <p><strong>Approved:</strong> ${approved}</p>
+                <p><strong>Pending:</strong> ${pending}</p>
+                <p><strong>Denied:</strong> ${denied}</p>
+            </div>
+        </div>
+
+        <div class="modal-card-box current-request-box">
+            <h4>Current Leave Request</h4>
+            <div class="request-details-inline">
+                <p><strong>Leave Type:</strong> ${request.reason}</p>
+                <p><strong>Date:</strong> ${request.date}</p>
+                <p><strong>Status:</strong> <span class="${request.status.toLowerCase()}">${request.status}</span></p>
+            </div>
+        </div>
+    `;
+
+    document.getElementById("view-popup").style.display = "flex";
+}
+
+// Outside Click Listener for All 3 Popups
 window.onclick = function(event) {
     const popup = document.getElementById("popup");
     const confirmPopup = document.getElementById("confirm-popup");
