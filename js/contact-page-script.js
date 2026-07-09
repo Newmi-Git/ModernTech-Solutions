@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
   const reasonSelect = document.getElementById('reason');
   const leaveModal = document.getElementById('leaveModal');
@@ -34,18 +33,46 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
 
       const formData = new FormData(leaveRequestForm);
-      const newRequest = {
-        employeeName: formData.get('employeeName') || '',
-        leaveType: formData.get('leaveType') || '',
-        startDate: formData.get('startDate') || '',
-        endDate: formData.get('endDate') || '',
-        reason: formData.get('reasonText') || '',
-        submittedAt: new Date().toLocaleString()
+      const employeeName = formData.get('employeeName') || 'Unknown Employee';
+
+      // Combine start date and end date into a single readable string format
+      const startDate = formData.get('startDate') || '';
+      const endDate = formData.get('endDate') || '';
+      const dateRangeString = startDate && endDate ? `${startDate} to ${endDate}` : (startDate || 'N/A');
+
+      // Structure individual leave request object to match the dashboard schema
+      const newLeaveItem = {
+        reason: formData.get('leaveType') || 'General Leave',
+        date: dateRangeString,
+        status: 'Pending'
       };
 
-      const currentRequests = JSON.parse(localStorage.getItem('leaveRequests') || '[]');
-      currentRequests.push(newRequest);
-      localStorage.setItem('leaveRequests', JSON.stringify(currentRequests));
+      // Pull current data or structure fallback array
+      let currentData = JSON.parse(localStorage.getItem('leaveRequests'));
+
+      if (!currentData || !Array.isArray(currentData)) {
+        currentData = [];
+      }
+
+      // Check if employee record container already exists in the system
+      let employeeRecord = currentData.find(emp => emp.name.toLowerCase() === employeeName.toLowerCase());
+
+      if (employeeRecord) {
+        // If employee exists, append the new application parameters
+        if (!employeeRecord.leaveRequests) {
+          employeeRecord.leaveRequests = [];
+        }
+        employeeRecord.leaveRequests.push(newLeaveItem);
+      } else {
+        // If it's a completely new employee, build their structural profile shell
+        currentData.push({
+          name: employeeName,
+          leaveRequests: [newLeaveItem]
+        });
+      }
+
+      // Save back to local storage
+      localStorage.setItem('leaveRequests', JSON.stringify(currentData));
 
       leaveRequestForm.reset();
 
