@@ -33,7 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
 
       const formData = new FormData(leaveRequestForm);
-      const employeeName = formData.get('employeeName') || 'Unknown Employee';
+
+      // Build the employee's name from first-name + last-name — this form
+      // has no field literally named "employeeName", so reading that key
+      // directly always fell back to "Unknown Employee". Build it instead.
+      const firstName = formData.get('first-name') || '';
+      const lastName = formData.get('last-name') || '';
+      const employeeName = (firstName + ' ' + lastName).trim() || 'Unknown Employee';
 
       // Combine start date and end date into a single readable string format
       const startDate = formData.get('startDate') || '';
