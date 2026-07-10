@@ -9,7 +9,7 @@ let selectedRequest = null;
 let selectedAction = "";
 
 // Fetch the default JSON structure first, then check if local storage holds updates
-fetch("./JSON/attendance.json")
+fetch("./DummyData/attendance.json")
   .then(response => response.json())
   .then(data => {
     const defaultEmployees = data.attendanceAndLeave;

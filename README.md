@@ -61,9 +61,10 @@ No build step or installation required — this project runs entirely in the bro
 
 | Name | Role |
 |------|------|
-| [Name] | [Role] |
-| [Name] | [Role] |
-| [Name] | [Role] |
+| [Yaghya] | [Role] |
+| [Vuyolwethu] | [Role] |
+| [Karah] | [Role] |
+| [Stephan] | [Role] |
 
 ## Deployment
 
