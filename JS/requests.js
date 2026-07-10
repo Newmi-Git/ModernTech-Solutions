@@ -10,7 +10,12 @@ let selectedAction = "";
 
 // Fetch the default JSON structure first, then check if local storage holds updates
 fetch("./DummyData/attendance.json")
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Fetch failed with status ${response.status} (check file path/casing: ./DummyData/attendance.json)`);
+    }
+    return response.json();
+  })
   .then(data => {
     const defaultEmployees = data.attendanceAndLeave;
     const savedRequests = localStorage.getItem("leaveRequests");
@@ -34,8 +39,26 @@ fetch("./DummyData/attendance.json")
   .catch(error => {
     console.error("Error loading initialization payload data:", error);
     const savedRequests = localStorage.getItem("leaveRequests");
-    if (savedRequests) employees = JSON.parse(savedRequests);
-    refreshTable();
+
+    if (savedRequests) {
+      // Fall back to whatever was previously saved in localStorage
+      employees = JSON.parse(savedRequests);
+      refreshTable();
+    } else {
+      // No fallback data available either - show a visible error instead of a silent empty table
+      employees = [];
+      const table = document.getElementById("leave-requests");
+      if (table) {
+        table.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; color: #ef4444; padding: 20px;">
+              Unable to load leave request data. Please check your connection or contact support.
+            </td>
+          </tr>
+        `;
+      }
+      updateCounters();
+    }
   });
 
 function saveRequests() {

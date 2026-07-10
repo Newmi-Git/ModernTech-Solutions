@@ -49,7 +49,7 @@ function requireRole(allowedRoles) {
 }
 
 if (!localStorage.getItem('employeeInformation')) {
-  fetch('DummyData/employee_info.json')
+  fetch('./DummyData/employee_info.json')
     .then(res => res.json())
     .then(data => localStorage.setItem('employeeInformation', JSON.stringify(data.employeeInformation)));
 }

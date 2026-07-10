@@ -14,7 +14,7 @@ if (savedEmployees) {
 
 } else {
 
-    fetch("./JSON/employee_info (2).json")
+    fetch("./DummyData/employee_info.json")
         .then(response => response.json())
         .then(data => {
 

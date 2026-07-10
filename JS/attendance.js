@@ -78,14 +78,14 @@ createApp({
 
       if (!storedData) {
         try {
-          const response = await fetch('DummyData/attendance_data.json');
+          const response = await fetch('./DummyData/attendance_data.json');
           if (!response.ok) throw new Error("Network response was not ok");
           const data = await response.json();
           localStorage.setItem('attendanceData', JSON.stringify(data.attendanceAndLeave));
           this.employees = data.attendanceAndLeave;
         } catch (error) {
           console.error("Failed to load attendance data:", error);
-          this.error = "Failed to load attendance data. Please check if 'DummyData/attendance_data.json' exists.";
+          this.error = "Failed to load attendance data. Please check if './DummyData/attendance_data.json' exists.";
         }
       }
       

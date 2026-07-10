@@ -1,7 +1,7 @@
 let payrollData = [];
 
 // Fetch Payroll JSON
-fetch("./JSON/payroll_data.json")
+fetch("./DummyData/payroll_data.json")
   .then(response => response.json())
   .then(data => {
     payrollData = data.payrollData;

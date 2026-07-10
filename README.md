@@ -6,7 +6,13 @@ A front-end HR web application built as a proof of concept for **ModernTech Solu
 
 ## Live Site
 
-[View the live site](#)
+[View the live site](https://newmi-git.github.io/ModernTech-Solutions/index.html)
+
+
+## Design
+
+Figma Link: https://www.figma.com/design/goc07ykF0mIDHeiKa6wY0Z/Hr-Dashboard?node-id=6-323&t=dFYgw65qwwhqo3Aa-1
+
 
 ## Features
 
@@ -27,25 +33,7 @@ A front-end HR web application built as a proof of concept for **ModernTech Solu
 
 No back-end or database is used — this is a purely front-end proof of concept, using dummy data to simulate real functionality.
 
-## Project Structure
 
-```
-├── index.html          # Home page
-├── login.html           # Login page
-├── employee.html        # Employee management
-├── performance.html     # Performance reviews
-├── requests.html         # Leave requests & attendance
-├── about.html            # About Us
-├── contact.html           # Contact page
-├── css/
-│   └── styles.css        # Shared styles & CSS variables
-├── js/
-│   ├── navbar.js          # Shared Vue navbar component
-│   ├── footer.js           # Shared Vue footer component
-│   ├── data.js              # Dummy data & localStorage helpers
-│   └── ...                   # Page-specific Vue logic
-└── README.md
-```
 
 ## Getting Started
 
@@ -53,22 +41,27 @@ No build step or installation required — this project runs entirely in the bro
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/Newmi-Git/ModernTech-Solutions.git
    ```
 2. Open `index.html` in your browser, or use a local server (e.g. the VS Code Live Server extension) to avoid any file path issues.
 
 ## Team
 
+## Team
+
 | Name | Role |
 |------|------|
-| [Yaghya] | [Role] |
-| [Vuyolwethu] | [Role] |
-| [Karah] | [Role] |
-| [Stephan] | [Role] |
+| [Yaghya](https://github.com/Newmi-Git) | Performance Page, Attendance Page, Login Page |
+| [Vuyolwethu](https://github.com/mbekenivuvu-droid) | Employees Page, Payroll Page, Requests Page |
+| [Karah](https://github.com/Karah-Fisher) | About Page, Contact Page |
+| [Stephan](https://github.com/stephanbennett42-ctrl) | Figma, Home Page |
 
 ## Deployment
 
 This site is deployed via **GitHub Pages** from the `main` branch. Any changes pushed to `main` are reflected on the live site.
+
+
+
 
 ## Acknowledgements
 

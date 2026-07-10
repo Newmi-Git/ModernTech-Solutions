@@ -40,7 +40,7 @@ function loadData(storageKey, jsonFile, jsonProperty) {
 // Employees are read straight from localStorage — this is the same key
 // your partner's Employee CRUD form should be writing to.
 function loadEmployees() {
-  return loadData("employees", "DummyData/employee_info.json", "employeeInformation");
+  return loadData("employees", "./DummyData/employee_info.json", "employeeInformation");
 }
 
 // ── Scoring ──────────────────────────────────────────────
@@ -839,8 +839,8 @@ function initResetButton() {
 // ── Init ──────────────────────────────────────────────────
 Promise.all([
   loadEmployees(),
-  loadData("payroll", "DummyData/payroll_data.json", "payrollData"),
-  loadData("attendance", "DummyData/attendance.json", "attendanceAndLeave"),
+  loadData("payroll", "./DummyData/payroll_data.json", "payrollData"),
+  loadData("attendance", "./DummyData/attendance.json", "attendanceAndLeave"),
 ])
   .then(([employees, payrolls, attendances]) => {
     state.employees = employees;
