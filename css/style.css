@@ -2692,17 +2692,6 @@ html {
 
 .full-width { grid-column: 1 / 3; }
 
-That's a different symptom than the earlier crash — this is about the .leave-modal popup on contact.html not appearing when you select "Leave Request" from the dropdown. Looking at your CSS files you've shared so far, I don't see .leave-modal, .hidden, or .leave-modal-content defined anywhere in style.css — that's almost certainly the actual cause here.
-Your JS logic itself is correct:
-javascriptconst toggleLeaveModal = () => {
-  if (reasonSelect.value === 'leave') {
-    leaveModal.classList.remove('hidden');
-  } else {
-    leaveModal.classList.add('hidden');
-  }
-};
-This correctly adds/removes the hidden class — but if .hidden isn't defined in CSS as display: none, then removing that class does nothing visible, because the modal was never actually hidden in the first place (or was always hidden with no way to show it). Same issue if .leave-modal itself has no positioning — it might be rendering somewhere invisible or squashed to zero height in the normal page flow.
-Add this to your CSS (matching your existing brand palette):
 css/* ── Leave Request Modal Popup ── */
 .leave-modal {
   position: fixed;
