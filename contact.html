@@ -9,12 +9,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
 
   <body class="contact-page">
     <div id="app-navbar"></div>
-    
     <div class="contact-container">
       <!-- Banner -->
       <header class="contact-banner">
@@ -37,6 +35,19 @@
         <div class="form-container">
           <form method="post" action="#">
             <div class="input-row">
+              <div class="input-group full-width">
+                <label for="reason">Reason for Contact:</label>
+                <select id="reason" name="reason" required>
+                  <option value="">Select a reason</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="support">Support Request</option>
+                  <option value="partnership">Partnership Inquiry</option>
+                  <option value="leave">Leave Request</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="input-row">
               <div class="input-group">
                 <label for="first-name">First Name:</label>
                 <input
@@ -47,6 +58,7 @@
                   placeholder="Your first name here"
                 />
               </div>
+
               <div class="input-group">
                 <label for="last-name">Last Name:</label>
                 <input
@@ -69,19 +81,6 @@
                   placeholder="Your email address here"
                   required
                 />
-              </div>
-            </div>
-
-            <div class="input-row">
-              <div class="input-group full-width">
-                <label for="reason">Reason for Contact:</label>
-                <select id="reason" name="reason" required>
-                  <option value="">Select a reason</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="support">Support Request</option>
-                  <option value="partnership">Partnership Inquiry</option>
-                  <option value="leave">Leave Request</option>
-                </select>
               </div>
             </div>
 
@@ -111,8 +110,8 @@
             We value your feedback and inquiries. Our team is here to assist you
             with any questions or concerns you may have. Whether you're looking
             for support, partnership opportunities, or just want to say hello,
-            we're eager to hear from you. Please fill out the form to get
-            in touch with us.
+            we're eager to hear from you. Please fill out the form to get in
+            touch with us.
           </p>
 
           <div class="info-grid">
@@ -160,12 +159,37 @@
       </section>
     </div>
 
+    <div
+      id="leaveModal"
+      class="leave-modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="leaveModalTitle"
+    >
+      <div class="leave-modal-content">
+        <h3 id="leaveModalTitle">Leave request selected</h3>
+        <p>
+          We’ll take you to a dedicated form so you can submit your leave
+          request.
+        </p>
+        <div class="leave-modal-actions">
+          <button type="button" class="secondary-btn" data-close-modal>
+            Cancel
+          </button>
+          <a href="leave-request.html" class="modal-link">Continue</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
     <div id="app-footer"></div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/navbar.js"></script>
     <script src="js/footer.js"></script>
+    <script src="js/navbar.js"></script>
+    
+    <script src="js/contact-page-script.js"></script>
     <script>
       requireRole(["employee"]);
     </script>
