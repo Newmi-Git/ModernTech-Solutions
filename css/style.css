@@ -954,6 +954,126 @@ html {
 .denied   { color: crimson;  font-weight: bold; }
 
 
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.print-payslip{
+    display:none;
+    background:white;
+    color:black;
+    padding:40px;
+}
+
+.payslip-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.payslip-table td{
+    border-bottom:1px solid #ddd;
+    padding:10px;
+}
+
+@media print{
+
+    body *{
+        visibility:hidden;
+    }
+
+    #print-payslip,
+    #print-payslip *{
+        visibility:visible;
+    }
+
+    #print-payslip{
+        display:block;
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+    }
+
+}
+
+/* Make the view popup container wider */
+#view-popup .details-card,
+#view-popup .popup-content,
+#view-popup .success-content {
+    max-width: 600px !important;
+    width: 90%;
+    padding: 25px;
+}
+
+/* Header layout fixes */
+.modal-profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.modal-profile-header h3 {
+    margin: 8px 0 2px 0;
+    font-size: 1.5rem;
+}
+.modal-subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Side-by-side grid arrangement to dramatically reduce vertical length */
+.modal-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Clean panel cards to replace ugly separator lines */
+.modal-card-box {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: left;
+}
+.modal-card-box h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 5px;
+    font-size: 0.95rem;
+}
+.modal-card-box p {
+    margin: 6px 0;
+    font-size: 0.9rem;
+}
+
+/* Horizontal display layout for the single current request row */
+.current-request-box {
+    width: 100%;
+    box-sizing: border-box;
+}
+.request-details-inline {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.request-details-inline p {
+    margin: 0;
+}
+
+
+
+
 /* =======================================================
    EMPLOYEES PAGE
 ======================================================= */
