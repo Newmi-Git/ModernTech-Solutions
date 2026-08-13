@@ -5,9 +5,9 @@ const db = require('')  //PUT KARAHS DB CONNECTION IN HERE
 
 async function seed() {
     const users = [
-        { username: 'hr_admin', password: 'ChangeMe123!', role: 'hr', employeeId: null },
+    { username: 'hr_admin', password: 'ChangeMe123!', role: 'hr', employeeId: null },
     { username: 'jsmith', password: 'ChangeMe123!', role: 'employee', employeeId: 1 },
-    // add more test accounts as needed
+    // test accounts
     ];
 
     for (const u of users) {
