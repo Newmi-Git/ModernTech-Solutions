@@ -14,4 +14,4 @@ function handleValidation(req, res, next) {
   next();
 }
 
-module.exports = { validateAttendance, handleValidation };
+module.exports = { validateAttendance, handleValidtion };

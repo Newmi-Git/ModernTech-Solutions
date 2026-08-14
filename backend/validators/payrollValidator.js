@@ -15,4 +15,4 @@ function handleValidation(req, res, next) {
   next();
 }
 
-module.exports = { validatePayroll, handleValidation };
+module.exports = { validatePayroll, handleValidtion };
