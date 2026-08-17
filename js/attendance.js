@@ -8,8 +8,8 @@ createApp({
       endDate: '2025-07-29',
       columns: [],
       statusCycle: ['Present', 'Late', 'Absent', 'Half Day', 'Leave'],
-      loading: true, // Added loading state
-      error: null    // Added error state
+      loading: true,
+      error: null
     };
   },
   computed: {
@@ -18,9 +18,9 @@ createApp({
       this.employees.forEach(emp => {
         this.columns.forEach(date => {
           const record = emp.attendance.find(a => a.date === date);
-          if (record) { 
-            count++; 
-            if (record.status === 'Present' || record.status === 'Late' || record.status === 'Half Day') total++; 
+          if (record) {
+            count++;
+            if (record.status === 'Present' || record.status === 'Late' || record.status === 'Half Day') total++;
           }
         });
       });
@@ -31,9 +31,9 @@ createApp({
       this.employees.forEach(emp => {
         this.columns.forEach(date => {
           const record = emp.attendance.find(a => a.date === date);
-          if (record) { 
-            count++; 
-            if (record.status === 'Absent' || record.status === 'Leave') total++; 
+          if (record) {
+            count++;
+            if (record.status === 'Absent' || record.status === 'Leave') total++;
           }
         });
       });
@@ -41,20 +41,10 @@ createApp({
     },
     pendingLeaves() {
       let count = 0;
-      this.employees.forEach(emp => { 
-        count += emp.leaveRequests.filter(l => l.status === 'Pending').length; 
+      this.employees.forEach(emp => {
+        count += emp.leaveRequests.filter(l => l.status === 'Pending').length;
       });
       return count;
-    }
-  },
-  watch: {
-    employees: {
-      deep: true,
-      handler(newVal) {
-        if (newVal.length > 0) {
-          localStorage.setItem('attendanceData', JSON.stringify(newVal));
-        }
-      }
     }
   },
   mounted() {
@@ -64,31 +54,31 @@ createApp({
     async initializeData() {
       this.loading = true;
       this.error = null;
-      
-      let storedData = localStorage.getItem('attendanceData');
-      if (storedData) {
-        try {
-          this.employees = JSON.parse(storedData);
-        } catch (e) {
-          console.error("Corrupted localStorage data, fetching fresh.");
-          localStorage.removeItem('attendanceData');
-          storedData = null; // Force fetch below
-        }
+
+      try {
+        const [employeeRows, attendanceRows, leaveRows] = await Promise.all([
+          EmployeesAPI.getAll(),
+          AttendanceAPI.getAll(),
+          LeaveRequestsAPI.getAll()
+        ]);
+
+        // Reshape the flat backend rows into one attendance/leaveRequests
+        // array per employee, matching what the template expects.
+        this.employees = employeeRows.map(emp => ({
+          employeeId: emp.employee_id,
+          name: emp.name,
+          attendance: attendanceRows
+            .filter(a => a.employee_id === emp.employee_id)
+            .map(a => ({ date: typeof a.date === 'string' ? a.date.slice(0, 10) : a.date, status: a.status })),
+          leaveRequests: leaveRows
+            .filter(l => l.employee_id === emp.employee_id)
+            .map(l => ({ status: l.status, startDate: l.start_date, endDate: l.end_date }))
+        }));
+      } catch (err) {
+        console.error("Failed to load attendance data:", err);
+        this.error = err.message || "Failed to load attendance data.";
       }
 
-      if (!storedData) {
-        try {
-          const response = await fetch('./DummyData/attendance.json');
-          if (!response.ok) throw new Error("Network response was not ok");
-          const data = await response.json();
-          localStorage.setItem('attendanceData', JSON.stringify(data.attendanceAndLeave));
-          this.employees = data.attendanceAndLeave;
-        } catch (error) {
-          console.error("Failed to load attendance data:", error);
-          this.error = "Failed to load attendance data. Please check if './DummyData/attendance.json' exists.";
-        }
-      }
-      
       this.loading = false;
       this.generateColumns();
     },
@@ -97,13 +87,12 @@ createApp({
       this.columns = [];
       let current = new Date(this.startDate + 'T00:00:00');
       let end = new Date(this.endDate + 'T00:00:00');
-      
-      if(current > end) return;
-      
+
+      if (current > end) return;
+
       while (current <= end) {
-        const dayOfWeek = current.getDay(); 
-        
-        // Skip Weekends
+        const dayOfWeek = current.getDay();
+
         if (dayOfWeek !== 0 && dayOfWeek !== 6) {
           const year = current.getFullYear();
           const month = String(current.getMonth() + 1).padStart(2, '0');
@@ -115,41 +104,58 @@ createApp({
     },
 
     updateView() { this.generateColumns(); },
-    
+
     formatDateHeader(dateStr) {
       const date = new Date(dateStr + 'T00:00:00');
       return date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
     },
 
-    toggleStatus(empId, date) {
+    async toggleStatus(empId, date) {
       const emp = this.employees.find(e => e.employeeId === empId);
       if (!emp) return;
       let record = emp.attendance.find(a => a.date === date);
-      
-      if (!record) {
-        emp.attendance.push({ date: date, status: 'Present' });
-      } else {
-        const currentIndex = this.statusCycle.indexOf(record.status);
-        record.status = currentIndex === -1 || currentIndex === this.statusCycle.length - 1 
-          ? 'Present' 
-          : this.statusCycle[currentIndex + 1];
-      }
-      this.employees = [...this.employees];
-    },
 
-    markAllPresent(date) {
-      this.employees.forEach(emp => {
-        let record = emp.attendance.find(a => a.date === date);
+      const nextStatus = !record
+        ? 'Present'
+        : (() => {
+            const currentIndex = this.statusCycle.indexOf(record.status);
+            return currentIndex === -1 || currentIndex === this.statusCycle.length - 1
+              ? 'Present'
+              : this.statusCycle[currentIndex + 1];
+          })();
+
+      try {
+        await AttendanceAPI.mark(empId, date, nextStatus);
+
         if (!record) {
-          emp.attendance.push({ date: date, status: 'Present' });
+          emp.attendance.push({ date, status: nextStatus });
         } else {
-          record.status = 'Present';
+          record.status = nextStatus;
         }
-      });
-      this.employees = [...this.employees];
+        this.employees = [...this.employees];
+      } catch (err) {
+        this.error = err.message || "Failed to update attendance.";
+      }
     },
 
-    // FIXED: Safe local date formatting (prevents timezone offset bugs)
+    async markAllPresent(date) {
+      try {
+        await Promise.all(this.employees.map(emp => AttendanceAPI.mark(emp.employeeId, date, 'Present')));
+
+        this.employees.forEach(emp => {
+          let record = emp.attendance.find(a => a.date === date);
+          if (!record) {
+            emp.attendance.push({ date, status: 'Present' });
+          } else {
+            record.status = 'Present';
+          }
+        });
+        this.employees = [...this.employees];
+      } catch (err) {
+        this.error = err.message || "Failed to mark all present.";
+      }
+    },
+
     getLocalDateString(date) {
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -159,19 +165,19 @@ createApp({
 
     setPresetToday() {
       const str = this.getLocalDateString(new Date());
-      this.startDate = str; 
-      this.endDate = str; 
+      this.startDate = str;
+      this.endDate = str;
       this.updateView();
     },
 
     setPresetWeek() {
       const today = new Date();
-      const dayOfWeek = today.getDay(); 
+      const dayOfWeek = today.getDay();
       const monday = new Date(today);
-      monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1)); 
+      monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
       const friday = new Date(monday);
-      friday.setDate(monday.getDate() + 4); 
-      
+      friday.setDate(monday.getDate() + 4);
+
       this.startDate = this.getLocalDateString(monday);
       this.endDate = this.getLocalDateString(friday);
       this.updateView();
@@ -180,8 +186,8 @@ createApp({
     setPresetMonth() {
       const today = new Date();
       const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-      const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0); 
-      
+      const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
       this.startDate = this.getLocalDateString(firstDay);
       this.endDate = this.getLocalDateString(lastDay);
       this.updateView();

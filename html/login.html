@@ -34,48 +34,45 @@
     <div class="login-details" id="login-app">
       <h1>ModernTech Solutions</h1>
 
-      <div style="display:flex; gap:8px; margin-bottom:16px;">
-        <button type="button" @click="mode = 'hr'" :style="{fontWeight: mode==='hr' ? 'bold' : 'normal'}">HR Login</button>
-        <button type="button" @click="mode = 'employee'" :style="{fontWeight: mode==='employee' ? 'bold' : 'normal'}">Employee Login</button>
-      </div>
-
-      <!-- HR form -->
-      <template v-if="mode === 'hr'">
-        <label>HR Access Code:</label>
-        <input type="password" v-model="hrCode">
-        <button class="login-button" type="button" @click="handleHRLogin">Log In</button>
-      </template>
-
-      <!-- Employee form -->
-      <template v-else>
-        <label>Employee ID:</label>
-        <input type="text" v-model="employeeId">
-        <label>Surname:</label>
-        <input type="text" v-model="surname">
-        <button class="login-button" type="button" @click="handleEmployeeLogin">Log In</button>
-      </template>
+      <label>Email:</label>
+      <input type="email" v-model="email" :disabled="loading">
+      <label>Password:</label>
+      <input type="password" v-model="password" :disabled="loading">
+      <button class="login-button" type="button" @click="handleLogin" :disabled="loading">
+        {{ loading ? 'Logging in…' : 'Log In' }}
+      </button>
 
       <p v-if="error" style="color:#c0392b; font-size:12px;">{{ error }}</p>
     </div>
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="../js/api.js"></script>  
+  <script src="../js/api.js"></script>
   <script src="../js/auth.js"></script>
   <script>
     const { createApp } = Vue;
     createApp({
       data() {
-        return { mode: 'hr', hrCode: '', employeeId: '', surname: '', error: '' };
+        return { email: '', password: '', error: '', loading: false };
       },
       methods: {
-        handleHRLogin() {
-          const result = loginHR(this.hrCode);
-          result.success ? window.location.href = 'index.html' : this.error = result.message;
-        },
-        handleEmployeeLogin() {
-          const result = loginEmployee(this.employeeId, this.surname);
-          result.success ? window.location.href = 'about.html' : this.error = result.message;
+        async handleLogin() {
+          this.error = '';
+          if (!this.email || !this.password) {
+            this.error = 'Please enter both email and password.';
+            return;
+          }
+          this.loading = true;
+          const result = await loginUser(this.email, this.password);
+          this.loading = false;
+          if (result.success) {
+            // HR/manager land on the dashboard; plain employees land on their own view.
+            window.location.href = (result.role === 'hr' || result.role === 'manager')
+              ? 'index.html'
+              : 'about.html';
+          } else {
+            this.error = result.message;
+          }
         }
       }
     }).mount('#login-app');

@@ -26,21 +26,57 @@ function formatCurrency(amount) {
   return `R ${amount.toLocaleString("en-ZA")}`;
 }
 
-function loadData(storageKey, jsonFile, jsonProperty) {
-  const savedData = localStorage.getItem(storageKey);
-  if (savedData) return Promise.resolve(JSON.parse(savedData));
-  return fetch(jsonFile)
-    .then((res) => res.json())
-    .then((data) => {
-      localStorage.setItem(storageKey, JSON.stringify(data[jsonProperty]));
-      return data[jsonProperty];
-    });
-}
+// ── Backend data loading ──────────────────────────────────
+// Pulls the three real resources and reshapes them into the same
+// camelCase field names the rest of this file already expects
+// (employeeId, employmentHistory, goalsMet, goalsTotal, hoursWorked,
+// leaveDeductions, finalSalary) so nothing below this point has to change.
+//
+// One real gap: the employees table has no "attendance %" column — the
+// backend only tracks daily Present/Absent/Leave rows. We derive a real
+// percentage from those rows here (same logic as attendance.js), but the
+// Grade form below still lets HR type in an override attendance % for
+// scoring purposes. That override is NOT written back to the attendance
+// table (there's no backend field for "attendance percentage"), so it
+// only affects the score/report for this browser session until someone
+// re-derives it from real daily records.
+async function loadAllData() {
+  const [employeeRows, payrollRows, attendanceRows] = await Promise.all([
+    EmployeesAPI.getAll(),
+    PayrollAPI.getAll(),
+    AttendanceAPI.getAll(),
+  ]);
 
-// Employees are read straight from localStorage — this is the same key
-// your partner's Employee CRUD form should be writing to.
-function loadEmployees() {
-  return loadData("employees", "./DummyData/employee_info.json", "employeeInformation");
+  const employees = employeeRows.map((e) => ({
+    employeeId: e.employee_id,
+    name: e.name,
+    position: e.position,
+    department: e.department,
+    salary: Number(e.salary),
+    employmentHistory: e.employment_history,
+    contact: e.contact,
+    score: e.score === null || e.score === undefined ? null : Number(e.score),
+    goalsMet: e.goals_met,
+    goalsTotal: e.goals_total,
+  }));
+
+  const payrolls = payrollRows.map((p) => ({
+    employeeId: p.employee_id,
+    hoursWorked: Number(p.hours_worked),
+    leaveDeductions: Number(p.leave_deductions),
+    bonus: Number(p.bonus || 0),
+    deductions: Number(p.deductions || 0),
+    finalSalary: Number(p.final_salary),
+  }));
+
+  const attendances = employees.map((emp) => ({
+    employeeId: emp.employeeId,
+    attendance: attendanceRows
+      .filter((a) => a.employee_id === emp.employeeId)
+      .map((a) => ({ date: a.date, status: a.status })),
+  }));
+
+  return { employees, payrolls, attendances };
 }
 
 // ── Scoring ──────────────────────────────────────────────
@@ -78,7 +114,7 @@ function resolvePayroll(baseSalary, payrollRecord) {
 // in mergeData — the canonical attendance % lives on the employee record
 // itself (emp.attendance) and is no longer recalculated from this on render.
 function resolveAttendance(attendanceRecord, employee) {
-  // Attendance record exists in localStorage
+  // Grouped attendance rows for this employee
   if (attendanceRecord) {
     if (typeof attendanceRecord.attendancePercentage === "number") {
       return attendanceRecord;
@@ -638,50 +674,74 @@ function initGradeForm() {
   });
 }
 
-function saveGrade(emp, { position, department, salary, contact, goalsMet, goalsTotal, attendance, leave, bonus, deductions }) {
+async function saveGrade(emp, { position, department, salary, contact, goalsMet, goalsTotal, attendance, leave, bonus, deductions }) {
   const wasReviewed = emp.reviewed;
   const finalSalary = salary + bonus - deductions;
   const score = calcScore(salary, finalSalary, attendance);
 
-  // Payroll record: financial detail only (final salary, bonus, deductions,
-  // leave-deduction days) — no longer the thing the score is derived from
-  // on every render.
-  const payrollIndex = state.payrolls.findIndex((p) => p.employeeId === emp.employeeId);
-  const payrollRecord = {
-    employeeId: emp.employeeId,
-    salary,
-    bonus,
-    deductions,
-    leaveDeductions: leave,
-    finalSalary,
-  };
-  if (payrollIndex >= 0) state.payrolls[payrollIndex] = payrollRecord;
-  else state.payrolls.push(payrollRecord);
-  localStorage.setItem("payroll", JSON.stringify(state.payrolls));
+  // The Grade form collects an attendance % and a count of leave days, but
+  // the payroll table wants hours. There's no "hours worked" field in this
+  // UI, so we derive it from a standard 160-hour work month — good enough
+  // to keep the hourly-rate math on the payroll page sane, but not a real
+  // clocked-hours figure.
+  const STANDARD_MONTHLY_HOURS = 160;
+  const HOURS_PER_LEAVE_DAY = 8;
+  const hoursWorked = STANDARD_MONTHLY_HOURS;
+  const leaveDeductionHours = leave * HOURS_PER_LEAVE_DAY;
 
+  try {
+    // 1. Employee record: position/department/salary/contact/goals/score.
+    await EmployeesAPI.update(emp.employeeId, {
+      name: emp.name,
+      position,
+      department,
+      salary,
+      employment_history: emp.employmentHistory,
+      contact,
+      score,
+      goals_met: goalsMet,
+      goals_total: goalsTotal,
+    });
+
+    // 2. Payroll record: create if this employee has none yet, otherwise
+    // update. Note: the update endpoint doesn't accept a new base salary —
+    // if `salary` changed on an already-graded employee, final_salary won't
+    // reflect it until a fresh payroll record exists for them.
+    const existingPayroll = state.payrolls.find((p) => p.employeeId === emp.employeeId);
+    if (existingPayroll) {
+      await PayrollAPI.update(emp.employeeId, {
+        hours_worked: hoursWorked,
+        leave_deductions: leaveDeductionHours,
+        bonus,
+        deductions,
+      });
+    } else {
+      await PayrollAPI.create({
+        employee_id: emp.employeeId,
+        hours_worked: hoursWorked,
+        leave_deductions: leaveDeductionHours,
+        base_salary: salary,
+        bonus,
+        deductions,
+      });
+    }
+  } catch (err) {
+    showToast(`Failed to save: ${err.message}`);
+    return;
+  }
+
+  // Attendance % override is session-only (see loadAllData comment above) —
+  // it doesn't have a real backend field to persist to.
   const attendanceIndex = state.attendances.findIndex((a) => a.employeeId === emp.employeeId);
   const attendanceRecord = { employeeId: emp.employeeId, attendancePercentage: attendance, leaveTaken: leave };
   if (attendanceIndex >= 0) state.attendances[attendanceIndex] = attendanceRecord;
   else state.attendances.push(attendanceRecord);
-  localStorage.setItem("attendance", JSON.stringify(state.attendances));
 
-  // FIX: persist the computed score, goals, attendance %, and basic info
-  // directly onto the employee record. These are the fields employee_info.json
-  // ships with (score, attendance, goalsMet, goalsTotal, position, department,
-  // salary, contact) — grading/editing is what keeps them live and up to
-  // date, rather than them sitting unused.
-  const empIndex = state.employees.findIndex((e) => e.employeeId === emp.employeeId);
-  if (empIndex >= 0) {
-    state.employees[empIndex].position = position;
-    state.employees[empIndex].department = department;
-    state.employees[empIndex].salary = salary;
-    state.employees[empIndex].contact = contact;
-    state.employees[empIndex].goalsMet = goalsMet;
-    state.employees[empIndex].goalsTotal = goalsTotal;
-    state.employees[empIndex].attendance = attendance;
-    state.employees[empIndex].score = score;
-    localStorage.setItem("employees", JSON.stringify(state.employees));
-  }
+  // Reload employees + payroll from the backend so state reflects what was
+  // actually persisted (rather than assuming the write matched our optimistic guess).
+  const { employees, payrolls } = await loadAllData();
+  state.employees = employees;
+  state.payrolls = payrolls;
 
   refresh();
   bootstrap.Modal.getOrCreateInstance(document.getElementById("gradeModal")).hide();
@@ -817,32 +877,32 @@ function exportEmployeeReport(emp) {
   openReportWindow(buildReportDocument(`Performance Report — ${emp.name}`, body));
 }
 
-// ── Reset sample data (QOL) ───────────────────────────────
-// Handy escape hatch: clears any graded/edited data in localStorage and
-// re-seeds from the original JSON files, in case test/demo data gets into
-// a confusing state.
+// ── Reset / reload data (QOL) ──────────────────────────────
+// This used to clear localStorage and re-seed from the demo JSON files.
+// Against the real backend there's no local cache to clear and no sample
+// data to reset to — this now just re-fetches current state from the API,
+// which is mainly useful for pulling in changes another user just made.
 function initResetButton() {
   const btn = document.getElementById("resetDataBtn");
   if (!btn) return;
-  btn.addEventListener("click", () => {
-    const confirmed = window.confirm(
-      "This will erase all graded/edited employee data in this browser and reload the original sample data. Continue?"
-    );
-    if (!confirmed) return;
-    localStorage.removeItem("employees");
-    localStorage.removeItem("payroll");
-    localStorage.removeItem("attendance");
-    window.location.reload();
+  btn.textContent = "Reload Data";
+  btn.addEventListener("click", async () => {
+    try {
+      const { employees, payrolls, attendances } = await loadAllData();
+      state.employees = employees;
+      state.payrolls = payrolls;
+      state.attendances = attendances;
+      refresh();
+      showToast("Data reloaded from the server.");
+    } catch (err) {
+      showToast(`Failed to reload: ${err.message}`);
+    }
   });
 }
 
 // ── Init ──────────────────────────────────────────────────
-Promise.all([
-  loadEmployees(),
-  loadData("payroll", "./DummyData/payroll_data.json", "payrollData"),
-  loadData("attendance", "./DummyData/attendance.json", "attendanceAndLeave"),
-])
-  .then(([employees, payrolls, attendances]) => {
+loadAllData()
+  .then(({ employees, payrolls, attendances }) => {
     state.employees = employees;
     state.payrolls = payrolls;
     state.attendances = attendances;
@@ -860,5 +920,5 @@ Promise.all([
   .catch((err) => {
     console.error("Failed to load data:", err);
     document.getElementById("empTable").innerHTML =
-      `<tr><td colspan="8" class="text-center text-danger py-4">Failed to load employee data.</td></tr>`;
+      `<tr><td colspan="8" class="text-center text-danger py-4">Failed to load employee data: ${err.message}</td></tr>`;
   });

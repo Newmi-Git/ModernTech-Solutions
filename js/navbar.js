@@ -28,7 +28,7 @@ Vue.createApp({
         </div>
 
         <div class="nav-links" :class="{open: menuOpen}">
-            <template v-if="currentUser?.role === 'hr'">
+            <template v-if="currentUser?.role === 'hr' || currentUser?.role === 'manager'">
                 <a href="index.html" class="nav-item" :class="{active: currentPage === 'index.html'}">Home</a>
                 <a href="requests.html" class="nav-item" :class="{active: currentPage === 'requests.html'}">Requests</a>
                 <a href="performance.html" class="nav-item" :class="{active: currentPage === 'performance.html'}">Performance</a>

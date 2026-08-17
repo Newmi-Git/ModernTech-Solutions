@@ -1,44 +1,24 @@
 let employees = [];
-let editingIndex = -1;
+let editingId = null;
 let employeeToDelete = null;
 
 /* ---------------- Load Employees ---------------- */
 
-const savedEmployees = localStorage.getItem("employees");
-
-if (savedEmployees) {
-
-    employees = JSON.parse(savedEmployees);
-
-    displayEmployees();
-
-} else {
-
-    fetch("./DummyData/employee_info.json")
-        .then(response => response.json())
-        .then(data => {
-
-            employees = data.employeeInformation;
-
-            saveEmployees();
-
-            displayEmployees();
-
-        })
-        .catch(error => console.log(error));
-
+async function loadEmployees() {
+    try {
+        employees = await EmployeesAPI.getAll();
+        displayEmployees();
+    } catch (err) {
+        showPopup(
+            "fa-solid fa-circle-exclamation",
+            "#ef4444",
+            "Couldn't load employees",
+            err.message
+        );
+    }
 }
 
-/* ---------------- Save to Local Storage ---------------- */
-
-function saveEmployees() {
-
-    localStorage.setItem(
-        "employees",
-        JSON.stringify(employees)
-    );
-
-}
+loadEmployees();
 
 /* ---------------- Display Employees ---------------- */
 
@@ -48,13 +28,13 @@ function displayEmployees() {
 
     table.innerHTML = "";
 
-    employees.forEach((employee, index) => {
+    employees.forEach((employee) => {
 
         table.innerHTML += `
 
         <tr>
 
-            <td>${employee.employeeId}</td>
+            <td>${employee.employee_id}</td>
 
             <td>${employee.name}</td>
 
@@ -64,7 +44,7 @@ function displayEmployees() {
 
                 <button
                     class="view-btn"
-                    onclick="viewEmployee(${index})">
+                    onclick="viewEmployee(${employee.employee_id})">
 
                     View
 
@@ -76,7 +56,7 @@ function displayEmployees() {
 
                 <button
                     class="edit-btn"
-                    onclick="editEmployee(${index})">
+                    onclick="editEmployee(${employee.employee_id})">
 
                     Edit
 
@@ -88,7 +68,7 @@ function displayEmployees() {
 
                 <button
                     class="delete-btn"
-                    onclick="deleteEmployee(${index})">
+                    onclick="deleteEmployee(${employee.employee_id})">
 
                     Delete
 
@@ -104,16 +84,22 @@ function displayEmployees() {
 
 }
 
+/* ---------------- helper ---------------- */
+
+function findEmployee(employeeId) {
+    return employees.find(e => e.employee_id === employeeId);
+}
+
 /* ---------------- View Employee ---------------- */
 
-function viewEmployee(index) {
+function viewEmployee(employeeId) {
 
-    const employee = employees[index];
+    const employee = findEmployee(employeeId);
 
     document.getElementById("employee-modal").style.display = "flex";
 
     document.getElementById("emp-id").textContent =
-        employee.employeeId;
+        employee.employee_id;
 
     document.getElementById("emp-name").textContent =
         employee.name;
@@ -125,10 +111,10 @@ function viewEmployee(index) {
         employee.position;
 
     document.getElementById("emp-salary").textContent =
-        "R" + employee.salary.toLocaleString();
+        "R" + Number(employee.salary).toLocaleString();
 
     document.getElementById("emp-history").textContent =
-        employee.employmentHistory;
+        employee.employment_history;
 
     document.getElementById("emp-contact").textContent =
         employee.contact;
@@ -161,6 +147,7 @@ function showPopup(icon, color, title, message) {
 }
 
 /* ---------------- Save Comment ---------------- */
+/* Note: there is no backend endpoint for employee comments yet — this stays local-only. */
 
 function saveComment() {
 
@@ -170,15 +157,10 @@ function saveComment() {
     if (comment === "") {
 
         showPopup(
-
             "fa-solid fa-circle-exclamation",
-
             "#f59e0b",
-
             "No Comment",
-
             "Please enter a comment before saving."
-
         );
 
         return;
@@ -190,15 +172,10 @@ function saveComment() {
     closeModal();
 
     showPopup(
-
         "fa-solid fa-circle-check",
-
         "#22c55e",
-
         "Comment Saved!",
-
         "Your employee comment has been saved successfully."
-
     );
 
 }
@@ -215,7 +192,7 @@ function closePopup() {
 
 function openAddModal() {
 
-    editingIndex = -1;
+    editingId = null;
 
     document.getElementById("form-title").textContent =
         "Add Employee";
@@ -234,11 +211,11 @@ function openAddModal() {
 
 /* ---------------- Edit Employee ---------------- */
 
-function editEmployee(index) {
+function editEmployee(employeeId) {
 
-    editingIndex = index;
+    editingId = employeeId;
 
-    const employee = employees[index];
+    const employee = findEmployee(employeeId);
 
     document.getElementById("form-title").textContent =
         "Edit Employee";
@@ -256,7 +233,7 @@ function editEmployee(index) {
         employee.salary;
 
     document.getElementById("new-history").value =
-        employee.employmentHistory;
+        employee.employment_history;
 
     document.getElementById("new-contact").value =
         employee.contact;
@@ -268,96 +245,104 @@ function editEmployee(index) {
 
 /* ---------------- Save Employee ---------------- */
 
-function saveEmployee() {
+async function saveEmployee() {
 
-  // Validate form
-const name = document.getElementById("new-name").value.trim();
-const department = document.getElementById("new-department").value.trim();
-const position = document.getElementById("new-position").value.trim();
-const salary = document.getElementById("new-salary").value.trim();
-const history = document.getElementById("new-history").value.trim();
-const contact = document.getElementById("new-contact").value.trim();
+    const name = document.getElementById("new-name").value.trim();
+    const department = document.getElementById("new-department").value.trim();
+    const position = document.getElementById("new-position").value.trim();
+    const salary = document.getElementById("new-salary").value.trim();
+    const history = document.getElementById("new-history").value.trim();
+    const contact = document.getElementById("new-contact").value.trim();
 
-if (
-    name === "" ||
-    department === "" ||
-    position === "" ||
-    salary === "" ||
-    history === "" ||
-    contact === ""
-) {
+    if (
+        name === "" ||
+        department === "" ||
+        position === "" ||
+        salary === "" ||
+        history === "" ||
+        contact === ""
+    ) {
 
-    showPopup(
-        "fa-solid fa-circle-exclamation",
-        "#f59e0b",
-        "Missing Information",
-        "Please fill in all employee details before saving."
-    );
+        showPopup(
+            "fa-solid fa-circle-exclamation",
+            "#f59e0b",
+            "Missing Information",
+            "Please fill in all employee details before saving."
+        );
 
-    return;
-
-}
-
-const employee = {
-
-    employeeId:
-        editingIndex === -1
-            ? employees.length + 1
-            : employees[editingIndex].employeeId,
-
-    name: name,
-
-    department: department,
-
-    position: position,
-
-    salary: Number(salary),
-
-    employmentHistory: history,
-
-    contact: contact
-
-};
-
-    if (editingIndex === -1) {
-
-        employees.push(employee);
-
-    } else {
-
-        employees[editingIndex] = employee;
+        return;
 
     }
 
-    saveEmployees();
+    const payload = {
+        name,
+        department,
+        position,
+        salary: Number(salary),
+        employment_history: history,
+        contact,
+        // Leave score unset (null) for a brand-new hire — the performance page
+        // treats a null score as "Awaiting Review". goals_met/goals_total
+        // default to 0 on the backend if omitted.
+        score: editingId ? findEmployee(editingId).score ?? null : null,
+        goals_met: editingId ? findEmployee(editingId).goals_met ?? 0 : 0,
+        goals_total: editingId ? findEmployee(editingId).goals_total ?? 0 : 0,
+    };
 
-    closeEmployeeForm();
+    try {
 
-    displayEmployees();
+        if (editingId === null) {
 
-    showPopup(
+            const result = await EmployeesAPI.create(payload);
 
-        "fa-solid fa-circle-check",
+            closeEmployeeForm();
+            await loadEmployees();
 
-        "#22c55e",
+            const creds = result.login
+                ? ` Login: ${result.login.email} / temp password: ${result.login.temporary_password}`
+                : "";
 
-        editingIndex === -1
-            ? "Employee Added!"
-            : "Employee Updated!",
+            showPopup(
+                "fa-solid fa-circle-check",
+                "#22c55e",
+                "Employee Added!",
+                "The employee has been added successfully." + creds
+            );
 
-        editingIndex === -1
-            ? "The employee has been added successfully."
-            : "Employee information has been updated."
+        } else {
 
-    );
+            await EmployeesAPI.update(editingId, payload);
+
+            closeEmployeeForm();
+            await loadEmployees();
+
+            showPopup(
+                "fa-solid fa-circle-check",
+                "#22c55e",
+                "Employee Updated!",
+                "Employee information has been updated."
+            );
+
+        }
+
+    } catch (err) {
+
+        showPopup(
+            "fa-solid fa-circle-exclamation",
+            "#ef4444",
+            "Save Failed",
+            err.message
+        );
+
+    }
 
 }
 
 /* ---------------- Delete Employee ---------------- */
 
-function deleteEmployee(index) {
+function deleteEmployee(employeeId) {
 
-    employeeToDelete = index;
+    employeeToDelete = employeeId;
 
     document.getElementById("delete-popup").style.display =
         "flex";
@@ -366,27 +351,35 @@ function deleteEmployee(index) {
 
 /* ---------------- Confirm Delete ---------------- */
 
-function confirmDelete() {
+async function confirmDelete() {
 
-    employees.splice(employeeToDelete, 1);
+    try {
 
-    saveEmployees();
+        await EmployeesAPI.remove(employeeToDelete);
 
-    displayEmployees();
+        await loadEmployees();
 
-    closeDeletePopup();
+        closeDeletePopup();
 
-    showPopup(
+        showPopup(
+            "fa-solid fa-trash",
+            "#ef4444",
+            "Employee Deleted",
+            "The employee has been removed successfully."
+        );
 
-        "fa-solid fa-trash",
+    } catch (err) {
 
-        "#ef4444",
+        closeDeletePopup();
 
-        "Employee Deleted",
+        showPopup(
+            "fa-solid fa-circle-exclamation",
+            "#ef4444",
+            "Delete Failed",
+            err.message
+        );
 
-        "The employee has been removed successfully."
-
-    );
+    }
 
 }
 

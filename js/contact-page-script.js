@@ -29,61 +29,45 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (leaveRequestForm) {
-    leaveRequestForm.addEventListener('submit', (event) => {
+    leaveRequestForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       const formData = new FormData(leaveRequestForm);
 
-      // Build the employee's name from first-name + last-name — this form
-      // has no field literally named "employeeName", so reading that key
-      // directly always fell back to "Unknown Employee". Build it instead.
-      const firstName = formData.get('first-name') || '';
-      const lastName = formData.get('last-name') || '';
-      const employeeName = (firstName + ' ' + lastName).trim() || 'Unknown Employee';
-
-      // Combine start date and end date into a single readable string format
       const startDate = formData.get('startDate') || '';
       const endDate = formData.get('endDate') || '';
-      const dateRangeString = startDate && endDate ? `${startDate} to ${endDate}` : (startDate || 'N/A');
+      const reason = formData.get('leaveType') || 'General Leave';
 
-      // Structure individual leave request object to match the dashboard schema
-      const newLeaveItem = {
-        reason: formData.get('leaveType') || 'General Leave',
-        date: dateRangeString,
-        status: 'Pending'
-      };
-
-      // Pull current data or structure fallback array
-      let currentData = JSON.parse(localStorage.getItem('leaveRequests'));
-
-      if (!currentData || !Array.isArray(currentData)) {
-        currentData = [];
-      }
-
-      // Check if employee record container already exists in the system
-      let employeeRecord = currentData.find(emp => emp.name.toLowerCase() === employeeName.toLowerCase());
-
-      if (employeeRecord) {
-        // If employee exists, append the new application parameters
-        if (!employeeRecord.leaveRequests) {
-          employeeRecord.leaveRequests = [];
+      // The request is tied to whichever employee is actually logged in —
+      // not whatever name was typed in the contact form fields.
+      const currentUser = getCurrentUser();
+      if (!currentUser || !currentUser.employeeId) {
+        if (feedbackMessage) {
+          feedbackMessage.textContent = 'You must be logged in as an employee to submit a leave request.';
         }
-        employeeRecord.leaveRequests.push(newLeaveItem);
-      } else {
-        // If it's a completely new employee, build their structural profile shell
-        currentData.push({
-          name: employeeName,
-          leaveRequests: [newLeaveItem]
-        });
+        return;
       }
 
-      // Save back to local storage
-      localStorage.setItem('leaveRequests', JSON.stringify(currentData));
+      if (!startDate || !endDate) {
+        if (feedbackMessage) {
+          feedbackMessage.textContent = 'Please provide both a start and end date.';
+        }
+        return;
+      }
 
-      leaveRequestForm.reset();
+      try {
+        await LeaveRequestsAPI.submit(currentUser.employeeId, startDate, endDate, reason);
 
-      if (feedbackMessage) {
-        feedbackMessage.textContent = 'Your leave request has been submitted successfully.';
+        leaveRequestForm.reset();
+        leaveModal?.classList.add('hidden');
+
+        if (feedbackMessage) {
+          feedbackMessage.textContent = 'Your leave request has been submitted successfully.';
+        }
+      } catch (err) {
+        if (feedbackMessage) {
+          feedbackMessage.textContent = err.message || 'Failed to submit leave request.';
+        }
       }
     });
   }
