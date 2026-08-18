@@ -6,6 +6,66 @@
     <title>ModernTech Solutions - HR Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    
+<style>
+   
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: clamp(0.95rem, 0.8rem + 0.5vw, 1.1rem); 
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+    }
+
+    header.index-hero-section {
+        max-width: 1200px;
+        width: 100%;
+        margin-inline: auto;
+        padding: 1.5rem 1rem;
+        box-sizing: border-box;
+    }
+
+    section.index-bento-grid {
+        max-width: 1200px;
+        width: 100%;
+        margin-inline: auto;
+        padding: 1rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column; 
+        gap: 1.5rem;
+    }
+
+    .dashboard-column {
+        width: 100%; 
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .table-responsive-wrapper {
+        width: 100%;
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .dashboard-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 500px; 
+    }
+
+    @media (min-width: 768px) {
+        section.index-bento-grid {
+            flex-direction: row; 
+            align-items: flex-start;
+        }
+
+        .dashboard-column {
+            flex: 1; 
+        }
+    }
+</style>
 </head>
 <body class="index-body">
 
