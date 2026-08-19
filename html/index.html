@@ -103,7 +103,7 @@
                         <div>
                             <label for="action-select">Select Operation Task</label>
                             <select id="action-select">
-                                <option value="Employee.html">Add New Employee Record</option>
+                                <option value="employee.html">Add New Employee Record</option>
                                 <option value="payroll.html">Run Automated Monthly Payroll</option>
                                 <option value="requests.html">Approve Outstanding Time-Off</option>
                             </select>
@@ -155,76 +155,11 @@
     <script src="../js/footer.js"></script>
 
     <script>
-        const payrollData = [
-            { "employeeId": 1, "hoursWorked": 160, "leaveDeductions": 8, "finalSalary": 69500 },
-            { "employeeId": 2, "hoursWorked": 150, "leaveDeductions": 10, "finalSalary": 79000 },
-            { "employeeId": 3, "hoursWorked": 170, "leaveDeductions": 4, "finalSalary": 54800 },
-            { "employeeId": 4, "hoursWorked": 165, "leaveDeductions": 6, "finalSalary": 59700 },
-            { "employeeId": 5, "hoursWorked": 158, "leaveDeductions": 5, "finalSalary": 57850 },
-            { "employeeId": 6, "hoursWorked": 168, "leaveDeductions": 2, "finalSalary": 64800 },
-            { "employeeId": 7, "hoursWorked": 175, "leaveDeductions": 3, "finalSalary": 71800 },
-            { "employeeId": 8, "hoursWorked": 160, "leaveDeductions": 0, "finalSalary": 56000 },
-            { "employeeId": 9, "hoursWorked": 155, "leaveDeductions": 5, "finalSalary": 61500 },
-            { "employeeId": 10, "hoursWorked": 162, "leaveDeductions": 4, "finalSalary": 57750 }
-        ];
-
-        const attendanceAndLeave = [
-            { "employeeId": 1, "name": "Sibongile Nkosi", "leaveRequests": [{ "date": "2024-12-01", "reason": "Personal", "status": "Pending" }] },
-            { "employeeId": 2, "name": "Lungile Moyo", "leaveRequests": [{ "date": "2024-12-02", "reason": "Vacation", "status": "Approved" }] },
-            { "employeeId": 3, "name": "Thabo Molefe", "leaveRequests": [{ "date": "2024-12-05", "reason": "Personal", "status": "Pending" }] },
-            { "employeeId": 4, "name": "Keshav Naidoo", "leaveRequests": [{ "date": "2025-07-20", "reason": "Bereavement", "status": "Approved" }] },
-            { "employeeId": 5, "name": "Zanele Khumalo", "leaveRequests": [{ "date": "2024-12-01", "reason": "Childcare", "status": "Pending" }] },
-            { "employeeId": 6, "name": "Sipho Zulu", "leaveRequests": [{ "date": "2025-07-18", "reason": "Sick Leave", "status": "Approved" }] },
-            { "employeeId": 7, "name": "Naledi Moeketsi", "leaveRequests": [{ "date": "2025-07-22", "reason": "Vacation", "status": "Pending" }] },
-            { "employeeId": 8, "name": "Farai Gumbo", "leaveRequests": [{ "date": "2024-12-02", "reason": "Medical Appointment", "status": "Approved" }] },
-            { "employeeId": 9, "name": "Karabo Dlamini", "leaveRequests": [{ "date": "2025-07-19", "reason": "Childcare", "status": "Denied" }] },
-            { "employeeId": 10, "name": "Fatima Patel", "leaveRequests": [{ "date": "2024-12-03", "reason": "Vacation", "status": "Pending" }] }
-        ];
-
-        const employeeInformation = [
-            { "employeeId": 1, "name": "Sibongile Nkosi", "position": "Software Engineer", "department": "Development", "salary": 70000 },
-            { "employeeId": 2, "name": "Lungile Moyo", "position": "HR Manager", "department": "HR", "salary": 80000 },
-            { "employeeId": 3, "name": "Thabo Molefe", "position": "Quality Analyst", "department": "QA", "salary": 55000 },
-            { "employeeId": 4, "name": "Keshav Naidoo", "position": "Sales Representative", "department": "Sales", "salary": 60000 },
-            { "employeeId": 5, "name": "Zanele Khumalo", "position": "Marketing Specialist", "department": "Marketing", "salary": 58000 },
-            { "employeeId": 6, "name": "Sipho Zulu", "position": "UI/UX Designer", "department": "Design", "salary": 65000 },
-            { "employeeId": 7, "name": "Naledi Moeketsi", "position": "DevOps Engineer", "department": "IT", "salary": 72000 },
-            { "employeeId": 8, "name": "Farai Gumbo", "position": "Content Strategist", "department": "Marketing", "salary": 56000 },
-            { "employeeId": 9, "name": "Karabo Dlamini", "position": "Accountant", "department": "Finance", "salary": 62000 },
-            { "employeeId": 10, "name": "Fatima Patel", "position": "Customer Support Lead", "department": "Support", "salary": 58000 }
-        ];
-
-        // --- LOCALSTORAGE INITIALIZATION ---
-        if (!localStorage.getItem('employees')) {
-            localStorage.setItem('employees', JSON.stringify(employeeInformation));
-        }
-        if (!localStorage.getItem('payroll')) {
-            localStorage.setItem('payroll', JSON.stringify(payrollData));
-        }
-        // Fixed: Key name standardized to 'leaveRequests'
-        if (!localStorage.getItem('leaveRequests')) {
-            localStorage.setItem('leaveRequests', JSON.stringify(attendanceAndLeave));
-        }
-
-        function updatePendingLeaveCount() {
+        
+        function updatePendingLeaveCount(leaveRequests) {
             const countEl = document.getElementById('pending-leave-count');
             if (!countEl) return;
-
-            const stored = localStorage.getItem('leaveRequests');
-            let records = [];
-            try {
-                records = stored ? JSON.parse(stored) : [];
-            } catch (e) {
-                records = [];
-            }
-
-            let pendingCount = 0;
-            records.forEach(employee => {
-                (employee.leaveRequests || []).forEach(request => {
-                    if (request.status === 'Pending') pendingCount++;
-                });
-            });
-
+            const pendingCount = leaveRequests.filter(r => r.status === 'Pending').length;
             countEl.textContent = String(pendingCount).padStart(2, '0');
         }
 
@@ -237,85 +172,80 @@
         }
 
         // Rendering Logic Function
-        function populateDashboard() {
+        async function populateDashboard() {
             const tableBody = document.getElementById('employee-table-body');
             if (!tableBody) return;
             tableBody.innerHTML = '';
 
-            const currentEmployees = JSON.parse(localStorage.getItem('employees'));
-            const currentPayroll = JSON.parse(localStorage.getItem('payroll'));
-            const currentAttendance = JSON.parse(localStorage.getItem('leaveRequests'));
+            try {
+                const [employees, payrolls, leaveRequests] = await Promise.all([
+                    EmployeesAPI.getAll(),
+                    PayrollAPI.getAll(),
+                    LeaveRequestsAPI.getAll(),
+                ]);
 
-            if (!currentEmployees) return;
+                let rowsHtml = '';
 
-            currentEmployees.forEach(info => {
-                const payroll = (currentPayroll || []).find(p => p.employeeId === info.employeeId) || {};
-                const employeeLeave = (currentAttendance || []).find(a => a.employeeId === info.employeeId) || {};
+                employees.forEach(info => {
+                    const payroll = payrolls.find(p => p.employee_id === info.employee_id) || {};
+                    const pending = leaveRequests
+                        .filter(r => r.employee_id === info.employee_id && r.status === 'Pending');
 
-                // Only interested in requests still awaiting a decision.
-                const pendingRequests = (employeeLeave.leaveRequests || []).filter(r => r.status === 'Pending');
-                if (pendingRequests.length === 0) return; // skip employees with nothing pending
+                    if (pending.length === 0) return; // skip employees with nothing pending
 
-                const leave = pendingRequests[pendingRequests.length - 1];
+                    const leave = pending[pending.length - 1];
+                    const salaryValue = payroll.net_salary ?? info.salary;
+                    const formattedSalary = "R " + Number(salaryValue).toLocaleString();
 
-                const currentSalary = payroll.finalSalary || info.salary;
-                const formattedSalary = "R " + currentSalary.toLocaleString();
+                    rowsHtml += `
+                    <tr>
+                        <td style="padding: 16px 8px;"><strong>${info.name}</strong></td>
+                        <td style="padding: 16px 8px;">
+                        <span style="font-weight: 600; display: block; font-size: 0.88rem;">${info.position}</span>
+                        <small style="color: #888; font-size: 0.78rem;">${info.department}</small>
+                        </td>
+                        <td style="padding: 16px 8px;">${payroll.hours_worked || 0} hrs</td>
+                        <td style="padding: 16px 8px;"><strong>${formattedSalary}</strong></td>
+                        <td style="padding: 16px 8px;">
+                        <span onclick="window.location.href='requests.html'"
+                                class="leave-badge"
+                                style="display: inline-block; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 6px; border: 1px solid #f59e0b; cursor: pointer;">
+                            ${leave.reason} (${leave.status})
+                        </span>
+                        </td>
+                    </tr>
+                    `;
+                });
 
-                const row = `
-                <tr>
-                    <td style="padding: 16px 8px;"><strong>${info.name}</strong></td>
-                    <td style="padding: 16px 8px;">
-                    <span style="font-weight: 600; display: block; font-size: 0.88rem;">${info.position}</span>
-                    <small style="color: #888; font-size: 0.78rem;">${info.department}</small>
-                    </td>
-                    <td style="padding: 16px 8px;">${payroll.hoursWorked || 0} hrs</td>
-                    <td style="padding: 16px 8px;"><strong>${formattedSalary}</strong></td>
-                    <td style="padding: 16px 8px;">
-                    <span onclick="window.location.href='requests.html'" 
-                            class="leave-badge" 
-                            style="display: inline-block; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 6px; border: 1px solid #f59e0b; cursor: pointer;">
-                        ${leave.reason} (${leave.status})
-                    </span>
-                    </td>
-                </tr>
+                tableBody.innerHTML = rowsHtml || `
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #888; padding: 24px 8px;">
+                            <i class="fa-solid fa-circle-check" style="margin-right: 8px; color: #22c55e;"></i>
+                            No pending leave requests right now.
+                        </td>
+                    </tr>
                 `;
-                tableBody.innerHTML += row;
-            });
 
-            // Nothing pending anywhere: tell the user instead of leaving it blank.
-            if (tableBody.innerHTML.trim() === '') {
+                updatePendingLeaveCount(leaveRequests);
+            } catch (err) {
                 tableBody.innerHTML = `
-                <tr>
-                    <td colspan="5" style="text-align: center; color: #888; padding: 24px 8px;">
-                        <i class="fa-solid fa-circle-check" style="margin-right: 8px; color: #22c55e;"></i>
-                        No pending leave requests right now.
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #ef4444; padding: 24px 8px;">
+                            Unable to load dashboard data: ${err.message}
+                        </td>
+                    </tr>
                 `;
             }
         }
-
         window.addEventListener('DOMContentLoaded', () => {
             populateDashboard();
             updatePendingLeaveCount();
-        });
-
-        window.addEventListener('storage', (event) => {
-            if (event.key === 'leaveRequests') {
-                updatePendingLeaveCount();
-                populateDashboard();
-            }
         });
 
         window.addEventListener('pageshow', () => {
             updatePendingLeaveCount();
             populateDashboard();
         });
-
-        setInterval(() => {
-            updatePendingLeaveCount();
-            populateDashboard();
-        }, 1000);
     </script>
 </body>
 </html>
