@@ -4764,29 +4764,34 @@ span::first-letter {
     color: #ffc107 !important; /* Yellow/Orange */
 }
 
-/* 3. Original Edit Button (Keeps Employees page yellow/normal) */
+/* Base styles for View & Edit buttons (matching size, shape, and border) */
+.btn-view,
 .btn-edit,
 .edit-btn,
 button.edit {
-    background: var(--tertiary-colour);
-    color: #000000;
-    border: 2px solid #000000;
-    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;            /* Keeps width identical */
     padding: 6px 16px;
+    border: 2px solid #000000;  /* Black border */
+    border-radius: 50px;        /* Pill shape */
+    font-size: 14px;
     font-weight: bold;
+    color: #000000 !important;  /* Solid black text (fixes any dark letter artifacts) */
+    text-decoration: none;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
-/* 4. ONLY Payroll Page Edit Button (Pill shape, black border, purple fill) */
-.payroll-container .btn-edit,
-.payroll-table .btn-edit,
-body.payroll-page .btn-edit {
-    background-color: #8a2be2 !important;
-    color: #ffffff !important;
+/* View Button Fill */
+.btn-view {
+    background-color: #ffbb33 !important;
 }
 
-.payroll-container .btn-edit:hover,
-.payroll-table .btn-edit:hover,
-body.payroll-page .btn-edit:hover {
-    background-color: #7220bd !important;
+/* Edit Button Purple Fill (Applies directly so it doesn't stay white) */
+.btn-edit,
+.edit-btn,
+button.edit {
+    background-color: #d946ef !important; /* Bright purple fill */
 }
