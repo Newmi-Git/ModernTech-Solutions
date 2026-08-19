@@ -4764,42 +4764,46 @@ span::first-letter {
     color: #ffc107 !important; /* Yellow/Orange */
 }
 
-/* Base button styling shared by BOTH buttons */
+/* Base styling for both buttons */
 .btn-view,
 .btn-edit,
 .edit-btn,
-button.edit {
+button.edit,
+.btn-edit *,
+.btn-edit::first-letter {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 80px;            /* Forces identical width regardless of text length */
-    padding: 6px 16px;          /* Identical vertical and horizontal padding */
+    min-width: 80px;
+    padding: 6px 16px;
     border: 2px solid #000000;
     border-radius: 50px;
-    font-size: 14px;            /* Identical font sizing */
+    font-size: 14px;
     font-weight: bold;
+    text-decoration: none;
     cursor: pointer;
-    box-sizing: border-box;     /* Prevents border size mismatches */
+    box-sizing: border-box;
 }
 
-/* Specific colors for View button */
+/* Force Edit button text and any first-letter styling to stay solid black */
+.btn-edit,
+.edit-btn,
+button.edit,
+.btn-edit::first-letter,
+.edit-btn::first-letter {
+    color: #000000 !important;
+    background-color: transparent;
+}
+
+/* View Button specific background */
 .btn-view {
     background-color: #ffbb33;
     color: #000000;
 }
 
-/* Specific colors for default Edit button */
-.btn-edit,
-.edit-btn,
-button.edit {
-    background-color: var(--tertiary-colour, #ffbb33);
-    color: #000000;
-}
-
-/* Override ONLY Payroll page Edit button color to purple */
+/* Payroll Edit Button background override */
 .payroll-container .btn-edit,
 .payroll-table .btn-edit,
 body.payroll-page .btn-edit {
-    background-color: #d946ef !important; /* Purple fill */
-    color: #000000 !important;
+    background-color: #e066ff !important; /* Purple fill */
 }
