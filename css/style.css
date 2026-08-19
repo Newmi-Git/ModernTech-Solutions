@@ -4764,42 +4764,29 @@ span::first-letter {
     color: #ffc107 !important; /* Yellow/Orange */
 }
 
-/* Base button styling shared by BOTH buttons */
-.btn-view,
+/* 3. Original Edit Button (Keeps Employees page yellow/normal) */
 .btn-edit,
 .edit-btn,
 button.edit {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 80px;            /* Forces identical width regardless of text length */
-    padding: 6px 16px;          /* Identical vertical and horizontal padding */
+    background: var(--tertiary-colour);
+    color: #000000;
     border: 2px solid #000000;
     border-radius: 50px;
-    font-size: 14px;            /* Identical font sizing */
+    padding: 6px 16px;
     font-weight: bold;
     cursor: pointer;
-    box-sizing: border-box;     /* Prevents border size mismatches */
 }
 
-/* Specific colors for View button */
-.btn-view {
-    background-color: #ffbb33;
-    color: #000000;
-}
-
-/* Specific colors for default Edit button */
-.btn-edit,
-.edit-btn,
-button.edit {
-    background-color: var(--tertiary-colour, #ffbb33);
-    color: #000000;
-}
-
-/* Override ONLY Payroll page Edit button color to purple */
+/* 4. ONLY Payroll Page Edit Button (Pill shape, black border, purple fill) */
 .payroll-container .btn-edit,
 .payroll-table .btn-edit,
 body.payroll-page .btn-edit {
-    background-color: #d946ef !important; /* Purple fill */
-    color: #000000 !important;
+    background-color: #8a2be2 !important;
+    color: #ffffff !important;
+}
+
+.payroll-container .btn-edit:hover,
+.payroll-table .btn-edit:hover,
+body.payroll-page .btn-edit:hover {
+    background-color: #7220bd !important;
 }
