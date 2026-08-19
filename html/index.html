@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>ModernTech Solutions - HR Dashboard</title>
 
@@ -11,7 +17,10 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     >
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
 
     <style>
 
@@ -30,15 +39,20 @@
             padding: 0;
         }
 
+
         header.index-hero-section {
+
             max-width: 1200px;
             width: 100%;
             margin-inline: auto;
             padding: 1.5rem 1rem;
             box-sizing: border-box;
+
         }
 
+
         section.index-bento-grid {
+
             max-width: 1200px;
             width: 100%;
             margin-inline: auto;
@@ -48,47 +62,71 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+
         }
 
+
         .dashboard-column {
+
             width: 100%;
 
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+
         }
 
+
         .table-responsive-wrapper {
+
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+
         }
 
+
         .dashboard-table {
+
             width: 100%;
             border-collapse: collapse;
             min-width: 500px;
+
         }
+
 
         @media (min-width: 768px) {
 
             section.index-bento-grid {
+
                 flex-direction: row;
                 align-items: flex-start;
+
             }
 
+
             .dashboard-column {
+
                 flex: 1;
+
             }
 
         }
 
     </style>
+
 </head>
+
 
 <body class="index-body">
 
+
+    <!-- NAVBAR -->
+
     <div id="app-navbar"></div>
+
+
+    <!-- HERO -->
 
     <header class="index-hero-section">
 
@@ -96,47 +134,71 @@
             HR Management System
         </span>
 
+
         <h1 class="index-h1">
             Welcome back, HR Team!
         </h1>
 
+
         <p class="index-subtitle">
+
             Centralized data dashboard for
+
             <strong class="brand-highlight">
                 ModernTech Solutions
             </strong>.
+
         </p>
 
     </header>
 
 
+
+    <!-- DASHBOARD -->
+
     <section class="index-bento-grid">
 
+
         <!-- LEFT COLUMN -->
+
         <div class="dashboard-column">
+
+
+            <!-- SYSTEM OVERVIEW -->
 
             <div class="index-grid-card story-card">
 
                 <h2>
+
                     System
+
                     <span class="index-brand-highlight">
                         Overview
                     </span>
+
                 </h2>
 
+
                 <p>
+
                     Welcome to the modernized front-end proof of concept.
                     This application replaces fragmented spreadsheets with
                     an interactive interface. Use the links above to track
-                    corporate records, run mock payroll calculations, and
-                    organize core workforce data.
+                    corporate records, run mock payroll calculations,
+                    and organize core workforce data.
+
                 </p>
 
             </div>
 
 
-            <!-- DASHBOARD METRICS -->
+
+            <!-- METRICS -->
+
             <div class="metrics-subgrid">
+
+
+                <!-- PENDING LEAVE -->
 
                 <div
                     class="index-grid-card index-metric-card secondary-highlight pulse-card"
@@ -147,8 +209,9 @@
                         class="index-metric-number"
                         id="pending-leave-count"
                     >
-                        05
+                        00
                     </span>
+
 
                     <span class="index-metric-label">
                         Pending Leave
@@ -157,11 +220,17 @@
                 </div>
 
 
+
+                <!-- PAYROLL -->
+
                 <div class="index-grid-card index-metric-card plain">
 
                     <span class="index-metric-number">
+
                         <i class="fa-solid fa-square-check"></i>
+
                     </span>
+
 
                     <span class="index-metric-label">
                         Payroll Ready
@@ -169,18 +238,25 @@
 
                 </div>
 
+
             </div>
 
 
-            <!-- QUICK ADMIN ACTIONS -->
+
+            <!-- QUICK ACTIONS -->
+
             <div class="index-grid-card index-story-card">
 
                 <h2>
+
                     Quick Admin
+
                     <span class="index-brand-highlight">
                         Actions
                     </span>
+
                 </h2>
+
 
                 <form
                     class="index-contact-form"
@@ -193,15 +269,18 @@
                             Select Operation Task
                         </label>
 
+
                         <select id="action-select">
 
                             <option value="Employee.html">
                                 Add New Employee Record
                             </option>
 
+
                             <option value="payroll.html">
                                 Run Automated Monthly Payroll
                             </option>
+
 
                             <option value="requests.html">
                                 Approve Outstanding Time-Off
@@ -211,22 +290,31 @@
 
                     </div>
 
+
                     <button
                         type="submit"
                         onclick="handleAdminRouting()"
                     >
+
                         Launch Operations Interface
+
                     </button>
 
                 </form>
 
             </div>
 
+
         </div>
 
 
+
         <!-- RIGHT COLUMN -->
+
         <div class="dashboard-column">
+
+
+            <!-- TOTAL EMPLOYEES -->
 
             <div
                 class="index-grid-card metric-card highlight pulse-card"
@@ -237,6 +325,7 @@
                     250+
                 </span>
 
+
                 <span class="metric-label">
                     TOTAL EMPLOYEES
                 </span>
@@ -244,23 +333,35 @@
             </div>
 
 
+
             <!-- PENDING APPROVALS -->
+
             <div class="app-card table-card">
 
+
                 <h3>
+
                     <i class="fa-solid fa-clock"></i>
+
                     Actionable Pending Approvals
+
                 </h3>
 
+
                 <p class="table-card-subtitle">
+
                     Operational records showing only outstanding
                     personnel adjustments awaiting review.
+
                 </p>
+
 
 
                 <div class="table-responsive-wrapper">
 
+
                     <table class="dashboard-table">
+
 
                         <thead>
 
@@ -270,17 +371,21 @@
                                     Employee Name
                                 </th>
 
+
                                 <th>
                                     Position / Dept
                                 </th>
+
 
                                 <th>
                                     Hours
                                 </th>
 
+
                                 <th>
                                     Net Salary
                                 </th>
+
 
                                 <th>
                                     Leave Request
@@ -291,9 +396,11 @@
                         </thead>
 
 
+
                         <tbody id="employee-table-body">
 
                         </tbody>
+
 
                     </table>
 
@@ -301,241 +408,48 @@
 
             </div>
 
+
         </div>
+
 
     </section>
 
 
+
+    <!-- FOOTER -->
+
     <div id="app-footer"></div>
 
 
-    <!-- LIBRARIES -->
+
+    <!-- JAVASCRIPT -->
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <script src="../js/api.js"></script>
 
     <script src="../js/auth.js"></script>
 
+
     <script>
+
         requireRole(['hr', 'manager']);
+
     </script>
+
 
     <script src="../js/navbar.js"></script>
 
     <script src="../js/footer.js"></script>
 
 
+
     <script>
 
         /*
-         * Payroll data used by the dashboard.
+         * Employee information used by the dashboard.
          */
-        const payrollData = [
 
-            {
-                employeeId: 1,
-                hoursWorked: 160,
-                leaveDeductions: 8,
-                finalSalary: 69500
-            },
-
-            {
-                employeeId: 2,
-                hoursWorked: 150,
-                leaveDeductions: 10,
-                finalSalary: 79000
-            },
-
-            {
-                employeeId: 3,
-                hoursWorked: 170,
-                leaveDeductions: 4,
-                finalSalary: 54800
-            },
-
-            {
-                employeeId: 4,
-                hoursWorked: 165,
-                leaveDeductions: 6,
-                finalSalary: 59700
-            },
-
-            {
-                employeeId: 5,
-                hoursWorked: 158,
-                leaveDeductions: 5,
-                finalSalary: 57850
-            },
-
-            {
-                employeeId: 6,
-                hoursWorked: 168,
-                leaveDeductions: 2,
-                finalSalary: 64800
-            },
-
-            {
-                employeeId: 7,
-                hoursWorked: 175,
-                leaveDeductions: 3,
-                finalSalary: 71800
-            },
-
-            {
-                employeeId: 8,
-                hoursWorked: 160,
-                leaveDeductions: 0,
-                finalSalary: 56000
-            },
-
-            {
-                employeeId: 9,
-                hoursWorked: 155,
-                leaveDeductions: 5,
-                finalSalary: 61500
-            },
-
-            {
-                employeeId: 10,
-                hoursWorked: 162,
-                leaveDeductions: 4,
-                finalSalary: 57750
-            }
-
-        ];
-
-
-        /*
-         * Attendance and leave request information.
-         */
-        const attendanceAndLeave = [
-
-            {
-                employeeId: 1,
-                name: "Sibongile Nkosi",
-                leaveRequests: [
-                    {
-                        date: "2024-12-01",
-                        reason: "Personal",
-                        status: "Pending"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 2,
-                name: "Lungile Moyo",
-                leaveRequests: [
-                    {
-                        date: "2024-12-02",
-                        reason: "Vacation",
-                        status: "Approved"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 3,
-                name: "Thabo Molefe",
-                leaveRequests: [
-                    {
-                        date: "2024-12-05",
-                        reason: "Personal",
-                        status: "Pending"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 4,
-                name: "Keshav Naidoo",
-                leaveRequests: [
-                    {
-                        date: "2025-07-20",
-                        reason: "Bereavement",
-                        status: "Approved"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 5,
-                name: "Zanele Khumalo",
-                leaveRequests: [
-                    {
-                        date: "2024-12-01",
-                        reason: "Childcare",
-                        status: "Pending"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 6,
-                name: "Sipho Zulu",
-                leaveRequests: [
-                    {
-                        date: "2025-07-18",
-                        reason: "Sick Leave",
-                        status: "Approved"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 7,
-                name: "Naledi Moeketsi",
-                leaveRequests: [
-                    {
-                        date: "2025-07-22",
-                        reason: "Vacation",
-                        status: "Pending"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 8,
-                name: "Farai Gumbo",
-                leaveRequests: [
-                    {
-                        date: "2024-12-02",
-                        reason: "Medical Appointment",
-                        status: "Approved"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 9,
-                name: "Karabo Dlamini",
-                leaveRequests: [
-                    {
-                        date: "2025-07-19",
-                        reason: "Childcare",
-                        status: "Denied"
-                    }
-                ]
-            },
-
-            {
-                employeeId: 10,
-                name: "Fatima Patel",
-                leaveRequests: [
-                    {
-                        date: "2024-12-03",
-                        reason: "Vacation",
-                        status: "Pending"
-                    }
-                ]
-            }
-
-        ];
-
-
-        /*
-         * Employee information.
-         */
         const employeeInformation = [
 
             {
@@ -621,8 +535,90 @@
         ];
 
 
+
         /*
-         * LOCAL STORAGE INITIALIZATION
+         * Payroll data used by the dashboard.
+         */
+
+        const payrollData = [
+
+            {
+                employeeId: 1,
+                hoursWorked: 160,
+                leaveDeductions: 8,
+                finalSalary: 69500
+            },
+
+            {
+                employeeId: 2,
+                hoursWorked: 150,
+                leaveDeductions: 10,
+                finalSalary: 79000
+            },
+
+            {
+                employeeId: 3,
+                hoursWorked: 170,
+                leaveDeductions: 4,
+                finalSalary: 54800
+            },
+
+            {
+                employeeId: 4,
+                hoursWorked: 165,
+                leaveDeductions: 6,
+                finalSalary: 59700
+            },
+
+            {
+                employeeId: 5,
+                hoursWorked: 158,
+                leaveDeductions: 5,
+                finalSalary: 57850
+            },
+
+            {
+                employeeId: 6,
+                hoursWorked: 168,
+                leaveDeductions: 2,
+                finalSalary: 64800
+            },
+
+            {
+                employeeId: 7,
+                hoursWorked: 175,
+                leaveDeductions: 3,
+                finalSalary: 71800
+            },
+
+            {
+                employeeId: 8,
+                hoursWorked: 160,
+                leaveDeductions: 0,
+                finalSalary: 56000
+            },
+
+            {
+                employeeId: 9,
+                hoursWorked: 155,
+                leaveDeductions: 5,
+                finalSalary: 61500
+            },
+
+            {
+                employeeId: 10,
+                hoursWorked: 162,
+                leaveDeductions: 4,
+                finalSalary: 57750
+            }
+
+        ];
+
+
+
+        /*
+         * Store employee/payroll data locally only if it
+         * does not already exist.
          */
 
         if (!localStorage.getItem('employees')) {
@@ -645,84 +641,125 @@
         }
 
 
+
         /*
-         * IMPORTANT:
+         * Get leave requests from the backend API.
          *
-         * The leave data is stored using the "attendance" key.
-         * The dashboard therefore also reads from "attendance".
+         * The Requests page is already showing the real
+         * backend data, so the dashboard should use the
+         * same source instead of a separate localStorage copy.
          */
 
-        if (!localStorage.getItem('attendance')) {
+        async function getLeaveRequests() {
 
-            localStorage.setItem(
-                'attendance',
-                JSON.stringify(attendanceAndLeave)
-            );
+            try {
+
+                const response =
+                    await fetch(
+                        "http://localhost:5000/leave-requests"
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Request failed with status ${response.status}`
+                    );
+
+                }
+
+
+                const result =
+                    await response.json();
+
+
+                /*
+                 * Supports either:
+                 *
+                 * [ ...requests ]
+                 *
+                 * or:
+                 *
+                 * { data: [ ...requests ] }
+                 */
+
+                if (Array.isArray(result)) {
+
+                    return result;
+
+                }
+
+
+                if (Array.isArray(result.data)) {
+
+                    return result.data;
+
+                }
+
+
+                return [];
+
+            } catch (error) {
+
+                console.error(
+                    "Could not load leave requests:",
+                    error
+                );
+
+                return [];
+
+            }
 
         }
 
 
+
         /*
-         * Updates the Pending Leave counter.
+         * Update the Pending Leave number.
          */
-        function updatePendingLeaveCount() {
+
+        async function updatePendingLeaveCount() {
 
             const countEl =
-                document.getElementById('pending-leave-count');
+                document.getElementById(
+                    'pending-leave-count'
+                );
+
 
             if (!countEl) return;
 
 
-            const stored =
-                localStorage.getItem('attendance');
-
-            let records = [];
+            const leaveRequests =
+                await getLeaveRequests();
 
 
-            try {
-
-                records = stored
-                    ? JSON.parse(stored)
-                    : [];
-
-            } catch (e) {
-
-                records = [];
-
-            }
-
-
-            let pendingCount = 0;
-
-
-            records.forEach(employee => {
-
-                (employee.leaveRequests || []).forEach(request => {
-
-                    if (request.status === 'Pending') {
-
-                        pendingCount++;
-
-                    }
-
-                });
-
-            });
+            const pendingRequests =
+                leaveRequests.filter(
+                    request =>
+                        request.status === "Pending"
+                );
 
 
             countEl.textContent =
-                String(pendingCount).padStart(2, '0');
+                String(
+                    pendingRequests.length
+                ).padStart(2, '0');
 
         }
+
 
 
         /*
          * Navigation Dropdown Routing Function.
          */
+
         function handleAdminRouting() {
 
             const selectElement =
-                document.getElementById("action-select");
+                document.getElementById(
+                    "action-select"
+                );
+
 
             if (!selectElement) return;
 
@@ -737,16 +774,18 @@
         }
 
 
+
         /*
-         * Renders the pending leave requests
-         * on the dashboard table.
+         * Populate the pending approvals table.
          */
-        function populateDashboard() {
+
+        async function populateDashboard() {
 
             const tableBody =
                 document.getElementById(
                     'employee-table-body'
                 );
+
 
             if (!tableBody) return;
 
@@ -754,173 +793,27 @@
             tableBody.innerHTML = '';
 
 
-            const currentEmployees =
-                JSON.parse(
-                    localStorage.getItem('employees')
-                );
-
-
-            const currentPayroll =
-                JSON.parse(
-                    localStorage.getItem('payroll')
-                );
+            const leaveRequests =
+                await getLeaveRequests();
 
 
             /*
-             * FIX:
-             *
-             * The leave request data is stored under
-             * "attendance", not "leaveRequests".
+             * Only display pending requests.
              */
-            const currentAttendance =
-                JSON.parse(
-                    localStorage.getItem('attendance')
+
+            const pendingRequests =
+                leaveRequests.filter(
+                    request =>
+                        request.status === "Pending"
                 );
-
-
-            if (!currentEmployees) return;
-
-
-            currentEmployees.forEach(info => {
-
-                const payroll =
-                    currentPayroll.find(
-                        p => p.employeeId === info.employeeId
-                    ) || {};
-
-
-                const employeeLeave =
-                    (currentAttendance || []).find(
-                        a => a.employeeId === info.employeeId
-                    ) || {};
-
-
-                /*
-                 * Only show requests that are still pending.
-                 */
-                const pendingRequests =
-                    (employeeLeave.leaveRequests || [])
-                        .filter(
-                            r => r.status === 'Pending'
-                        );
-
-
-                /*
-                 * Skip employees who have
-                 * no pending requests.
-                 */
-                if (pendingRequests.length === 0) return;
-
-
-                /*
-                 * Display the most recent pending request.
-                 */
-                const leave =
-                    pendingRequests[
-                        pendingRequests.length - 1
-                    ];
-
-
-                const currentSalary =
-                    payroll.finalSalary ||
-                    info.salary;
-
-
-                const formattedSalary =
-                    "R " +
-                    currentSalary.toLocaleString();
-
-
-                const row = `
-
-                    <tr>
-
-                        <td style="padding: 16px 8px;">
-                            <strong>
-                                ${info.name}
-                            </strong>
-                        </td>
-
-
-                        <td style="padding: 16px 8px;">
-
-                            <span
-                                style="
-                                    font-weight: 600;
-                                    display: block;
-                                    font-size: 0.88rem;
-                                "
-                            >
-                                ${info.position}
-                            </span>
-
-
-                            <small
-                                style="
-                                    color: #888;
-                                    font-size: 0.78rem;
-                                "
-                            >
-                                ${info.department}
-                            </small>
-
-                        </td>
-
-
-                        <td style="padding: 16px 8px;">
-                            ${payroll.hoursWorked || 0} hrs
-                        </td>
-
-
-                        <td style="padding: 16px 8px;">
-
-                            <strong>
-                                ${formattedSalary}
-                            </strong>
-
-                        </td>
-
-
-                        <td style="padding: 16px 8px;">
-
-                            <span
-                                onclick="
-                                    window.location.href='requests.html'
-                                "
-                                class="leave-badge"
-                                style="
-                                    display: inline-block;
-                                    padding: 6px 12px;
-                                    font-size: 0.8rem;
-                                    font-weight: 700;
-                                    border-radius: 6px;
-                                    border: 1px solid #f59e0b;
-                                    cursor: pointer;
-                                "
-                            >
-
-                                ${leave.reason}
-                                (${leave.status})
-
-                            </span>
-
-                        </td>
-
-                    </tr>
-
-                `;
-
-
-                tableBody.innerHTML += row;
-
-            });
 
 
             /*
              * If there are no pending requests,
              * show a friendly message.
              */
-            if (tableBody.innerHTML.trim() === '') {
+
+            if (pendingRequests.length === 0) {
 
                 tableBody.innerHTML = `
 
@@ -952,82 +845,241 @@
 
                 `;
 
+                return;
+
             }
+
+
+
+            /*
+             * Create a row for every pending request.
+             */
+
+            pendingRequests.forEach(request => {
+
+
+                const employee =
+                    employeeInformation.find(
+                        employee =>
+                            employee.employeeId ===
+                            Number(request.employee_id)
+                    );
+
+
+                const payroll =
+                    payrollData.find(
+                        payroll =>
+                            payroll.employeeId ===
+                            Number(request.employee_id)
+                    ) || {};
+
+
+
+                const employeeName =
+                    employee
+                        ? employee.name
+                        : `Employee #${request.employee_id}`;
+
+
+                const position =
+                    employee
+                        ? employee.position
+                        : "Unknown";
+
+
+                const department =
+                    employee
+                        ? employee.department
+                        : "Unknown";
+
+
+                const hoursWorked =
+                    payroll.hoursWorked || 0;
+
+
+                const salary =
+                    payroll.finalSalary ||
+                    (employee
+                        ? employee.salary
+                        : 0);
+
+
+                const formattedSalary =
+                    "R " +
+                    Number(salary).toLocaleString();
+
+
+
+                const row = `
+
+                    <tr>
+
+                        <td
+                            style="
+                                padding: 16px 8px;
+                            "
+                        >
+
+                            <strong>
+                                ${employeeName}
+                            </strong>
+
+                        </td>
+
+
+                        <td
+                            style="
+                                padding: 16px 8px;
+                            "
+                        >
+
+                            <span
+                                style="
+                                    font-weight: 600;
+                                    display: block;
+                                    font-size: 0.88rem;
+                                "
+                            >
+
+                                ${position}
+
+                            </span>
+
+
+                            <small
+                                style="
+                                    color: #888;
+                                    font-size: 0.78rem;
+                                "
+                            >
+
+                                ${department}
+
+                            </small>
+
+                        </td>
+
+
+                        <td
+                            style="
+                                padding: 16px 8px;
+                            "
+                        >
+
+                            ${hoursWorked} hrs
+
+                        </td>
+
+
+                        <td
+                            style="
+                                padding: 16px 8px;
+                            "
+                        >
+
+                            <strong>
+                                ${formattedSalary}
+                            </strong>
+
+                        </td>
+
+
+                        <td
+                            style="
+                                padding: 16px 8px;
+                            "
+                        >
+
+                            <span
+                                onclick="
+                                    window.location.href='requests.html'
+                                "
+                                class="leave-badge"
+                                style="
+                                    display: inline-block;
+                                    padding: 6px 12px;
+                                    font-size: 0.8rem;
+                                    font-weight: 700;
+                                    border-radius: 6px;
+                                    border: 1px solid #f59e0b;
+                                    cursor: pointer;
+                                "
+                            >
+
+                                ${request.reason}
+                                (${request.status})
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                tableBody.innerHTML += row;
+
+            });
 
         }
 
 
+
         /*
-         * Run dashboard functions when the page loads.
+         * Load the dashboard when the page opens.
          */
+
         window.addEventListener(
             'DOMContentLoaded',
-            () => {
+            async () => {
 
-                populateDashboard();
+                await updatePendingLeaveCount();
 
-                updatePendingLeaveCount();
-
-            }
-        );
-
-
-        /*
-         * Detect changes made to localStorage
-         * from another tab/window.
-         */
-        window.addEventListener(
-            'storage',
-            (event) => {
-
-                if (event.key === 'attendance') {
-
-                    updatePendingLeaveCount();
-
-                    populateDashboard();
-
-                }
+                await populateDashboard();
 
             }
         );
+
 
 
         /*
          * Refresh the dashboard when returning
-         * to the page using browser navigation.
+         * to the page.
          */
+
         window.addEventListener(
             'pageshow',
-            () => {
+            async () => {
 
-                updatePendingLeaveCount();
+                await updatePendingLeaveCount();
 
-                populateDashboard();
+                await populateDashboard();
 
             }
         );
 
 
+
         /*
-         * Fallback refresh.
-         *
-         * This is useful because the "storage" event
-         * does not fire in the same tab that made
-         * the change.
+         * Refresh every 30 seconds so that the dashboard
+         * can pick up newly approved/pending requests.
          */
+
         setInterval(
-            () => {
+            async () => {
 
-                updatePendingLeaveCount();
+                await updatePendingLeaveCount();
 
-                populateDashboard();
+                await populateDashboard();
 
             },
-            1000
+            30000
         );
 
     </script>
 
+
 </body>
+
 </html>
-```
