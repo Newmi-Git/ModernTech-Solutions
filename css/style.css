@@ -4764,20 +4764,29 @@ span::first-letter {
     color: #ffc107 !important; /* Yellow/Orange */
 }
 
-/* 3. Style the Payroll Edit Button purple */
+/* 3. Original Edit Button (Keeps Employees page yellow/normal) */
 .btn-edit,
 .edit-btn,
 button.edit {
     background: var(--tertiary-colour);
-    color: #ffffff !important;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.btn-edit:hover,
-.edit-btn:hover,
-button.edit:hover {
-    background-color: #7220bd !important; /* Slightly darker purple on hover */
+/* 4. ONLY Payroll Page Edit Button (Pill shape, black border, purple fill) */
+.payroll-container .btn-edit,
+.payroll-table .btn-edit,
+body.payroll-page .btn-edit {
+    background-color: #8a2be2 !important;
+    color: #ffffff !important;
+}
+
+.payroll-container .btn-edit:hover,
+.payroll-table .btn-edit:hover,
+body.payroll-page .btn-edit:hover {
+    background-color: #7220bd !important;
 }
