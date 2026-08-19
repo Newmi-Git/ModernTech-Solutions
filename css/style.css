@@ -4797,7 +4797,7 @@ button.edit,
 
 /* View Button specific background */
 .btn-view {
-    background-color: #ffbb33;
+    background-color: var(--tertiary-colour);
     color: #000000;
 }
 
