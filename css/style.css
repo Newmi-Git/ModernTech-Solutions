@@ -4777,16 +4777,3 @@ button.edit {
     cursor: pointer;
 }
 
-/* 4. ONLY Payroll Page Edit Button (Pill shape, black border, purple fill) */
-.payroll-container .btn-edit,
-.payroll-table .btn-edit,
-body.payroll-page .btn-edit {
-    background-color: #8a2be2 !important;
-    color: #ffffff !important;
-}
-
-.payroll-container .btn-edit:hover,
-.payroll-table .btn-edit:hover,
-body.payroll-page .btn-edit:hover {
-    background-color: #7220bd !important;
-}
