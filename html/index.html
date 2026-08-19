@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +13,7 @@
 
     <title>ModernTech Solutions - HR Dashboard</title>
 
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -22,30 +24,45 @@
         href="../css/style.css"
     >
 
+
     <style>
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                "Segoe UI", Roboto, sans-serif;
 
-            font-size: clamp(
-                0.95rem,
-                0.8rem + 0.5vw,
-                1.1rem
-            );
+            font-family:
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                sans-serif;
+
+            font-size:
+                clamp(
+                    0.95rem,
+                    0.8rem + 0.5vw,
+                    1.1rem
+                );
 
             line-height: 1.5;
+
             margin: 0;
+
             padding: 0;
+
         }
 
 
         header.index-hero-section {
 
             max-width: 1200px;
+
             width: 100%;
+
             margin-inline: auto;
+
             padding: 1.5rem 1rem;
+
             box-sizing: border-box;
 
         }
@@ -54,13 +71,19 @@
         section.index-bento-grid {
 
             max-width: 1200px;
+
             width: 100%;
+
             margin-inline: auto;
+
             padding: 1rem;
+
             box-sizing: border-box;
 
             display: flex;
+
             flex-direction: column;
+
             gap: 1.5rem;
 
         }
@@ -71,7 +94,9 @@
             width: 100%;
 
             display: flex;
+
             flex-direction: column;
+
             gap: 1.5rem;
 
         }
@@ -80,7 +105,9 @@
         .table-responsive-wrapper {
 
             width: 100%;
+
             overflow-x: auto;
+
             -webkit-overflow-scrolling: touch;
 
         }
@@ -89,7 +116,9 @@
         .dashboard-table {
 
             width: 100%;
+
             border-collapse: collapse;
+
             min-width: 500px;
 
         }
@@ -100,6 +129,7 @@
             section.index-bento-grid {
 
                 flex-direction: row;
+
                 align-items: flex-start;
 
             }
@@ -118,6 +148,7 @@
 </head>
 
 
+
 <body class="index-body">
 
 
@@ -126,7 +157,8 @@
     <div id="app-navbar"></div>
 
 
-    <!-- HERO -->
+
+    <!-- HERO SECTION -->
 
     <header class="index-hero-section">
 
@@ -181,11 +213,13 @@
 
                 <p>
 
-                    Welcome to the modernized front-end proof of concept.
-                    This application replaces fragmented spreadsheets with
-                    an interactive interface. Use the links above to track
-                    corporate records, run mock payroll calculations,
-                    and organize core workforce data.
+                    Welcome to the modernized front-end proof
+                    of concept. This application replaces
+                    fragmented spreadsheets with an
+                    interactive interface. Use the links
+                    above to track corporate records, run
+                    mock payroll calculations, and organize
+                    core workforce data.
 
                 </p>
 
@@ -223,7 +257,9 @@
 
                 <!-- PAYROLL -->
 
-                <div class="index-grid-card index-metric-card plain">
+                <div
+                    class="index-grid-card index-metric-card plain"
+                >
 
                     <span class="index-metric-number">
 
@@ -237,7 +273,6 @@
                     </span>
 
                 </div>
-
 
             </div>
 
@@ -304,7 +339,6 @@
 
             </div>
 
-
         </div>
 
 
@@ -350,8 +384,9 @@
 
                 <p class="table-card-subtitle">
 
-                    Operational records showing only outstanding
-                    personnel adjustments awaiting review.
+                    Operational records showing only
+                    outstanding personnel adjustments
+                    awaiting review.
 
                 </p>
 
@@ -408,9 +443,7 @@
 
             </div>
 
-
         </div>
-
 
     </section>
 
@@ -422,7 +455,7 @@
 
 
 
-    <!-- JAVASCRIPT -->
+    <!-- JAVASCRIPT FILES -->
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
@@ -444,10 +477,94 @@
 
 
 
+    <!-- DASHBOARD JAVASCRIPT -->
+
     <script>
 
+
         /*
-         * Employee information used by the dashboard.
+         * Payroll data used by the dashboard table.
+         */
+
+        const payrollData = [
+
+            {
+                employeeId: 1,
+                hoursWorked: 160,
+                leaveDeductions: 8,
+                finalSalary: 69500
+            },
+
+            {
+                employeeId: 2,
+                hoursWorked: 150,
+                leaveDeductions: 10,
+                finalSalary: 79000
+            },
+
+            {
+                employeeId: 3,
+                hoursWorked: 170,
+                leaveDeductions: 4,
+                finalSalary: 54800
+            },
+
+            {
+                employeeId: 4,
+                hoursWorked: 165,
+                leaveDeductions: 6,
+                finalSalary: 59700
+            },
+
+            {
+                employeeId: 5,
+                hoursWorked: 158,
+                leaveDeductions: 5,
+                finalSalary: 57850
+            },
+
+            {
+                employeeId: 6,
+                hoursWorked: 168,
+                leaveDeductions: 2,
+                finalSalary: 64800
+            },
+
+            {
+                employeeId: 7,
+                hoursWorked: 175,
+                leaveDeductions: 3,
+                finalSalary: 71800
+            },
+
+            {
+                employeeId: 8,
+                hoursWorked: 160,
+                leaveDeductions: 0,
+                finalSalary: 56000
+            },
+
+            {
+                employeeId: 9,
+                hoursWorked: 155,
+                leaveDeductions: 5,
+                finalSalary: 61500
+            },
+
+            {
+                employeeId: 10,
+                hoursWorked: 162,
+                leaveDeductions: 4,
+                finalSalary: 57750
+            }
+
+        ];
+
+
+
+        /*
+         * Employee information used to match
+         * leave requests with employee details.
          */
 
         const employeeInformation = [
@@ -537,134 +654,119 @@
 
 
         /*
-         * Payroll data used by the dashboard.
+         * Get the JWT token used by the logged-in user.
+         *
+         * We check the common storage locations so
+         * the dashboard can work with the existing
+         * authentication setup.
          */
 
-        const payrollData = [
+        function getAuthToken() {
 
-            {
-                employeeId: 1,
-                hoursWorked: 160,
-                leaveDeductions: 8,
-                finalSalary: 69500
-            },
+            const directToken =
+                localStorage.getItem("token");
 
-            {
-                employeeId: 2,
-                hoursWorked: 150,
-                leaveDeductions: 10,
-                finalSalary: 79000
-            },
-
-            {
-                employeeId: 3,
-                hoursWorked: 170,
-                leaveDeductions: 4,
-                finalSalary: 54800
-            },
-
-            {
-                employeeId: 4,
-                hoursWorked: 165,
-                leaveDeductions: 6,
-                finalSalary: 59700
-            },
-
-            {
-                employeeId: 5,
-                hoursWorked: 158,
-                leaveDeductions: 5,
-                finalSalary: 57850
-            },
-
-            {
-                employeeId: 6,
-                hoursWorked: 168,
-                leaveDeductions: 2,
-                finalSalary: 64800
-            },
-
-            {
-                employeeId: 7,
-                hoursWorked: 175,
-                leaveDeductions: 3,
-                finalSalary: 71800
-            },
-
-            {
-                employeeId: 8,
-                hoursWorked: 160,
-                leaveDeductions: 0,
-                finalSalary: 56000
-            },
-
-            {
-                employeeId: 9,
-                hoursWorked: 155,
-                leaveDeductions: 5,
-                finalSalary: 61500
-            },
-
-            {
-                employeeId: 10,
-                hoursWorked: 162,
-                leaveDeductions: 4,
-                finalSalary: 57750
+            if (directToken) {
+                return directToken;
             }
 
-        ];
+
+            const authToken =
+                localStorage.getItem("authToken");
+
+            if (authToken) {
+                return authToken;
+            }
 
 
+            const accessToken =
+                localStorage.getItem("accessToken");
 
-        /*
-         * Store employee/payroll data locally only if it
-         * does not already exist.
-         */
+            if (accessToken) {
+                return accessToken;
+            }
 
-        if (!localStorage.getItem('employees')) {
 
-            localStorage.setItem(
-                'employees',
-                JSON.stringify(employeeInformation)
-            );
+            const currentUser =
+                JSON.parse(
+                    localStorage.getItem("currentUser") || "null"
+                );
+
+
+            if (currentUser && currentUser.token) {
+
+                return currentUser.token;
+
+            }
+
+
+            return null;
 
         }
 
 
-        if (!localStorage.getItem('payroll')) {
-
-            localStorage.setItem(
-                'payroll',
-                JSON.stringify(payrollData)
-            );
-
-        }
-
-
 
         /*
-         * Get leave requests from the backend API.
+         * Fetch leave requests from the backend.
          *
-         * The Requests page is already showing the real
-         * backend data, so the dashboard should use the
-         * same source instead of a separate localStorage copy.
+         * The backend requires:
+         *
+         * Authorization: Bearer <JWT>
          */
 
         async function getLeaveRequests() {
+
+            const token =
+                getAuthToken();
+
+
+            if (!token) {
+
+                console.error(
+                    "No authentication token was found."
+                );
+
+                return [];
+
+            }
+
 
             try {
 
                 const response =
                     await fetch(
-                        "http://localhost:5000/leave-requests"
+                        "http://localhost:5000/leave-requests",
+                        {
+
+                            method: "GET",
+
+                            headers: {
+
+                                "Authorization":
+                                    `Bearer ${token}`,
+
+                                "Content-Type":
+                                    "application/json"
+
+                            }
+
+                        }
                     );
 
 
                 if (!response.ok) {
 
-                    throw new Error(
-                        `Request failed with status ${response.status}`
+                    const errorText =
+                        await response.text();
+
+
+                    console.error(
+                        "Leave request API error:",
+                        errorText
                     );
+
+
+                    return [];
 
                 }
 
@@ -674,13 +776,19 @@
 
 
                 /*
-                 * Supports either:
+                 * Supports a response such as:
                  *
-                 * [ ...requests ]
+                 * [
+                 *   {...},
+                 *   {...}
+                 * ]
                  *
-                 * or:
+                 * OR:
                  *
-                 * { data: [ ...requests ] }
+                 * {
+                 *   success: true,
+                 *   data: [...]
+                 * }
                  */
 
                 if (Array.isArray(result)) {
@@ -690,7 +798,10 @@
                 }
 
 
-                if (Array.isArray(result.data)) {
+                if (
+                    result &&
+                    Array.isArray(result.data)
+                ) {
 
                     return result.data;
 
@@ -699,12 +810,16 @@
 
                 return [];
 
-            } catch (error) {
+            }
+
+
+            catch (error) {
 
                 console.error(
                     "Could not load leave requests:",
                     error
                 );
+
 
                 return [];
 
@@ -715,18 +830,20 @@
 
 
         /*
-         * Update the Pending Leave number.
+         * Update the Pending Leave counter.
          */
 
         async function updatePendingLeaveCount() {
 
             const countEl =
                 document.getElementById(
-                    'pending-leave-count'
+                    "pending-leave-count"
                 );
 
 
-            if (!countEl) return;
+            if (!countEl) {
+                return;
+            }
 
 
             const leaveRequests =
@@ -736,21 +853,22 @@
             const pendingRequests =
                 leaveRequests.filter(
                     request =>
-                        request.status === "Pending"
+                        String(request.status)
+                            .toLowerCase() === "pending"
                 );
 
 
             countEl.textContent =
                 String(
                     pendingRequests.length
-                ).padStart(2, '0');
+                ).padStart(2, "0");
 
         }
 
 
 
         /*
-         * Navigation Dropdown Routing Function.
+         * Quick Admin navigation.
          */
 
         function handleAdminRouting() {
@@ -761,7 +879,9 @@
                 );
 
 
-            if (!selectElement) return;
+            if (!selectElement) {
+                return;
+            }
 
 
             const destinationPage =
@@ -776,41 +896,40 @@
 
 
         /*
-         * Populate the pending approvals table.
+         * Populate the Pending Approvals table.
          */
 
         async function populateDashboard() {
 
             const tableBody =
                 document.getElementById(
-                    'employee-table-body'
+                    "employee-table-body"
                 );
 
 
-            if (!tableBody) return;
+            if (!tableBody) {
+                return;
+            }
 
 
-            tableBody.innerHTML = '';
+            tableBody.innerHTML = "";
 
 
             const leaveRequests =
                 await getLeaveRequests();
 
 
-            /*
-             * Only display pending requests.
-             */
-
             const pendingRequests =
                 leaveRequests.filter(
                     request =>
-                        request.status === "Pending"
+                        String(request.status)
+                            .toLowerCase() === "pending"
                 );
 
 
             /*
-             * If there are no pending requests,
-             * show a friendly message.
+             * Show a message when there are
+             * no pending requests.
              */
 
             if (pendingRequests.length === 0) {
@@ -852,17 +971,25 @@
 
 
             /*
-             * Create a row for every pending request.
+             * Create a table row for each
+             * pending leave request.
              */
 
             pendingRequests.forEach(request => {
+
+
+                const employeeId =
+                    Number(
+                        request.employee_id ??
+                        request.employeeId
+                    );
 
 
                 const employee =
                     employeeInformation.find(
                         employee =>
                             employee.employeeId ===
-                            Number(request.employee_id)
+                            employeeId
                     );
 
 
@@ -870,7 +997,7 @@
                     payrollData.find(
                         payroll =>
                             payroll.employeeId ===
-                            Number(request.employee_id)
+                            employeeId
                     ) || {};
 
 
@@ -878,7 +1005,7 @@
                 const employeeName =
                     employee
                         ? employee.name
-                        : `Employee #${request.employee_id}`;
+                        : `Employee #${employeeId}`;
 
 
                 const position =
@@ -899,14 +1026,18 @@
 
                 const salary =
                     payroll.finalSalary ||
-                    (employee
-                        ? employee.salary
-                        : 0);
+                    (
+                        employee
+                            ? employee.salary
+                            : 0
+                    );
 
 
                 const formattedSalary =
                     "R " +
-                    Number(salary).toLocaleString();
+                    Number(
+                        salary
+                    ).toLocaleString();
 
 
 
@@ -1027,11 +1158,11 @@
 
 
         /*
-         * Load the dashboard when the page opens.
+         * Load dashboard when the page opens.
          */
 
         window.addEventListener(
-            'DOMContentLoaded',
+            "DOMContentLoaded",
             async () => {
 
                 await updatePendingLeaveCount();
@@ -1044,12 +1175,11 @@
 
 
         /*
-         * Refresh the dashboard when returning
-         * to the page.
+         * Refresh when returning to this page.
          */
 
         window.addEventListener(
-            'pageshow',
+            "pageshow",
             async () => {
 
                 await updatePendingLeaveCount();
@@ -1062,8 +1192,7 @@
 
 
         /*
-         * Refresh every 30 seconds so that the dashboard
-         * can pick up newly approved/pending requests.
+         * Refresh every 30 seconds.
          */
 
         setInterval(
@@ -1077,9 +1206,11 @@
             30000
         );
 
+
     </script>
 
 
 </body>
 
 </html>
+```
