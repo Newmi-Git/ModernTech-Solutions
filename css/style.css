@@ -4764,34 +4764,42 @@ span::first-letter {
     color: #ffc107 !important; /* Yellow/Orange */
 }
 
-/* Base styles for View & Edit buttons (matching size, shape, and border) */
+/* Base styles for View & Edit buttons */
 .btn-view,
 .btn-edit,
 .edit-btn,
-button.edit {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 80px;            /* Keeps width identical */
-    padding: 6px 16px;
-    border: 2px solid #000000;  /* Black border */
-    border-radius: 50px;        /* Pill shape */
-    font-size: 14px;
-    font-weight: bold;
-    color: #000000 !important;  /* Solid black text (fixes any dark letter artifacts) */
-    text-decoration: none;
-    cursor: pointer;
-    box-sizing: border-box;
+button.edit,
+a.edit-btn,
+a.btn-edit {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 80px !important;
+    padding: 6px 16px !important;
+    border: 2px solid #000000 !important;
+    border-radius: 50px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
 }
 
 /* View Button Fill */
 .btn-view {
-    var(--tertiary-colour) !important;
+    background: #ffbb33 !important;
+    background-color: #ffbb33 !important;
 }
 
-/* Edit Button Purple Fill (Applies directly so it doesn't stay white) */
+/* Edit Button Purple Fill - Clears shorthand white defaults */
 .btn-edit,
 .edit-btn,
-button.edit {
-    background-color: #d946ef !important; /* Bright purple fill */
+button.edit,
+a.edit-btn,
+a.btn-edit,
+[class*="edit"] {
+    background: #d946ef !important;
+    background-color: #d946ef !important;
+    background-image: none !important;
 }
