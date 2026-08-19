@@ -4,7 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModalButtons = document.querySelectorAll('[data-close-modal]');
   const leaveRequestForm = document.getElementById('leaveRequestForm');
   const feedbackMessage = document.getElementById('leaveFormFeedback');
-
+  const submittingAsEl = document.getElementById('submitting-as');
+  if (submittingAsEl) {
+    const user = getCurrentUser();
+    submittingAsEl.textContent = user?.name ? `Submitting as: ${user.name}` : '';
+  }
   if (reasonSelect && leaveModal) {
     const toggleLeaveModal = () => {
       if (reasonSelect.value === 'leave') {
