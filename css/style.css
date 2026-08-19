@@ -4786,7 +4786,7 @@ button.edit {
 
 /* View Button Fill */
 .btn-view {
-    background-color: #ffbb33 !important;
+    var(--tertiary-colour) !important;
 }
 
 /* Edit Button Purple Fill (Applies directly so it doesn't stay white) */
