@@ -4764,11 +4764,11 @@ span::first-letter {
     color: #ffc107 !important; /* Yellow/Orange */
 }
 
-/* 3. Original Edit Button (Keeps Employees page yellow/normal) */
+/* 3. Original Edit Button */
 .btn-edit,
 .edit-btn,
 button.edit {
-    background: var(--tertiary-colour);
+    background-color: var(--tertiary-colour);
     color: #000000;
     border: 2px solid #000000;
     border-radius: 50px;
@@ -4777,16 +4777,16 @@ button.edit {
     cursor: pointer;
 }
 
-/* 4. ONLY Payroll Page Edit Button (Pill shape, black border, purple fill) */
+/* 4. ONLY Payroll Page Edit Button */
 .payroll-container .btn-edit,
 .payroll-table .btn-edit,
 body.payroll-page .btn-edit {
-    background-color: #8a2be2 !important;
-    color: #ffffff !important;
+    background-color: var(--tertiary-colour) !important;
+    color: #000000 !important;
 }
 
 .payroll-container .btn-edit:hover,
 .payroll-table .btn-edit:hover,
 body.payroll-page .btn-edit:hover {
-    background-color: #7220bd !important;
+    filter: brightness(0.9); /* Darkens your purple slightly on hover */
 }
