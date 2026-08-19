@@ -4768,7 +4768,7 @@ span::first-letter {
 .btn-edit,
 .edit-btn,
 button.edit {
-    background-color: #8a2be2 !important; /* Purple shade */
+    background: var(--tertiary-colour);
     color: #ffffff !important;
     border: none;
     border-radius: 4px;
