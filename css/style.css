@@ -4743,3 +4743,41 @@ css/* ── Leave Request Modal Popup ── */
   filter: brightness(0.95);
   transform: translateY(-1px);
 }
+
+/* 1. Remove the purple color on the first letter of status badges/text */
+.status::first-letter,
+td::first-letter,
+span::first-letter {
+    color: inherit !important;
+}
+
+/* 2. Styling for status badges to keep uniform text colors */
+.status-approved, .approved {
+    color: #28a745 !important; /* Green */
+}
+
+.status-denied, .denied {
+    color: #dc3545 !important; /* Red */
+}
+
+.status-pending, .pending {
+    color: #ffc107 !important; /* Yellow/Orange */
+}
+
+/* 3. Style the Payroll Edit Button purple */
+.btn-edit,
+.edit-btn,
+button.edit {
+    background-color: #8a2be2 !important; /* Purple shade */
+    color: #ffffff !important;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.btn-edit:hover,
+.edit-btn:hover,
+button.edit:hover {
+    background-color: #7220bd !important; /* Slightly darker purple on hover */
+}
