@@ -4786,20 +4786,34 @@ a.btn-edit {
     box-sizing: border-box !important;
 }
 
-/* View Button Fill */
-.btn-view {
+/* View Button Fill (Yellow) */
+.btn-view,
+button.btn-view,
+a.btn-view {
     background: #ffbb33 !important;
     background-color: #ffbb33 !important;
 }
 
-/* Edit Button Purple Fill - Clears shorthand white defaults */
+/* Edit Button Purple Fill (Direct Hex - Ignores CSS Variables) */
 .btn-edit,
 .edit-btn,
 button.edit,
 a.edit-btn,
 a.btn-edit,
-[class*="edit"] {
+button[class*="edit"],
+a[class*="edit"] {
     background: #d946ef !important;
     background-color: #d946ef !important;
     background-image: none !important;
+    color: #000000 !important;
+}
+
+/* Edit Button Hover State */
+.btn-edit:hover,
+.edit-btn:hover,
+button.edit:hover,
+a.edit-btn:hover,
+a.btn-edit:hover {
+    background: #c084fc !important;
+    background-color: #c084fc !important;
 }
