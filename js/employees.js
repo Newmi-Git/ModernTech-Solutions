@@ -8,6 +8,7 @@ async function loadEmployees() {
     try {
         employees = await EmployeesAPI.getAll();
         displayEmployees();
+        updateStats();
     } catch (err) {
         showPopup(
             "fa-solid fa-circle-exclamation",
@@ -19,6 +20,16 @@ async function loadEmployees() {
 }
 
 loadEmployees();
+
+/* ---------------- Update Stats ---------------- */
+
+function updateStats() {
+    // Total Employees Card
+    const totalStaffEl = document.getElementById("total-staff");
+    if (totalStaffEl) {
+        totalStaffEl.textContent = employees.length;
+    }
+}
 
 /* ---------------- Display Employees ---------------- */
 
@@ -147,7 +158,6 @@ function showPopup(icon, color, title, message) {
 }
 
 /* ---------------- Save Comment ---------------- */
-/* Note: there is no backend endpoint for employee comments yet — this stays local-only. */
 
 function saveComment() {
 
@@ -281,9 +291,6 @@ async function saveEmployee() {
         salary: Number(salary),
         employment_history: history,
         contact,
-        // Leave score unset (null) for a brand-new hire — the performance page
-        // treats a null score as "Awaiting Review". goals_met/goals_total
-        // default to 0 on the backend if omitted.
         score: editingId ? findEmployee(editingId).score ?? null : null,
         goals_met: editingId ? findEmployee(editingId).goals_met ?? 0 : 0,
         goals_total: editingId ? findEmployee(editingId).goals_total ?? 0 : 0,
