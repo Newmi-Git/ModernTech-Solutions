@@ -8,7 +8,7 @@ async function loadEmployees() {
     try {
         employees = await EmployeesAPI.getAll();
         displayEmployees();
-        await updateStats();
+        updateStats();
     } catch (err) {
         showPopup(
             "fa-solid fa-circle-exclamation",
@@ -23,32 +23,11 @@ loadEmployees();
 
 /* ---------------- Update Stats ---------------- */
 
-async function updateStats() {
-    // 1. Total Employees
+function updateStats() {
+    // Total Employees Card
     const totalStaffEl = document.getElementById("total-staff");
     if (totalStaffEl) {
         totalStaffEl.textContent = employees.length;
-    }
-
-    // 2. Average Attendance
-    try {
-        const attendance = await AttendanceAPI.getAll();
-        const avgAttendanceEl = document.getElementById("avg-attendance");
-        
-        if (avgAttendanceEl) {
-            if (!attendance || attendance.length === 0) {
-                avgAttendanceEl.textContent = "0%";
-            } else {
-                const presentCount = attendance.filter(a => 
-                    a.status === 'Present' || a.status === 'Late' || a.status === 'Half Day'
-                ).length;
-
-                const avgPresent = Math.round((presentCount / attendance.length) * 100);
-                avgAttendanceEl.textContent = `${avgPresent}%`;
-            }
-        }
-    } catch (err) {
-        console.error("Failed to load attendance stats:", err);
     }
 }
 
