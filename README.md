@@ -67,11 +67,12 @@ npm run dev
 
 ## Demo Credentials
 
-Use the following to log in and explore the HR role:
+Use the following to log in and explore the HR role: 
 
-| Role | Email                       | Password    |
-| ---- | --------------------------- | ----------- |
-| HR   | lungile.moyo@moderntech.com | HrAdmin123! |
+| Role     | Email                       | Password     |
+| -------- | --------------------------- | ------------ |
+| HR       | lungile.moyo@moderntech.com | HrAdmin123!  |
+| Employee | thabo.molefe@moderntech.com | Employee123! |
 
 ## Team
 
