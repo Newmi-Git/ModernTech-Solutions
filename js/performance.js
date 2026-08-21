@@ -168,7 +168,7 @@ function mergeData(employees, payrolls, attendances) {
     return {
       ...emp, index: i, reviewed: true,
       score: emp.score,
-      attendancePct: emp.attendance,
+      attendancePct: attendanceDetail.attendancePercentage,   // was: emp.attendance
       finalSalary: payroll ? payroll.finalSalary : emp.salary,
       hoursWorked: payroll ? payroll.hoursWorked : 0,
       leaveDeductions: payroll ? payroll.leaveDeductions : 0,
